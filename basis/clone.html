@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>克隆</title>
+    <style>
+        *{padding: 0;margin:0;}
+        #jpbox{width:800px;margin: 10px auto;border: 1px solid #dfdfdf;}
+        #box1,#box2{min-height: 120px;overflow: hidden;}
+        .showBox{border: 2px solid black;padding: 5px;margin: 5px;float: left;position: relative;}
+        .radio{vertical-align: middle;display: none; }
+        .radioIcon {width: 20px;height: 16px;float: left;background: url(http://img.res.szgla.com/bbcs/images/client/skin11/elements.png) -107px -360px;}
+        .radioIcon.f {background-position:-127px -360px;}
+        .add1,.del1{position: absolute;top:-10px;right:0px;color:red;font-size: 24px;cursor: pointer;}
+        .yxdiv{clear: both;position: relative;border-top: 1px solid #dfdfdf;margin-top: 20px;}
+        .chongzhiBtn{position: absolute;top:0;right:0;cursor: pointer;}
+        #box2 .radioIcon{display: none;}
+    </style>
+</head>
+<body>
+<div id="jpbox">
+    <p>可以在下列奖品选择2个放入奖池</p>
+    <div id="box1">
+        <div class="showBox">
+            <img src="http://img.res.szgla.com/ws/images/mrt/xc_s1.jpg" width="120" height="80">
+            <div class="agree">
+                <input type="checkbox" name="agreement" class="radio" />
+                <div class="radioIcon" ></div>
+                <span>奖品1</span>
+                <div class="add1" title="增加">+</div>
+            </div>
+        </div>
+        <div class="showBox">
+            <img src="http://img.res.szgla.com/ws/images/mrt/xc_s2.jpg" width="120" height="80">
+            <div class="agree">
+                <input type="checkbox" name="agreement" class="radio" />
+                <div class="radioIcon" ></div>
+                <span>奖品2</span>
+                <div class="add1" title="增加">+</div>
+            </div>
+        </div>
+
+        <div class="showBox">
+            <img src="http://img.res.szgla.com/ws/images/mrt/xc_s3.jpg" width="120" height="80">
+            <div class="agree">
+                <input type="checkbox" name="agreement" class="radio" />
+                <div class="radioIcon" ></div>
+                <span>奖品3</span>
+                <div class="add1" title="增加">+</div>
+            </div>
+        </div>
+    </div>
+    <div class="yxdiv">已选奖励 <a class="chongzhiBtn">重置</a></div>
+    <div id="box2">
+
+
+    </div>
+</div>
+<script src="http://css.res.szgla.com/jquery/jquery-1.11.1.min.js?v=1" type="text/javascript"></script>
+<script>
+    var box2 = $("#box2");
+    var add1 = true;
+    $(".radioIcon").click(function(){
+        var $this = $(this);
+        var radio = $this.parents(".showBox").find(".radio");
+        if($this.parents(".showBox").find(".radioIcon").hasClass('f')){
+            radio.removeAttr("checked");
+            $this.removeClass("f").parents(".showBox").attr('data-num','');
+            var index = $this.parents(".showBox").index();
+            $("#box2 .showBox"+index).remove();
+        }else{
+            addThis($this);
+            add1=false;
+        }
+    });
+
+
+    $("#jpbox").on('click','.add1',function(){ //增加
+            var _this = $(this);
+            if(!_this.hasClass("hasAdd")){
+                addThis(_this);
+            };
+    });
+    $("#jpbox").on('click','.del1',function(){ //删除
+        var index = $(this).parents(".showBox").attr('data-num');
+        $("#box1 .showBox"+index).attr('data-num','').find(".radioIcon").removeClass("f");
+        $("#box1 .showBox"+index).find(".radio").removeAttr("checked");
+        $("#box1 .showBox"+index).find(".add1").removeClass("hasAdd");
+        $(this).parents(".showBox").remove();
+    });
+
+    $(".chongzhiBtn").click(function(){ //重置
+        $("#box2").html("");
+        $(".radioIcon").removeClass("f");
+        $(".radio").removeAttr("checked");
+    });
+
+    function addThis(e){
+        if($("#box2 .showBox").length>1){
+            alert("亲：不要太贪，你已经选择了两项奖品了");
+            return false;
+        }else{
+            var index = e.parents(".showBox").index();
+            e.parents(".showBox").attr('data-num',index).addClass("showBox"+index).find(".radio").attr("checked","checked");
+            e.parents(".showBox").find(".radioIcon").addClass("f");
+            e.parents(".showBox").find(".add1").addClass("hasAdd");
+            var jp = e.parents(".showBox").clone(false);
+            box2.append(jp);
+            $("#box2 .add1").html("-").removeClass('add1').addClass('del1');
+
+        }
+    }
+</script>
+
+
+
+</body>
+</html>
+
+
+<script>
+
+
+
+
+
+
+
+
+  /*  var imgData={"data":[
+        {"src":"http://img.res.szgla.com/ws/images/mrt/xc_s2.jpg"},
+        {"src":"http://img.res.szgla.com/ws/images/mrt/xc_s2.jpg"},
+        {"src":"http://img.res.szgla.com/ws/images/mrt/xc_s2.jpg"},
+        {"src":"http://img.res.szgla.com/ws/images/mrt/xc_s2.jpg"},
+        {"src":"http://img.res.szgla.com/ws/images/mrt/xc_s2.jpg"}
+        ]};
+    var cParent = document.getElementById("main");
+    for(var i=0;i<imgData.data.length;i++){
+        var ccontent = document.createElement("div");
+        ccontent.className="box";
+        cParent.appendChild(ccontent);
+        var boximg = document.createElement("div");
+        boximg.className="bo_img";
+        ccontent.appendChild(boximg);
+        var img = document.createElement("img");
+        img.src="./img/"+imgData.data[i].src;
+        boximg.appendChild(img);
+    }*/
+
+
+
+
+
+</script>
