@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>模拟滚动条</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            text-align: center;
+            font-size: 32px;
+        }
+        .scrollB{
+            width: 600px;
+            height: 310px;
+            position:relative;
+            padding-right:20px;
+            border: 1px solid red;
+            margin: 20px auto;
+        }
+        .scrollBox {
+            width: 100%;
+            height:310px;
+            overflow: hidden;
+            position: relative;
+        }
+        .scrollCont {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .scrollSlider {
+            display: block;
+            width: 16px;
+            height: 310px;
+            position: absolute;
+            right: 2px;
+            top: 0;
+            background: #7664c6;
+            border-radius: 10px;
+        }
+        .scrollBar {
+            width: 16px;
+            height: 50px;
+            position: absolute;
+            left: 0px;
+            top: 0;
+            background: #554a9a;
+            border-radius: 10px;
+        }
+        li{
+            height: 60px;
+        }
+        li:nth-child(odd){
+            background-color: pink;
+        }
+
+    </style>
+
+</head>
+<body>
+<h1>模拟滚动条</h1>
+<div class="scrollB">
+    <div class="scrollBox" id="container">
+        <div class="scrollCont" id="scrollCont" style="top: 0px;">
+            <ul id="listbox2">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+            </ul>
+        </div>
+    </div>
+    <div class="scrollSlider" id="barBox">
+        <div class="scrollBar" id="scrollBar"></div>
+    </div>
+</div>
+
+
+<script>
+    var oContainer = document.getElementById("container"),  //文本容器
+            oDiv1 = document.getElementById("scrollCont"), 		    //文本内容
+            oDiv2 = document.getElementById("barBox"), 			//滚动条容器
+            oscrollBar = document.getElementById("scrollBar");			//滚动条
+
+    oscrollBar.onmousedown = fn1;
+    function fn1(e) {
+        e = e || event;
+        var disY = e.clientY - this.offsetTop;
+        if (oscrollBar.setCapture) {
+            oscrollBar.onmousemove = fnMove;
+            oscrollBar.onmouseup = fnUp;
+            oscrollBar.setCapture();
+        } else {
+            document.onmousemove = fnMove;
+            document.onmouseup = fnUp;
+        }
+
+        function fnMove(ev) {
+            ev = ev || event;
+            var t = ev.clientY - disY;
+            setTop(t);
+        };
+
+        function fnUp() {
+            this.onmousemove = null;
+            this.onmouseup = null;
+
+            if (this.releaseCapture) {
+                this.releaseCapture();
+            }
+        };
+
+        return false;
+    };
+    function setTop(t) {
+        var down = oDiv2.offsetHeight - oscrollBar.offsetHeight;
+
+        if (t < 0) {
+            t = 0;
+        } else if (t > down) {
+            t = down
+        }
+
+        oscrollBar.style.top = t + 'px';
+
+        var scale = t / down;
+        oDiv1.style.top = -(oDiv1.offsetHeight - oContainer.offsetHeight) * scale + 'px';
+    }
+
+    addEvent(oDiv1, 'mousewheel', mousewheel);
+    addEvent(oDiv1, 'DOMMouseScroll', mousewheel);
+    addEvent(oDiv2, 'mousewheel', mousewheel);
+    addEvent(oDiv2, 'DOMMouseScroll', mousewheel);
+
+    function addEvent(obj, oEvent, fn) {
+        if (obj.attachEvent) {
+            obj.attachEvent('on' + oEvent, fn);
+        } else {
+            obj.addEventListener(oEvent, fn, false);
+        }
+    }
+    /*function addEvent( obj, type, fn ) { //对一个 dom 对象，给出事件类型，给出所要触发的 function http://www.veryhuo.com/a/view/11323.html
+     if ( obj.attachEvent ) {
+     obj['e'+type+fn] = fn;
+     obj[type+fn] = function(){obj['e'+type+fn]( window.event );}
+     obj.attachEvent( 'on'+type, obj[type+fn] );
+     } else
+     obj.addEventListener( type, fn, false );
+     }
+     function removeEvent( obj, type, fn ) {
+     if ( obj.detachEvent ) {
+     obj.detachEvent( 'on'+type, obj[type+fn] );
+     obj[type+fn] = null;
+     } else
+     obj.removeEventListener( type, fn, false );
+     }*/
+    function mousewheel(e) {
+        var ev = e || event, bDown = false;
+
+        bDown = ev.wheelDelta ? ev.wheelDelta < 0 : ev.detail > 0;
+
+        if (bDown) {
+            setTop(oscrollBar.offsetTop + 10);
+        } else {
+            setTop(oscrollBar.offsetTop - 10);
+        }
+
+        //FF,绑定事件，阻止默认事件
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+
+        return false;
+    }
+
+</script>
+</body>
+</html>

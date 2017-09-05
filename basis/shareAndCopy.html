@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分享与复制</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <link rel="stylesheet" href="./css/reset.css">
+</head>
+<body>
+    <h1>分享</h1>
+    <h3>百度分享</h3>
+    <div class="baiduShare">
+        <p>方法一：bds_config 接受多个自定义配置属性：</p>
+        <div class="baiduShare1">
+            <!-- Baidu Button BEGIN -->
+            <div class="bdsharebuttonbox">
+                <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+                <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+                <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网">人人网</a>
+                <a href="#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏">百度云收藏</a>
+                <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>
+                <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友">QQ好友</a>
+                <a href="#" class="bds_kaixin001" data-cmd="kaixin001" title="分享到开心网">开心网</a>
+                <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网">豆瓣网</a>
+                <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+                <a href="#" class="bds_bdxc" data-cmd="bdxc" title="分享到百度相册">百度相册</a>
+                <a href="#" class="bds_tqf" data-cmd="tqf" title="分享到腾讯朋友">腾讯朋友</a>
+                <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧">百度贴吧</a>
+                <a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页">百度新首页</a>
+                <a href="#" class="bds_ibaidu" data-cmd="ibaidu" title="分享到百度中心">百度中心</a>
+            </div>
+            <script type="text/javascript">
+                /**
+                 * 在这里定义bds_config
+                 */
+                window._bd_share_config = {
+                    "common": {
+                        "bdText": "study",      //分享的内容
+                        "bdPic": "http://img.res.szgla.com/lw/images/huodong/peiyin/sharebg.jpg?v=1",      //分享的图片
+                        "bdSize": "16",    // 分享按钮大小 有：16,24,32
+                        "bdUrl": "https://zhangqijohn.github.io/study/basis/shareAndCopy.html",        //分享链接
+                        "onAfterClick": function() {
+                            alert("这里就算分享了，不管你有没有真的点击确定分享")
+                        }
+
+                    },
+                    "share": {}
+                };
+                with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+
+            </script>
+            <!-- Baidu Button END -->
+        </div>
+
+        <p>方法二：data 接受多个自定义配置属性（首先注释方法一，在反注释方法二）</p>
+        <!--<div class="baiduShare">
+            <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{
+                'bdDes':'您的自定义分享摘要',
+                'text':'您的自定义分享内容',
+                'title':'您的自定义pop窗口标题',
+                'pic':'您的自定义分享出去的图片',
+                'bdComment':'您的自定义分享评论',
+                'url':'您的自定义分享url',
+                'wbuid':'您的自定义微博 ID'
+            }">
+                <a class="bds_qzone"></a>
+                <a class="bds_tsina"></a>
+                <a class="bds_tqq"></a>
+                <a class="bds_renren"></a>
+                <span class="bds_more">更多</span>
+            </div>
+            <script type="text/javascript" id="bdshare_js" data="type=tools&mini=1" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                /**
+                 * 在这里定义bds_config
+                 */
+
+                var bds_config = {
+                    'bdDes':'您的自定义分享摘要',		//'请参考自定义分享摘要'
+                    'bdText':'您的自定义分享内容',		//'请参考自定义分享内容'
+                    'bdPopTitle':'您的自定义pop窗口标题',	//'请参考自定义pop窗口标题'
+                    'bdTop':'您的自定义侧栏高度',		//'请参考自定义侧栏高度'
+                    'bdComment':'您的自定义分享评论',	//'请参考自定义分享评论'
+                    'bdPic':'您的自定义分享出去的图片',	//'请参考自定义分享出去的图片'
+                    'searchPic':'是否自动抓取页面图片',//'0为抓取，1为不抓取，默认为0，目前只针对新浪微博'
+                    'wbUid':'您的自定义微博 ID',		//'请参考自定义微博 id'
+                    'render':false,				//'请参考自定义分享回流量统计'
+                    'review':'normal',			//'请参考自定义分享回流签名'
+                    'snsKey':{'tsina':'appkey'}		//'请参考自定义分享到平台的appkey'
+                }
+
+                document.getElementById('bdshell_js').src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+        </div>-->
+    </div>
+    <br/>
+
+    <h1>复制1</h1>
+    <h3>方法一：通过插件生成一个透明的FLASH,复制到flash实现复制功能</h3>
+    <div class="copy1">
+        <input type="text" name="YzsUrl" id="YzsUrl" value="假如这是要复制的内容！">
+        <input class="btn" type="button" name="" id="copy_text_1" value="复制1">
+
+        <script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="./js/ZeroClipboard.js"></script>
+        <script type="text/javascript">
+            var clip = null;
+            var clip3 = null;
+            var clip4 = null;
+            ZeroClipboard.setMoviePath("http://css.res.szgla.com/tg/Scripts/ZeroClipboard.swf");
+            // var AddContent = "";
+            $(document).ready(function() {
+                clip = new ZeroClipboard.Client();
+                clip.setHandCursor(true);
+                clip = new ZeroClipboard.Client();
+                clip.setHandCursor(true);
+                clip.glue("copy_text_1");
+                clip.addEventListener("mouseOver", function(client) {
+                    client.setText($("#YzsUrl").val());
+                });
+                clip.addEventListener("complete", function() {
+                    alert("内容已经复制到剪切板！");
+                });
+            });
+        </script>
+    </div>
+
+    <h3>方法二：通过系统自带的剪切板复制；支持浏览器：IE、360兼容模式、Mozilla Firefox（需设置）；不支持浏览器：chrome、360极速模式、Opera、Safari、傲游 ；</h3>
+    <div class="copy2">
+        <input type="text" name="YzsUrl" id="YzsUrl2" value="假如这是要复制的内容22！">
+        <input class="btn" type="button" name="" id="copy_text_2" value="复制2" onclick='copyCip(document.getElementById("YzsUrl2").value)'>
+
+        <script>
+            function copyCip(txt) {
+                if (window.clipboardData) {
+                    window.clipboardData.setData("Text", txt);
+                    alert("以下信息已复制到剪贴板，你可以在需要的窗口中按Ctrl+V粘贴使用:\n\n" + txt);
+                } else if (navigator.userAgent.indexOf("Opera") != -1) {
+                    window.location = txt;
+                } else if (window.netscape) {
+                    try {
+                        netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                    } catch (e) {
+                        alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将'signed.applets.codebase_principal_support'设置为'true'");
+                    }
+                    var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+                    if (!clip)
+                        return;
+                    var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+                    if (!trans)
+                        return;
+                    trans.addDataFlavor('text/unicode');
+                    var str = new Object();
+                    var len = new Object();
+                    var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+                    var copytext = txt;
+                    str.data = copytext;
+                    trans.setTransferData("text/unicode", str, copytext.length * 2);
+                    var clipid = Components.interfaces.nsIClipboard;
+                    if (!clip)
+                        return false;
+                    clip.setData(trans, null, clipid.kGlobalClipboard);
+                    alert("以下信息已复制到剪贴板，你可以在需要的窗口中按Ctrl+V粘贴使用:\n\n" + txt);
+                }
+                else {
+                    alert("您的浏览器不支持复制功能，请您手动复制");
+                }
+            }
+        </script>
+    </div>
+</body>
+</html>

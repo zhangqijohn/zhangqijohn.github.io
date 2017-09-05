@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>滚动事件</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页，请勿商用，里面大部分图片使用冰川网络产品，若有侵权，请与我联系（QQ:792543749）！"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <link rel="stylesheet" href="./css/reset.css">
+    <style type="text/css">
+        *{margin:0;padding:0;}
+        html,body{overflow:hidden; height:100%; background:#000;}
+        .l1{background:url(./images/zy1_bg.jpg?v=1) no-repeat center;}
+        .l2{background:url(./images/zy2_bg.jpg?v=1) no-repeat center;}
+        .l3{background:url(./images/zy3_bg.jpg?v=1) no-repeat center;}
+        .l4{background:url(./images/zy4_bg.jpg?v=1) no-repeat center;}
+        .scroll{font-size: 200px;color:#f00;}
+        .nav{position: fixed;right:2%;top: 2%;}
+        .nav a{display: block;color: red;font-size:24px;width:100px;cursor: pointer;}
+    </style>
+</head>
+
+<body>
+<div class="main">
+    <div class="scroll l1" id="l1">1</div>
+    <div class="scroll l2">2</div>
+    <div class="scroll l3">3</div>
+    <div class="scroll l4">4</div>
+</div>
+<div class="nav">
+    <a  class="nava">导航1</a>
+    <a  class="nava">导航2</a>
+    <a  class="nava">导航3</a>
+    <a  class="nava">导航4</a>
+</div>
+
+<script src="./js/jquery-1.11.1.min.js?v=1" type="text/javascript"></script>
+<script type="text/javascript">
+
+    var index=0,Hei;
+    function autoSize(){
+        var Wid = document.body.clientWidth?document.body.clientWidth:screen.width,
+            Hei = document.body.clientHeight?document.body.clientHeight:screen.Height;
+        $(".scroll").css({"height":Hei,"width":Wid});
+        return Hei;
+    }
+    autoSize()
+    $(window).resize(autoSize);
+
+    if(document.addEventListener){
+        document.addEventListener('DOMMouseScroll',scrollFunc,false);
+    }//W3C
+    document.onmousewheel=scrollFunc;
+    function scrollFunc(e){
+        e=e || window.event;
+        if(e.detail){
+            if(e.detail>0){//Firefox
+                M_scroll(false)//向下
+            }else{
+                M_scroll(true)//向上
+            }
+        }else{
+            if(e.wheelDelta>0){//IE/Opera/Chrome
+                M_scroll(true)//向上
+            }else{
+                M_scroll(false)//向下
+            }
+        }
+    }
+
+    function M_scroll(bool){
+
+        if(!$(".main").is(":animated")){
+            if(bool==false){//向下
+                if(index<$(".scroll").length-1){
+                    index++;
+                }else{
+                    index = $(".scroll").length-1
+                }
+
+            }else if(bool==true){
+                if(index>0){
+                    index--;
+                }else{
+                    index=0;
+                }
+            }
+            Hei = document.body.clientHeight?document.body.clientHeight:screen.Height;
+            $(".main").animate({"margin-top":-Hei*index},300)
+        }
+    }
+
+    $(".nava").click(function(){
+        Hei = document.body.clientHeight?document.body.clientHeight:screen.Height;
+        var index = $(this).index();
+        $(".main").animate({"margin-top":-Hei*index},300)
+    })
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

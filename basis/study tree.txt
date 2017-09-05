@@ -1,0 +1,37 @@
+﻿前端核心
+html+css+js
+http://javascript.ruanyifeng.com/#oop
+
+自动化构建
+grunt gulp webpack fis
+
+传统模块化
+seajs requirejs commonjs 
+
+MVVM/MVC/MVP框架
+emberjs  backonejs  angularjs reactjs vuejs
+
+预处理工具
+sass  less prostCSS 
+
+游戏框架
+cocos2djs  egretjs hilojs
+
+ ES6 typeScript 
+
+移动端框架
+MUI SUI webUI bootstrap
+
+服务端
+nodejs php
+
+数据库
+Mysql mongodb
+
+版本管理
+svn git 
+
+博客写作
+github worldpress 博客园
+
+
