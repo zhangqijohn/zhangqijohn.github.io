@@ -30,10 +30,11 @@
 
 
 
-###其它
-- [导航](http://zhangqijohn.github.io/study/myTest/nav.html)
-- [加载条](http://zhangqijohn.github.io/study/myTest/test01.html)
-- [到计时](http://zhangqijohn.github.io/study/myTest/test04.html)
+###其它demo
+- [判断滚动方向](https://zhangqijohn.github.io/study/basis/scrollFunc.html)
+- [模拟滚动条](https://zhangqijohn.github.io/study/basis/AnalogScrollBar.html)
+- [克隆](https://zhangqijohn.github.io/study/basis/clone.html)
+- [分享与复制](http://zhangqijohn.github.io/study/basis/shareAndCopy.html)
 - [判断滚轮滚动方向](http://zhangqijohn.github.io/study/myTest/test05.html)
 - [JQuery模拟滚动条](http://zhangqijohn.github.io/study/myTest/test06.html)
 - [滚屏页面](http://zhangqijohn.github.io/study/myTest/test08_scroll.html)
