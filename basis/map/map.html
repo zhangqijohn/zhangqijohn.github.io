@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>地图</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/echarts.css">
+    <script src="./js/echarts.min.js"></script>
+    <script type="text/javascript" src="./js/ecStat.min.js"></script>
+    <script type="text/javascript" src="./js/dataTool.min.js"></script>
+    <script type="text/javascript" src="./js/china.js"></script>
+    <script type="text/javascript" src="./js/world.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="./js/bmap.min.js"></script>
+    <script src="./js/map.js"></script>
+</head>
+<body style="height: 100%">
+<div class="" id="map" style="height: 100%"></div>
+<script>
+    var echarts = echarts.init(document.getElementById('map'));
+    echarts.setOption(option);
+</script>
+</body>
+</html>
