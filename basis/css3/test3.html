@@ -9,15 +9,15 @@
         .box>div{width:180px;height:180px;position:absolute}
         .box>div>div{width:54px;height:54px;border-radius:4px;float:left;border:3px solid #000}
         @keyframes cube_animation{
-            0%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
-            20%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
-            40%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
-            60%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
-            80%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
+            16%{transform:rotatey(-90deg);}
+            33%{transform:rotatey(-90deg) rotatez(-90deg)}
+            50%{transform:rotatey(225deg) rotatez(135deg)}
+            66%{transform:rotatey(135deg) rotatex(135deg)}
+            83%{transform:rotatex(135deg)}
         }
         .aside{background-color:#fccb05;transform:translatez(90px);}
         .bside{background-color:#fbb499;transform:translatex(-90px) rotatey(90deg) translatez(180px);}
-        .cside{background-color:#fb0a1b;transform:translatex(90px) rotatey(90deg) translatez(-180px);}
+        .cside{background-color:#ff0000;transform:translatex(90px) rotatey(90deg) translatez(-180px);}
         .dside{background-color:#3131f2;transform:translatez(-90px);}
         .eside{background-color:#f231cb;transform:rotatex(90deg) translatez(90px);}
         .fside{background-color:#c80cde;transform:rotatex(-90deg) translatez(90px);}
