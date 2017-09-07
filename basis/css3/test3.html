@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{padding:0;margin:0}
+        .box{width:180px;height:180px;margin:60px auto;position:relative;animation:cube_animation ease-in-out 6s infinite forwards;transform-style:preserve-3d;transform-origin:90px 90px 90px}
+        .box>div{width:180px;height:180px;position:absolute}
+        .box>div>div{width:54px;height:54px;border-radius:4px;float:left;border:3px solid #000}
+        @keyframes cube_animation{
+            0%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
+            20%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
+            40%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
+            60%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
+            80%{transform:rotatex(-90deg) rotatey(-90deg) rotatez(-90deg);}
+        }
+        .aside{background-color:#fccb05;transform:translatez(90px);}
+        .bside{background-color:#fbb499;transform:translatex(-90px) rotatey(90deg) translatez(180px);}
+        .cside{background-color:#fb0a1b;transform:translatex(90px) rotatey(90deg) translatez(-180px);}
+        .dside{background-color:#3131f2;transform:translatez(-90px);}
+        .eside{background-color:#f231cb;transform:rotatex(90deg) translatez(90px);}
+        .fside{background-color:#c80cde;transform:rotatex(-90deg) translatez(90px);}
+
+    </style>
+</head>
+<body>
+<!-- 魔方六面 -->
+<div class="box">
+    <div class="aside">
+        <div>a</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="bside"> <!--魔方第一个面，类名aside-->
+        <div>b</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="cside"> <!--魔方第一个面，类名aside-->
+        <div>c</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="dside"> <!--魔方第一个面，类名aside-->
+        <div>d</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="eside"> <!--魔方第一个面，类名aside-->
+        <div>e</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="fside"> <!--魔方第一个面，类名aside-->
+        <div>f</div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+</body>
+</html>

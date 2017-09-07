@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟滚动条</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        body{margin-top:5em;text-align:center;color:#414142;background:#f6f1e8;background-image:-ms-radial-gradient(farthest-side ellipse at center,rgba(246,241,232,.85) 39%,rgba(212,204,186,.5) 100%),url(http://fs0.139js.com/file/s_jpg_857b081bjw1du3kveu19sj.jpg);background-image:-webkit-radial-gradient(farthest-side ellipse at center,rgba(246,241,232,.85) 39%,rgba(212,204,186,.5) 100%),url(http://fs0.139js.com/file/s_jpg_857b081bjw1du3kveu19sj.jpg);background-image:radial-gradient(farthest-side ellipse at center,rgba(246,241,232,.85) 39%,rgba(212,204,186,.5) 100%),url(http://fs0.139js.com/file/s_jpg_857b081bjw1du3kveu19sj.jpg);background-size:cover}
+        .main{width:1000px;margin:0 auto;font-size: 12px;}
+        .nav{width:690px;height:50px;font:700 0/50px Arial;text-align:center;margin:40px auto 0;background:#f65f57;border-radius:5px;box-shadow:0 5px 0 #B0483F}
+        .nav a{display:inline-block;-webkit-transition:all .2s ease-in;-moz-transition:all .2s ease-in;-o-transition:all .2s ease-in;-ms-transition:all .2s ease-in;transition:all .2s ease-in}
+        .nav a:hover{-webkit-transform:rotate(10deg);-moz-transform:rotate(10deg);-o-transform:rotate(10deg);-ms-transform:rotate(10deg);transform:rotate(10deg)}
+        .nav li{position:relative;display:inline-block;padding:0 16px;font-size:13px;text-shadow:1px 2px 4px rgba(0,0,0,.5);list-style:none outside none}
+        .nav li:after{content:"";position:absolute;right:0;top:20px;height:15px;width:1px;background:linear-gradient(to bottom,#f82f87,#B0363F,#f82f87)}
+        .nav li:last-child:after{height:0;width:0}
+        .nav a,.nav a:hover{color:#fff;text-decoration:none}
+
+        @font-face{font-family:sansationregular;src:url(http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.eot);src:url(http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.eot?#iefix) format('http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/embedded-opentype'),url(http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.woff) format('woff'),url(http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.ttf) format('truetype'),url(http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.svg#sansationregular) format('svg');font-weight:400;font-style:normal}
+        body{background-color:#edecec}
+        .nav-menu{display:block;background:#74adaa;width:1000px;margin:50px auto 150px}
+        .nav-menu>li{display:inline;float:left;border-right:1px solid #94c0be}
+        .nav-menu>li:last-child{border-right:none}
+        .nav-menu li a{color:#fff;display:block;text-decoration:none;font-family:sansationregular;-webkit-font-smoothing:antialiased;-moz-font-smoothing:antialiased;font-smoothing:antialiased;text-transform:capitalize;overflow:visible;line-height:20px;font-size:20px;padding:15px 30px 15px 31px}
+        .three-d{-webkit-prespective:200px;-moz-prespective:200px;-ms-prespective:200px;-o-prespective:200px;prespective:200px;-webkit-transition:all .7s linear;-moz-transition:all .7s linear;-ms-transition:all .7s linear;-o-transition:all .7s linear;transition:all .7s linear;position:relative}
+        .three-d:not(.active):hover{cursor:pointer}
+        .three-d:not(.active):focus .three-d-box,.three-d:not(.active):hover .three-d-box{-webkit-transform:translateZ(-25px) rotateX(90deg);-moz-transform:translateZ(-25px) rotateX(90deg);-ms-transform:translateZ(-25px) rotateX(90deg);-o-transform:translateZ(-25px) rotateX(90deg);transform:translateZ(-25px) rotateX(90deg)}
+        .three-d-box{-webkit-transition:all .3s ease-out;-moz-transition:all .3s ease-out;-ms-transition:all .3s ease-out;-o-transition:all .3s ease-out;transition:all .3s ease-out;-webkit-transform:translatez(-25px);-moz-transform:translatez(-25px);-ms-transform:translatez(-25px);-o-transform:translatez(-25px);transform:translatez(-25px);-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-pointer-events:none;-moz-pointer-events:none;-ms-pointer-events:none;-o-pointer-events:none;pointer-events:none;position:absolute;top:0;left:0;display:block;width:100%;height:100%}
+        .front{-webkit-transform:rotateX(0deg) translatez(25px);-moz-transform:rotateX(0deg) translatez(25px);-ms-transform:rotateX(0deg) translatez(25px);-o-transform:rotateX(0deg) translatez(25px);transform:rotateX(0deg) translatez(25px)}
+        .back{-webkit-transform:rotatex(-90deg) translatez(25px);-moz-transform:rotatex(-90deg) translatez(25px);-ms-transform:rotatex(-90deg) translatez(25px);-o-transform:rotatex(-90deg) translatez(25px);transform:rotatex(-90deg) translatez(25px);color:#FFE7C4}
+        .back,.front{display:block;width:100%;height:100%;position:absolute;top:0;left:0;background:#74adaa;padding:15px 30px 15px 31px;color:#fff;-webkit-pointer-events:none;-moz-pointer-events:none;-ms-pointer-events:none;-o-pointer-events:none;pointer-events:none;-webkit-box-sizing:border-box;box-sizing:border-box}
+        .nav-menu li .active .back,.nav-menu li .active .front,.nav-menu li a:hover .back,.nav-menu li a:hover .front{background-color:#51938f;-webkit-background-size:5px 5px;background-size:5px 5px;background-position:0 0,30px 30px;background-image:-webkit-linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480),linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480);background-image:-moz-linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480),linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480);background-image:-ms-linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480),linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480);background-image:-o-linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480),linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480);background-image:linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480),linear-gradient(45deg,#478480 25%,transparent 25%,transparent 75%,#478480 75%,#478480)}
+        .nav-menu ul{position:absolute;text-align:left;line-height:40px;font-size:14px;width:200px;-webkit-transition:all .3s ease-in;-moz-transition:all .3s ease-in;-ms-transition:all .3s ease-in;-o-transition:all .3s ease-in;transition:all .3s ease-in;-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;-o-transform-origin:0 0;transform-origin:0 0;-webkit-transform:rotateX(-90deg);-moz-transform:rotateX(-90deg);-ms-transform:rotateX(-90deg);-o-transform:rotateX(-90deg);transform:rotateX(-90deg);-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;-o-backface-visibility:hidden;backface-visibility:hidden}
+        .nav-menu>li:hover ul{-webkit-transform:rotateX(0deg);-moz-transform:rotateX(0deg);-ms-transform:rotateX(0deg);-o-transform:rotateX(0deg);transform:rotateX(0deg);display:block}
+
+        .information,em,h1{display:block;font-size:25px;font-weight:400;margin:2em auto}
+        a{color:#414142;font-style:normal;text-decoration:none;font-size:20px}
+        a:hover{text-decoration:underline}
+        #container{margin:0 auto;width:1024px}
+        .wrapper{display:inline-block;width:310px;height:100px;vertical-align:top;margin:1em 1.5em 2em 0;cursor:pointer;position:relative;font-family:Tahoma,Arial;-webkit-perspective:4000px;-moz-perspective:4000px;-ms-perspective:4000px;-o-perspective:4000px;perspective:4000px}
+        .item{height:100px;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d;
+            -webkit-transition:-webkit-transform .6s;-moz-transition:-moz-transform .6s;-ms-transition:-ms-transform .6s;-o-transition:-o-transform .6s;
+            transition:transform .6s}
+        .item:hover{-webkit-transform:translateZ(-50px) rotateX(95deg);-moz-transform:translateZ(-50px) rotateX(95deg);-ms-transform:translateZ(-50px) rotateX(95deg);-o-transform:translateZ(-50px) rotateX(95deg);transform:translateZ(-50px) rotateX(95deg)}
+        .item img{display:block;position:absolute;top:0;border-radius:3px;-webkit-transform:translateZ(50px);-moz-transform:translateZ(50px);-ms-transform:translateZ(50px);-o-transform:translateZ(50px);transform:translateZ(50px);-webkit-transform:translateZ(50px);-moz-transform:translateZ(50px);-ms-transform:translateZ(50px);-o-transform:translateZ(50px);transform:translateZ(50px);-webkit-transition:all .6s;-moz-transition:all .6s;-ms-transition:all .6s;-o-transition:all .6s;transition:all .6s;width:310px;height:100px}
+        .item .information{display:block;position:absolute;top:0;height:80px;width:290px;text-align:left;border-radius:15px;padding:10px;font-size:12px;text-shadow:1px 1px 1px rgba(255,255,255,.5);box-shadow:none;background:#ecf1f4;background:-webkit-linear-gradient(to bottom,rgba(236,241,244,1) 0,rgba(190,202,217,1) 100%);background:-ms-linear-gradient(to bottom,rgba(236,241,244,1) 0,rgba(190,202,217,1) 100%);background:linear-gradient(to bottom,rgba(236,241,244,1) 0,rgba(190,202,217,1) 100%);-webkit-transform:rotateX(-89deg) translateZ(50px);-moz-transform:rotateX(-89deg) translateZ(50px);-ms-transform:rotateX(-89deg) translateZ(50px);-o-transform:rotateX(-89deg) translateZ(50px);transform:rotateX(-89deg) translateZ(50px);-webkit-transition:all .6s;-moz-transition:all .6s;-ms-transition:all .6s;-o-transition:all .6s;transition:all .6s}
+        .information strong{display:block;margin:.1em 0 .1em 0;font-size:20px;font-family:"Oleo Script"}
+        .item:hover img{box-shadow:none;border-radius:15px}
+        .item:hover .information{box-shadow:0 3px 8px rgba(0,0,0,.3);border-radius:3px}
+
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1>CSS3 导航栏</h1>
+    <ul class="nav">
+        <li><a href="">Home</a></li>
+        <li><a href="">About Me</a></li>
+        <li><a href="">Portfolio</a></li>
+        <li><a href="">Blog</a></li>
+        <li><a href="">Resources</a></li>
+        <li><a href="">Contact Me</a></li>
+    </ul>
+
+    <div id="nav">
+        <h1>CSS3 3D导航栏</h1>
+        <ul class="nav-menu clearfix unstyled">
+            <li><a href="#" class="three-d">
+                Home1
+                <span class="three-d-box"><span class="front">Home2</span><span class="back">Home3</span></span>
+            </a></li>
+            <li><a href="#" class="three-d">
+                Services
+                <span class="three-d-box"><span class="front">Services</span><span class="back">Services</span></span>
+            </a></li>
+            <li><a href="#" class="three-d">
+                Products
+                <span class="three-d-box"><span class="front">Products</span><span class="back">Products</span></span>
+            </a></li>
+            <li><a href="#" class="three-d">
+                About
+                <span class="three-d-box"><span class="front">About</span><span class="back">About</span></span>
+            </a></li>
+            <li><a href="#" class="three-d">
+                Contact
+                <span class="three-d-box"><span class="front">Contact</span><span class="back">Contact</span></span>
+            </a></li>
+            <li><a href="#" class="three-d">
+                Blog
+                <span class="three-d-box"><span class="front">Blog</span><span class="back">Blog</span></span></a>
+                <ul class="clearfix unstyled drop-menu">
+                    <li><a href="#" class="three-d">
+                        Html5
+                        <span class="three-d-box"><span class="front">Html5</span><span class="back">Html5</span></span>
+                    </a></li>
+                    <li><a href="#" class="three-d">
+                        Css3
+                        <span class="three-d-box"><span class="front">Css3</span><span class="back">Css3</span></span>
+                    </a></li>
+                    <li><a href="#" class="three-d">
+                        JavaScript
+                        <span class="three-d-box"><span class="front">JavaScript</span><span class="back">JavaScript</span></span>
+                    </a></li>
+                    <li><a href="#" class="three-d">
+                        Videogames
+                        <span class="three-d-box"><span class="front">Videogames</span><span class="back">Videogames</span></span>
+                    </a></li>
+                </ul>
+            </li>
+            <li><a href="#" class="three-d">
+                Shop On-line
+                <span class="three-d-box"><span class="front">Shop On-line</span><span class="back">Shop On-line</span></span>
+            </a></li>
+        </ul>
+    </div>
+
+
+    <div id="container">
+        <h1>CSS3 3D变形制作视频展示区</h1>
+        <div class="wrapper">
+            <div class="item">
+                <img src="http://img.mukewang.com/545b1e900001db6d04630253.png" />
+            	<span class="information">
+            	<strong>澳门风云</strong>闻名中外，曾担任美国赌场保安总顾问的魔术手石一坚，终回流澳门退休，更宴请各方朋友到来庆祝生日宴.
+            	</span>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="item">
+                <img src="http://img.mukewang.com/545b1eb20001ed6a03360201.png" />
+            	<span class="information">
+            	<strong>改过迁善</strong>该剧讲述了金明民饰演的律师在失忆后回顾自己以往的所作所为心生忏悔，为弥补自己犯下的错误而与自己曾经工作过的律师事务所对簿公堂的故事。
+            	</span>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="item">
+                <img src="http://img.mukewang.com/545b1eef0001c62903830217.png" />
+            	<span class="information">
+            	<strong>父子刑警</strong>本剧改编自雫井修介小说《Bitter Blood》。剧中，新晋刑警•佐原夏辉（佐藤健饰）被分配到银座警察
+            	</span>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <div class="item">
+                <img src="http://img.mukewang.com/545b1f4e0001f90c02850210.png" />
+            	<span class="information">
+            	<strong>果宝特攻3</strong>果宝特攻3,顾名思义是果宝特攻的第二部续集,已在国家广播电影电视总局备案.暂定剧情为:菠萝吹雪偶然间穿越到了古代的水果世界
+            	</span>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="item">
+                <img src="http://img.mukewang.com/545b1f5500017d5603190214.png" />
+            	<span class="information">
+            	<strong>红眼</strong>1988年7月16日，从汉城始发的列车发生了一起严重的交通事故，造成100多人死亡。
+            	</span>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="item">
+                <img src="http://img.mukewang.com/545b1f620001874503500209.png" />
+            	<span class="information">
+            	<strong>熊出没之夺宝熊兵</strong>一场漆黑雨夜的意外事故，一段笑料十足的误打误撞，将两个外表相似却内容各异的箱子调换。
+            	</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

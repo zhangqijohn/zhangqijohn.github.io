@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css3_lesson1</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        #div1{margin:20px;width:100px;height:100px;background:#9da;border:0 solid red;border-radius:5px}
+        #div2{margin:20px;width:100px;height:100px;background:#9da;border-radius:10px 20px 30px 40px}
+        #div3{margin:20px;width:100px;height:50px;background:#9da;border-radius:50px 50px 0 0}
+        #div4{margin:20px;width:100px;height:100px;background:#9da;border-radius:50px}
+        #div5{margin:20px;width:100px;height:100px;background:#9da;box-shadow:10px 10px 10px #999}
+        #div6{margin:20px;width:100px;height:100px;background:#9da;box-shadow:10px 10px 10px #999,-4px -4px 6px red,0 0 10px 5px orange inset}
+        .main{float:left;border:1px solid #9da;margin:10px}
+        #div7{margin:20px;width:100px;height:100px;background-image:linear-gradient(to right,#9da,orange)}
+        #div8{margin:20px;width:100px;height:100px;background-image:radial-gradient(circle,red,green,orange)}
+        #div9{margin:20px;width:100px;background:#ccc;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+        @font-face{font-family:MOOC-Font;src:url(http://www.imooc.com/Amaranth-BoldItalic.otf)}
+        #div10{margin:20px;width:100px;background:#9da;word-wrap:break-word;font-size:24px;font-family:"微软雅黑";text-shadow:2px 2px 0 orange}
+        .keyframes{margin:20px;width:200px;height:200px;line-height:200px;text-align:center;background:#b5ffb0;color:#b87814;float:left;animation:changediv 5s ease-out .2s;animation-fill-mode:forwards}
+        @keyframes changediv{0%{background:#b5bab4;color:#b5ffb0;border-radius:10%;font-size:12px}
+            20%{background:#eeffe1;color:#b5bab4;border-radius:20%;font-size:13px}
+            30%{background:#b8500c;color:#d8bca9;border-radius:30%;font-size:14px}
+            60%{background:#d8bca9;color:#b82908;border-radius:35%;font-size:15px}
+            80%{background:#d47f7c;color:#b6d476;border-radius:40%;font-size:16px}
+            100%{background:#b5ffb0;color:#b87814;border-radius:50%;font-size:17px}
+        }
+        .div1{width:200px;height:200px;border:1px solid orange;margin:20px;float:left}
+        .div1 span{width:20px;height:20px;background:#b6d476;display:block;animation:changespan 10s ease 1s infinite alternate running}
+        .div1:hover span{animation-play-state:paused}
+        @keyframes changespan{0%{transform:translate(0,0) rotate(360deg)}
+            25%{transform:translate(180px,0) rotate(0deg)}
+            50%{transform:translate(180px,180px) rotate(-360deg)}
+            75%{transform:translate(0,180px) rotate(-720deg)}
+            100%{transform:translate(0,0) rotate(-1080deg)}
+        }
+        .div2{width:40px;height:40px;border:1px solid orange;margin:20px;float:left;transition:all 2s ease;transform-origin:0 0}
+        .div2:hover{transform:rotate(360deg)}
+        .columns{float:left;width:700px;margin:20px;padding:5px;border:1px solid orange;-moz-columns:150px 4;-webkit-columns:150px 4;-ms-columns:150px 4;-o-columns:150px 4;columns:150px 4;column-rule:1px solid green;column-gap:20px}
+        .columns p:first-of-type{column-span:all;text-align:center;font-size:14px;font-weight:700}
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div id="div1"></div>
+        <div id="div2"></div>
+        <div id="div3"></div>
+        <div id="div4"></div>
+        <div id="div5"></div>
+        <div id="div6"></div>
+    </div>
+    <div class="main">
+        <div id="div7"></div>
+        <div id="div8"></div>
+        <div id="div9">中华人民共和国</div>
+        <div id="div10">People's Republic of the china</div>
+    </div>
+    <div class="main">
+        <!--慢慢变圆-->
+        <div class="keyframes">keyframes动画</div>
+
+        <!--方块滚动-->
+        <div class="div1">
+            <span></span>
+        </div>
+
+        <!--鼠标移动旋转-->
+        <div class="div2"></div>
+
+        <!--Columns多栏布局-->
+        <div class="columns">
+            <p>名字对行为的影响</p>
+            <p>名字对行为的显著影响大部分被归因于所谓的内隐自我中心效应：我们一般都会被与自己最相似的人和事所吸引[3]  。不过这种观点可能经不起细致推敲。宾夕法尼亚大学的心理学家尤里·西蒙逊就对很多声称支持内隐自我中心效应的研究发出了质疑，他认为，这些研究成果是研究方法较差而导致的统计学偶然事件[3]  。不过，名字效应可能并非不存在，或许只是需要对它进行重新诠释[3]  。名字其实传递了一些信号[3]  。</p>
+            <p>语言文字学家、北大教授苏培成认为，人脑记忆汉字有个极限，不过七八千字，常用字不过三四千字。人为地突破极限，去记哪些根本不用或很少使用的生僻字，是没有什么必要的。一般来说，一个中等文化的人，其认识的字只是三四千个，大学中文系毕业生的识字量一般是5000字左右。能将《人名用字规范表》中的12000多个字认全，估计全国人数不多。实在没有必要非要在这12000多个字以外去找一个连自己也不认识的字做名字，这样做除了给自己给别人添麻烦外，还能有什么意义呢</p>
+            <p>语言文字学家、北大教授苏培成认为，人脑记忆汉字有个极限，不过七八千字，常用字不过三四千字。人为地突破极限，去记哪些根本不用或很少使用的生僻字，是没有什么必要的。一般来说，一个中等文化的人，其认识的字只是三四千个，大学中文系毕业生的识字量一般是5000字左右。能将《人名用字规范表》中的12000多个字认全，估计全国人数不多。实在没有必要非要在这12000多个字以外去找一个连自己也不认识的字做名字，这样做除了给自己给别人添麻烦外，还能有什么意义呢？</p>
+        </div>
+    </div>
+</body>
+</html>
