@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .jiaju{width:1163px;height:572px;position: absolute;left:50%;margin-left: -580px;bottom:30px;z-index: 5; background:url("./images/jiaju.png?v=1") no-repeat;}
+        .b3jj{display: block;position: absolute;text-indent:-9999px;overflow:hidden;cursor: pointer;}
+        .jiaju1{width:340px;height:251px;background:url("./images/filter_3_2.png?v=1") no-repeat;left:500px;top:16px;}
+        .jiaju2{width:167px;height:188px;background:url("./images/filter_3_3.png?v=1") no-repeat;left:330px;top:168px;}
+        .jiaju3{width:251px;height:125px;background:url("./images/filter_3_4.png?v=1") no-repeat;left:860px;top:230px;}
+        .jiaju4{width:103px;height:133px;background:url("./images/filter_3_5.png?v=1") no-repeat;left:180px;top:166px;}
+        .jiaju5{width:167px;height:97px;background:url("./images/filter_3_6.png?v=1") no-repeat;left:770px;top:160px;}
+        .jiajuTips{width:170px;height:60px;padding:10px 10px 30px 70px;display: block;background:url("./images/jiajuTc.png?v=1") no-repeat;
+            color:#575882;font-size:14px;line-height: 18px;position: absolute;top:60px;right:16px;display: none;}
+        .jiaju:hover .jiajuTips{display: block;}
+    </style>
+</head>
+<body>
+
+<div class="jiaju" id="wrapper">
+    <i class="b3jj jiaju1 " id="jiaju1">床</i>
+    <i class="b3jj jiaju2 " id="jiaju2">屏风</i>
+    <i class="b3jj jiaju3 " id="jiaju3">餐桌</i>
+    <i class="b3jj jiaju4 " id="jiaju4">柜子</i>
+    <i class="b3jj jiaju5 " id="jiaju5">茶几</i>
+    <span class="jiajuTips">试着拖动下面的家具摆设，<br/>布置自己的小家园</span>
+</div>
+
+<script src="js/jquery-1.4.4.min.js?v=1"></script>
+<script src="js/jquery-ui-1.10.4.min.js"></script>
+<script>
+    //装修拖动
+    $( "#jiaju1,#jiaju2,#jiaju3,#jiaju4,#jiaju5" ).draggable({ containment: "#wrapper", scroll: false });
+</script>
+</body>
+</html>

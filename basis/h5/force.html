@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动轮播图</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta name="author" content="john_zhang" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <script>
+        /*此处css使用rem:在1080PSD中1rem=100px（若PSD宽度为750px;以下1080需改为750）*/
+        !function(){function a(){document.documentElement.style.fontSize=document.documentElement.clientWidth/1080*10/16*1000+"%"}var b=null;window.addEventListener("resize",function(){clearTimeout(b);b=setTimeout(a,300)},!1);a()}(window);
+    </script>
+    <style>
+        /*css reset*/
+        html{-webkit-font-smoothing:antialiased;-webkit-overflow-scrolling:touch;-moz-overflow-scrolling:touch;-o-overflow-scrolling:touch;overflow-scrolling:touch}
+        body,html{margin:0;font-family:"Microsoft YaHei","Helvetica Neue",Arial,HelveticaNeue,Helvetica,"BBAlpha Sans",sans-serif;font-size:62.5%;width:100%;margin:0 auto;height:100%;}
+        *{padding:0;margin:0;text-decoration: none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+        li{list-style: none;}
+        a{text-decoration: none;}
+        input,textarea,form{outline:none}
+        .h1 {font-size: .6rem;text-align: center;}
+
+        /*轮播1*/
+        .lunbo{width:10.11rem;height:5.53rem;background-color:#fff;position: relative;overflow: hidden;margin: 0 auto;}
+        .lunbo .p0N{width: 500%;height:5.53rem;position:absolute;bottom:0;left:0;z-index: 1;transition:all 0.5s;-webkit-transition:all 0.5s;-o-transition:all 0.5s;-moz-transition:all 0.5s;}
+        .lunbo .p0_list{float:left;width:10.11rem;height:5.53rem;}
+        .lunbo .p0_list img{width:10.11rem;height:5.53rem;}
+        .lunbo .title{width: 100%;position: absolute;left: 0;bottom: 0;z-index: 2}
+        .lunbo .title ul{width:3rem;margin:0 auto; }
+        .lunbo .title li{width:.3rem;height:.3rem;display:inline-block;margin:0 .1rem;transform:rotateZ(45deg);background:#7b7b7b;}
+        .lunbo .title li.tit_hover{background-color:#e73142; }
+
+        /*轮播2*/
+        .swiperContainer1{width:10.11rem;overflow:hidden;height:8.7rem;padding:.6rem 0 1.6rem;margin: 0 auto;position: relative;background-color: #8a9cd5;}
+        .swiperContainer1 .swiperWrapper1{height: 9rem;position: relative;}
+        .swiperContainer1 .swiperSlide1{background-position:center;background-size:cover;width:6rem;height:9rem;position: absolute;}
+        .swiperContainer1 .slide-prev{transform:perspective(18rem) scale(.9) rotateY(-30deg);z-index: 1;transition:all .3s;left:-1rem;}
+        .swiperContainer1 .slide-acti{z-index: 3;transition:all .3s;left:2rem;}
+        .swiperContainer1 .slide-next{transform:perspective(18rem) scale(.85) rotateY(30deg);z-index: 2;transition:all .3s;left:7rem;}
+        .swiperContainer1 .slide-last{transform: scale(.8);z-index: 0;transition:all .3s;left:2rem;}
+        .swiperContainer1 .swiper-pagination1{position: absolute;bottom:0.2rem;left:50%;width:3.28rem;margin-left: -1.64rem;}
+        .swiperContainer1 .swiper-pagination-bullet{width:0.3rem;height:0.3rem;border:0.06rem solid #fff;background: none;border-radius: 50%;margin: 0 .2rem;display: block;float: left;}
+        .swiperContainer1 .swiper-pagination-bullet-active{background:#fff;}
+
+        /*轮播3*/
+        .swiper-container{width:100%;overflow:hidden;height:7.5rem;margin:1.8rem 0 .2rem;}
+        .swiper-slide{background-position:center;background-size:cover;width:4.5rem;height:7.5rem;}
+        .swiper-slide img{width:4.5rem;height:7.5rem;}
+    </style>
+</head>
+<body>
+<h1 class="h1">轮播1</h1>
+<div class="lunbo">
+    <div class="p0N" id="p0N">
+        <div class="p0_list"><a href=""><img src="./images/lb1.jpg?v=1" class="aimg fs"></a></div>
+        <div class="p0_list"><a href=""><img src="./images/lb2.jpg?v=1" class="aimg"></a></div>
+        <div class="p0_list"><a href=""><img src="./images/lb3.jpg?v=1" class="aimg"></a></div>
+        <div class="p0_list"><a href=""><img src="./images/lb4.jpg?v=1" class="aimg"></a></div>
+    </div>
+    <div class="title t0">
+        <ul class="imgUl">
+            <li class="tit_hover"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>
+<h1 class="h1">轮播2</h1>
+<div class="swiperContainer1">
+    <div class="swiperWrapper1">
+        <div class="slide-prev swiperSlide1" style="background-image:url(./images/lunbo1.jpg?v=1)" data-num="1"></div>
+        <div class="slide-acti swiperSlide1" style="background-image:url(./images/lunbo2.jpg?v=1)" data-num="2"></div>
+        <div class="slide-next swiperSlide1" style="background-image:url(./images/lunbo3.jpg?v=1)" data-num="3"></div>
+        <div class="slide-last swiperSlide1" style="background-image:url(./images/lunbo4.jpg?v=1)" data-num="4"></div>
+    </div>
+    <div class="swiper-pagination1 swiper-pagination-bullets1"><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span><span class="swiper-pagination-bullet"></span></div>
+</div>
+
+<h1 class="h1">轮播3（使用外部插件）</h1>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" style="background-image:url(./images/paoniang1.png?v=1)"></div>
+        <div class="swiper-slide" style="background-image:url(./images/paoniang2.png?v=1)"></div>
+        <div class="swiper-slide" style="background-image:url(./images/paoniang3.png?v=1)"></div>
+    </div>
+</div>
+
+<script src="../js/jquery-1.11.1.min.js?v=1" type="text/javascript"></script>
+<script>
+    //轮播1
+    var sX = 0,nX = 0,sY = 0,nY = 0,winW = $(window).width();
+
+    var zNow0=0;
+    var zNum0=$(".p0_list").length;
+    var p0N=document.getElementById("p0N");
+    var ul0=document.getElementById("p0N");
+    var timer0 = setInterval(autobg,3000);
+    function autobg(){
+        zNow0++;
+        zNow0%=4;
+        ul0.style.transform=ul0.style.webkitTransform=ul0.style.mozTransform=ul0.style.oTransform="translateX(-"+zNow0*10.11+"rem)";
+        $(".t0 li").removeClass("tit_hover").eq(zNow0).addClass("tit_hover");
+    };
+    $(".t0 li").on("click",function(){
+        i=$(this).index();
+        zNow0=i;
+        $(".t0 li").removeClass("tit_hover");
+        $(".t0 li:eq("+i+")").addClass("tit_hover");
+        ul0.style.transform=ul0.style.webkitTransform=ul0.style.mozTransform=ul0.style.oTransform="translateX(-"+zNow0*10.11+"rem)";
+    });
+    $("#p0N").on("touchstart",function(){
+        fn0Start(event);
+        clearInterval(timer0);
+    });
+    $("#p0N").on("touchmove",function(){
+        fn0Move(event,p0N);
+    });
+    $("#p0N").on("touchend",function(){
+        fn0End(event,p0N);
+        clearInterval(timer0);
+        timer0 = setInterval(autobg,3000);
+    });
+    function fn0Start(e){
+        var touch= e.touches[0];
+        sX=touch.pageX;
+        sY=touch.pageY;
+    }
+
+    function fn0Move(e){
+        var touch= e.touches[0];
+        nX=touch.pageX;
+        nY=touch.pageY;
+        var w=sX-nX;//x轴的滑动值
+        var h=sY-nY;//y轴的滑动值*/
+        var ww=w<0?w*-1:w;
+        var hh=h<0?h*-1:h;
+        if(ww>hh){                //如果是在x轴中滑动
+            e.preventDefault();
+            var run=-((w/winW)*(10)+(zNow0*10.11));
+            ul0.style.transition=ul0.style.webkitTransition=ul0.style.mozTransition=ul0.style.oTransition="0s";
+            ul0.style.transform="translateX("+run+"rem)";
+        }
+    }
+
+    function fn0End(e){
+        var r=sX-nX;
+        var run=Math.abs((r/winW)*(100));
+        if(run>6&&r>0){
+            zNow0++;
+        }
+        if(run>6&&r<0){
+            zNow0--;
+        }
+        if(zNow0<=0){
+            zNow0=0;
+        }
+        if(zNow0>=zNum0){
+            zNow0=zNum0-1;
+        }
+
+        $(".t0 li").removeClass("tit_hover");
+        $(".t0 li:eq("+zNow0+")").addClass("tit_hover");
+        ul0.style.transition=ul0.style.webkitTransition=ul0.style.mozTransition=ul0.style.oTransition="0.5s";
+        ul0.style.transform=ul0.style.webkitTransform=ul0.style.mozTransform=ul0.style.oTransform="translateX(-"+zNow0*10.11+"rem)";
+    };
+
+    //轮播2
+    $(".swiperContainer1").on("touchstart",function(){
+        fnZYStart3(event);
+        clearInterval(timer3);
+    });
+    $(".swiperContainer1").on("touchmove",function(){
+        fnZYMove3(event);
+    });
+    $(".swiperContainer1").on("touchend",function(){
+        fnZYEnd3(event);
+    });
+    function fnZYStart3(e){
+        var touch= e.touches[0];
+        sX=touch.pageX;
+        sY=touch.pageY;
+        timer3=setInterval(function(){autoteseBg("pre")},4000)
+    }
+
+    function fnZYMove3(e){
+        var touch= e.touches[0];
+        nX=touch.pageX;
+        nY=touch.pageY;
+        var w=sX-nX;//x轴的滑动值
+        var h=sY-nY;//y轴的滑动值*/
+        var ww=w<0?w*-1:w;
+        var hh=h<0?h*-1:h;
+        if(ww>hh){                //如果是在x轴中滑动
+            e.preventDefault();
+        }
+
+    }
+
+    function fnZYEnd3(e){
+        var r=sX-nX;
+        var run=Math.abs((r/winW)*(100));
+        if(run>6&&r>0){
+            autoteseBg("next")
+        };
+        if(run>6&&r<0){
+            autoteseBg("pre")
+        };
+
+    }
+
+    var slide0= 0,slide1= 1,slide2 =2,slide3=3;
+    function autoteseBg(flag){
+        if(flag=="pre"){
+            slide0--;slide1--;slide2--;slide3--;
+        }else{
+            slide0++;slide1++;slide2++;slide3++;
+        };
+        slide0%=4;slide1%=4;slide2%=4;slide3%=4;
+        $(".swiperSlide1").eq(slide0).removeClass("slide-prev slide-acti slide-next slide-last").addClass("slide-prev");
+        $(".swiperSlide1").eq(slide1).removeClass("slide-prev slide-acti slide-next slide-last").addClass("slide-acti");
+        $(".swiperSlide1").eq(slide2).removeClass("slide-prev slide-acti slide-next slide-last").addClass("slide-next");
+        $(".swiperSlide1").eq(slide3).removeClass("slide-prev slide-acti slide-next slide-last").addClass("slide-last");
+        $(".swiper-pagination-bullet").removeClass("swiper-pagination-bullet-active").eq(slide1).addClass("swiper-pagination-bullet-active");
+    }
+    var timer3=setInterval(function(){autoteseBg("next")},4000);
+</script>
+
+<link rel="stylesheet" type="text/css" href="http://css.res.szgla.com/yzsy/css/login/swiper.min.css?v=1">
+<script src="http://css.res.szgla.com/yzsy/js/login/swiper.min.js?v=1"></script>
+<script>
+    //轮播3
+    var mySwiper = new Swiper ('.swiper-container', {
+        pagination: '.swiper-pagination',
+        effect: 'coverflow',
+        initialSlide :1,
+        slidesPerView: 2,
+        grabCursor: true,
+        centeredSlides: true,
+        coverflow: {
+            rotate: 50,
+            stretch:0,
+            depth: 100,
+            modifier: 1,
+            slideShadows : true
+        }
+    });
+</script>
+
+</body>
+</html>

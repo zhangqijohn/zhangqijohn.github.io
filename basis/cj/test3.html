@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>转盘抽奖</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/awardRotate.js"></script>
+    <script type="text/javascript" src="js/scroll.js"></script>
+    <style>
+        *{margin: 0;padding: 0}
+        body{background:url(./images/bj.jpg) no-repeat;background-size:100% 100%}
+        .turntable-bg{position:relative;top:0px;margin:0 auto;width:650px;height:600px;background:url(./images/3.png)}
+        .turntable-bg .mask{position:absolute;top:60px;left:87pt;width:454px;height:451px}
+        .turntable-bg .pointer{position:absolute;top:50%;left:50%;z-index:8;margin-top:-9pc;margin-left:-67px;width:174px;height:228px}
+        .turntable-bg .rotate{position:absolute;top:60px;left:87pt;width:450px;height:450px}
+        .bcon{position: absolute;top:100px;left: 40px;padding:20px;background-color:#00b7ee;border-radius:10px;color: #fff;}
+        .list_lh{width: 240px;height: 400px;overflow: hidden;background-color: #dfdfdf;color:#000;}
+        .list_lh li{line-height:40px; }
+    </style>
+</head>
+<body>
+<div class="bcon">
+    <h1><b>中奖者名单</b></h1>
+    <div class="list_lh">
+        <ul>
+            <li><p>152*****120 抽中1000元</p></li>
+            <li><p>152*****121 抽中1000元</p></li>
+            <li><p>152*****122 抽中1000元</p></li>
+            <li><p>152*****123 抽中1000元</p></li>
+            <li><p>152*****124 抽中1000元</p></li>
+            <li><p>152*****125 抽中1000元</p></li>
+            <li><p>152*****126 抽中1000元</p></li>
+            <li><p>152*****127 抽中1000元</p></li>
+            <li><p>152*****128 抽中1000元</p></li>
+            <li><p>152*****129 抽中1000元</p></li>
+            <li><p>152*****120 抽中1000元</p></li>
+            <li><p>152*****121 抽中1000元</p></li>
+            <li><p>152*****122 抽中1000元</p></li>
+            <li><p>152*****123 抽中1000元</p></li>
+            <li><p>152*****124 抽中1000元</p></li>
+            <li><p>152*****125 抽中1000元</p></li>
+            <li><p>152*****126 抽中1000元</p></li>
+            <li><p>152*****127 抽中1000元</p></li>
+            <li><p>152*****128 抽中1000元</p></li>
+            <li><p>152*****129 抽中1000元</p></li>
+        </ul>
+    </div>
+</div>
+
+<div class="turntable-bg">
+    <div class="pointer"><img src="images/pointer.png" alt="pointer"  style="width:100%;height:100%;"></div>
+    <div class="rotate" ><img id="rotate" src="images/turntable.png" alt="turntable" style="width:100%;height:100%;"/></div>
+</div>
+
+<script type="text/javascript">
+    //此抽奖方法只适合IE9及以上浏览器
+    $(function(){
+        $(".list_lh").myScroll({
+            speed:2000, //数值越大，速度越慢
+            rowHeight:40 //li的高度
+
+        });
+    });
+    $(function (){
+
+        var rotateTimeOut = function (){
+            $('#rotate').rotate({
+                angle:0,
+                animateTo:2160,
+                duration:8000,
+                callback:function (){
+                    alert('网络超时，请检查您的网络设置！');
+                }
+            });
+        };
+        var bRotate = false;
+
+        var rotateFn = function (awards, angles, txt){
+            bRotate = !bRotate;
+            $('#rotate').stopRotate();
+            $('#rotate').rotate({
+                angle:0,
+                animateTo:angles+1800,
+                duration:8000,
+                callback:function (){
+                    alert("￥"+txt);
+                    bRotate = !bRotate;
+                }
+            })
+        };
+
+        $('.pointer').click(function (){
+            var a=["天佑红包","土豪红包","利事红包","状元红包","友谊红包","健康红包","福气红包"];
+            if(bRotate)return;
+
+            var item = rnd(0,7);
+            //var item =6;
+            switch (item) {
+
+                case 0:
+                    rotateFn(0, 26, a[0]);
+                    var ss=Number($("#xianjin").val());
+                    var cc=ss+a[0];
+                    $("#xianjin").val(cc);
+                    setTimeout(function(){
+                        $(".xianjin").html(cc);
+                    },8000);
+                    $(".qian2").html(cc);
+
+                    break;
+                case 1:
+                    rotateFn(1, 88, a[1]);
+                    var ss=Number($("#xianjin").val());
+                    var cc=ss+a[1];
+                    $("#xianjin").val(cc);
+                    setTimeout(function(){
+                        $(".xianjin").html(cc);
+                    },8000);
+                    $(".qian2").html(cc);
+                    break;
+                case 2:
+                    rotateFn(2, 137, a[2]);
+                    var ss=Number($("#xianjin").val());
+                    var cc=ss+a[2];
+                    $("#xianjin").val(cc);
+                    setTimeout(function(){
+                        $(".xianjin").html(cc);
+                    },8000);
+
+                    $(".qian2").html(cc);
+                    break;
+                case 3:
+                    rotateFn(3, 185, a[3]);
+                    var ss=Number($("#xianjin").val());
+                    var cc=ss+a[3];
+                    $("#xianjin").val(cc);
+                    setTimeout(function(){
+                        $(".xianjin").html(cc);
+                    },8000);
+                    $(".qian2").html(cc);
+                    break;
+                case 4:
+                    rotateFn(4, 235, a[4]);
+                    var ss=Number($("#xianjin").val());
+                    var cc=ss+a[4];
+                    $("#xianjin").val(cc);
+                    setTimeout(function(){
+                        $(".xianjin").html(cc);
+                    },8000);
+                    $(".qian2").html(cc);
+                    break;
+                case 5:
+                    rotateFn(5, 287, a[5]);
+                    var ss=Number($("#xianjin").val());
+                    var cc=ss+a[5];
+                    $("#xianjin").val(cc);
+                    setTimeout(function(){
+                        $(".xianjin").html(cc);
+                    },8000);
+                    $(".qian2").html(cc);
+                    break;
+                case 6:
+                    rotateFn(6, 337, a[6]);
+                    var ss=Number($("#xianjin").val());
+                    var cc=ss+a[6];
+                    $("#xianjin").val(cc);
+                    setTimeout(function(){
+                        $(".xianjin").html(cc);
+                    },8000);
+                    $(".qian2").html(cc);
+                    break;
+            }
+
+            //console.log(item);
+        });
+
+    });
+    function rnd(n, m){
+        return Math.floor(Math.random()*(m-n+1)+n)
+    }
+
+</script>
+
+</body>
+</html>

@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        *{padding:0;margin:0}
-        .box{width:180px;height:180px;margin:60px auto;position:relative;animation:cube_animation ease-in-out 6s infinite forwards;transform-style:preserve-3d;transform-origin:90px 90px 90px}
+        *{padding:0;margin:0;list-style: none}
+        .box{width:180px;height:180px;margin:120px auto;position:relative;animation:cube_animation ease-in-out 6s infinite forwards;transform-style:preserve-3d;transform-origin:90px 90px 90px}
         .box>div{width:180px;height:180px;position:absolute}
         .box>div>div{width:54px;height:54px;border-radius:4px;float:left;border:3px solid #000}
         @keyframes cube_animation{
-            16%{transform:rotatey(-90deg);}
-            33%{transform:rotatey(-90deg) rotatez(-90deg)}
-            50%{transform:rotatey(225deg) rotatez(135deg)}
-            66%{transform:rotatey(135deg) rotatex(135deg)}
-            83%{transform:rotatex(135deg)}
+            0%{transform:translate3d(0,-90px,0) rotatex(135deg);}
+            20%{transform:translate3d(90px,0px,0) rotatey(135deg);}
+            40%{transform:translate3d(0px,0px,0) rotatez(135deg);}
+            60%{transform:translate3d(0,-0px,0) rotatex(-135deg);}
+            80%{transform:translate3d(-90px,0px,0) rotatey(-135deg);}
+            100%{transform:translate3d(0,0px,0) rotatez(-135deg);}
         }
         .aside{background-color:#fccb05;transform:translatez(90px);}
         .bside{background-color:#fbb499;transform:translatex(-90px) rotatey(90deg) translatez(180px);}
@@ -22,6 +23,22 @@
         .eside{background-color:#f231cb;transform:rotatex(90deg) translatez(90px);}
         .fside{background-color:#c80cde;transform:rotatex(-90deg) translatez(90px);}
 
+        .box2{width: 200px;height: 200px;margin: 100px auto;}
+        .box2 li{width: 200px;height: 200px;background-size:100% 100%;}
+        .box2 li:nth-of-type(1){ transform:rotateX(0deg)    translateZ(100px);background-image:url("images/timg0.jpg"); }
+        .box2 li:nth-of-type(2){ transform:rotateX(90deg)   translateZ(100px);background-image:url("images/timg1.jpg"); }
+        .box2 li:nth-of-type(3){ transform:rotateX(180deg)  translateZ(100px);background-image:url("images/timg2.jpg"); }
+        .box2 li:nth-of-type(4){ transform:rotateX(270deg)  translateZ(100px);background-image:url("images/timg3.jpg"); }
+        .box2 li:nth-of-type(5){ transform:rotateY(90deg)   translateZ(100px);background-image:url("images/timg4.jpg"); }
+        .box2 li:nth-of-type(6){ transform:rotateY(270deg)  translateZ(100px);background-image:url("images/timg5.jpg"); }
+        .box2{position: relative;
+            transform-style:preserve-3d;
+            animation: run 10s linear infinite alternate;
+        }
+        .box2 li{position: absolute;left:0;top:0;}
+        @keyframes run{
+            to{transform:rotateX(720deg) rotateY(360deg);}
+        }
     </style>
 </head>
 <body>
@@ -94,5 +111,13 @@
         <div></div>
     </div>
 </div>
+<ul class="box2">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
 </body>
 </html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>移动拼图小游戏</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta name="author" content="john_zhang" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!--不进行缓存 但是只能清除一次缓存-->
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="content-type" content="no-cache, must-revalidate"/>
+    <meta http-equiv="expires" content="0"/>
+
+
+    <style>
+        /*此处css使用VW（及屏幕的宽度），在iphone6 1vw = 3.75px、在iphone6p 1vw = 4.14px*/
+        *{padding:0;margin:0;}
+        #pintu{position:absolute;width: 100vw;height:100vw;top:20vw;}
+        #pintu div{position:absolute;width: 33vw;height: 33vw;background-image: url(./images/bg.jpg);background-size: 100vw;z-index: 1;}
+        .p1{background-position:0 0;}
+        .p2{background-position:-33vw 0;}
+        .p3{background-position:-66vw 0;}
+        .p4{background-position:0 -33vw;}
+        .p5{background-position:-33vw -33vw;}
+        .p6{background-position:-66vw -33vw;}
+        .p7{background-position:0 -66vw;}
+        .p8{background-position:-33vw -66vw;}
+        .p9{background-position:-66vw -66vw;}
+
+        .w1{top:0;left:0;}
+        .w2{top:0;left:33vw;}
+        .w3{top:0;left:66vw;}
+        .w4{top:33vw;left:0;}
+        .w5{top:33vw;left:33vw;}
+        .w6{top:33vw;left:66vw;}
+        .w7{top:66vw;left:0;}
+        .w8{top:66vw;left:33vw;}
+        .w9{top:66vw;left:66vw;}
+
+        #pt{position:absolute;width: 100vw;height:100vw;top:20vw;}
+        .btn{width: 20vw;height:10vw;}
+        .tips{width:100%;height:6vw;}
+    </style>
+
+</head>
+<body>
+<p class="tips">点击开始按钮开始拼图游戏</p>
+<div id="pt"></div>
+
+<input type="button" value="3x3开始" class="btn" onclick="fn(3,3)">
+<input type="button" value="4x4开始" class="btn" onclick="fn(4,4)">
+<input type="button" value="5x5开始" class="btn" onclick="fn(5,5)">
+<input type="button" value="8x8开始" class="btn" onclick="fn(10,10)">
+
+<script src="../js/jquery-1.11.1.min.js?v=1" type="text/javascript"></script>
+<script>
+    function fn(h,l){
+        var pt=new ptClass();
+        pt.h=h;//行
+        pt.l=l;//列
+        pt.img="images/bg.jpg";//图片路径
+        pt.id="pt";//渲染id
+        pt.callFn=callFn;//拼图成功后回调函数
+        pt.init();//初始化拼图
+    }
+    function callFn(){
+        setTimeout(function(){alert("拼图成功1");},300);
+    }
+
+    function ptClass(h,l,img,id,fn){
+        var obj=new Object();
+        obj.h=h;//行
+        obj.l=l;//列
+        obj.img=img;//图片路径
+        obj.id=id;//id
+        obj.callFn=fn;//回调函数
+        obj.isDowm=false;
+        var arr1=[];
+        var arr2=[];
+        var arr3=[];
+        var pplace=[];//每个矩形中心点位置数组
+        var nx,ny;
+        var isDis;//距离判断标准值
+        obj.init=function(){
+            createPt();
+        };
+        function createPt(){
+            var pTop=$("#"+obj.id).offset().top;
+            var pLeft=$("#"+obj.id).offset().left;
+            var parentW=parseFloat($("#"+obj.id).width());
+            var pW=parentW/obj.l;
+            var pNum=obj.h*obj.l;
+            //isDis=Math.sqrt(Math.pow(pW/2,2)*2);
+            isDis=pW/2;
+            var hh=0;
+            var hl=0;
+            $("style[data-value='ptStyle']").remove();
+            var sHtml="<style data-value='ptStyle'>" + "#"+obj.id+" div{position:absolute;width: "+pW+"px;height: "+pW+"px;background-image: url("+obj.img+");background-size: "+parentW+"px;z-index: 1;}";
+            for(var i=0;i<pNum;i++){
+                if(i%obj.l==0&&i!=0){
+                    hh++;
+                }
+                if(i%obj.h==0){
+                    hl=0;
+                }
+                sHtml+="#"+obj.id+" div.pt"+(i+1)+"{background-position:-"+(hl*pW)+"px -"+(hh*pW)+"px;} #"+obj.id+" div.wt"+(i+1)+"{top:"+(hh*pW)+"px;left:"+(hl*pW)+"px;}";
+                pplace[i]={x:((hl*pW)+pLeft+(pW/2)),y:((hh*pW)+pTop+(pW/2))};
+                hl++;
+            }
+            sHtml+="</style>";
+            $("head").append(sHtml);
+
+            var pHmtl="";
+            for(var i=1;i<=pNum;i++){
+                pHmtl+="<div class='pt"+i+"' data-value='"+i+"'></div>";
+                arr1[i-1]=i;
+                arr3[i-1]=i;
+            }
+            $("#"+obj.id).html(pHmtl);
+            randomImg();
+
+            if(hasTouch()){
+                pTouch(obj);
+            }else{
+                pMouse(obj);
+            }
+        }
+        function randomImg(){
+            var pNum=obj.h*obj.l;
+            var result=false;
+            for(var i=0;i<pNum;i++){
+                var num=Math.floor(Math.random()*arr1.length);
+                arr2.push(arr1[num]);
+                arr1.splice(num,1);
+            }
+            for(var i=0;i<pNum;i++){
+                if(arr3[i]!=arr2[i]){
+                    result=true;
+                    break;
+                }
+            }
+
+            //判断生成排列是否跟答案一致，一致需要重新生成一边
+            if(result){
+                $("#"+obj.id+" div").each(function(){
+                    var dt=arr2[$(this).index()];
+                    $(this).addClass("wt"+dt).attr("data-type",dt);
+                });
+            }else{
+                arr1=arr3;
+                arr2=[];
+                randomImg();
+            }
+
+
+        }
+
+        function pTouch(obj){
+            var pTop=$("#"+obj.id).offset().top;
+            var pLeft=$("#"+obj.id).offset().left;
+            var pWidth=$("#"+obj.id+" div").width();
+            $("#"+obj.id+" div").on("touchstart",function(){
+                $(this).css({"z-index":"10"});
+            });
+            $("#"+obj.id+" div").on("touchmove",function(){
+                event.preventDefault();
+                var touch= event.touches[0];
+                nx = touch.pageX;
+                ny = touch.pageY;
+                $(this).css({"top":(ny-pTop-pWidth/2)+"px","left":(nx-pLeft-pWidth/2)+"px"});
+            });
+            $("#"+obj.id+" div").on("touchend",function(){
+                var dt=$(this).attr("data-type");
+                var isCorrect=false;
+                var resuleNum=0;
+                for(var i=0;i<obj.h*obj.l;i++){
+                    var dx=pplace[i].x;
+                    var dy=pplace[i].y;
+                    var dz=Math.sqrt(Math.pow(Math.abs(dx-nx),2)+Math.pow(Math.abs(dy-ny),2));
+                    if(dz<isDis){
+                        isCorrect=true;
+                        resuleNum=i+1;
+                    }
+                }
+                if(isCorrect){
+                    $("#"+obj.id+" div[data-type="+resuleNum+"]").removeClass("wt"+resuleNum).addClass("wt"+dt).attr("data-type",dt);
+                    $(this).removeClass("wt"+dt).addClass("wt"+resuleNum).attr("style","");
+                    $(this).attr("data-type",resuleNum);
+                }else{
+                    $(this).attr("style","");
+                }
+                if(isWin()){
+                    obj.callFn();
+                }
+            });
+        }
+
+        function pMouse(obj){
+            var pTop=$("#"+obj.id).offset().top;
+            var pLeft=$("#"+obj.id).offset().left;
+            var pWidth=$("#"+obj.id+" div").width();
+
+            $("#"+obj.id+" div").on("mousedown",function(){
+                $(this).css({"z-index":"10"});
+                obj.isDowm=true;
+            });
+
+            $("#"+obj.id+" div").on("mousemove",function(ev){
+                if(obj.isDowm){
+                    var oevent = ev || event;
+                    nx=oevent.clientX;
+                    ny=oevent.clientY;
+                    $(this).css({"top":(ny-pTop-pWidth/2)+"px","left":(nx-pLeft-pWidth/2)+"px"});
+                }
+            });
+            $("#"+obj.id+" div").on("mouseup",function(){
+                if(obj.isDowm){
+                    var dt=$(this).attr("data-type");
+                    var isCorrect=false;
+                    var resuleNum=0;
+                    for(var i=0;i<obj.h*obj.l;i++){
+                        var dx=pplace[i].x;
+                        var dy=pplace[i].y;
+                        var dz=Math.sqrt(Math.pow(Math.abs(dx-nx),2)+Math.pow(Math.abs(dy-ny),2));
+                        if(dz<isDis){
+                            isCorrect=true;
+                            resuleNum=i+1;
+                        }
+                    }
+                    if(isCorrect){
+                        $("#"+obj.id+" div[data-type="+resuleNum+"]").removeClass("wt"+resuleNum).addClass("wt"+dt).attr("data-type",dt);
+                        $(this).removeClass("wt"+dt).addClass("wt"+resuleNum).attr("style","");
+                        $(this).attr("data-type",resuleNum);
+                    }else{
+                        $(this).attr("style","");
+                    }
+                    if(isWin()){
+                        obj.callFn();
+                    }
+                    obj.isDowm=false;
+                }
+            });
+
+        }
+
+        function isWin(){
+            var result=0;
+            $("#"+obj.id+" div").each(function(){
+                if($(this).attr("data-value")==$(this).attr("data-type")){
+                    result++;
+                }
+            });
+            if(result==(obj.h*obj.l)){return true}
+        }
+        return obj;
+    }
+
+    var hasTouch=function(){
+        var touchObj={};
+        touchObj.isSupportTouch = "ontouchend" in document ? true : false;
+        touchObj.isEvent=touchObj.isSupportTouch?true:false;
+        return touchObj.isEvent;
+    }
+
+</script>
+
+</body>
+</html>

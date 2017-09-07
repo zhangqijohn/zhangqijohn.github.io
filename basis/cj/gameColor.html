@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>看看你是不是色盲</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <link rel="stylesheet" href="./css/reset.css">
+
+</head>
+<style type="text/css">
+body{
+	background: #000;
+	width: 100%;
+	height: 100%;
+    font-size: 16px;
+}
+.div1{
+    margin: 10px auto;
+	width: 1000px;
+	height: 800px;
+    border: 1px solid red;
+}
+.p{
+    display: inline-block;
+    float: left;
+    border: 1px solid #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.div2{
+    text-align: center;
+    color:#fff;
+}
+.div2 button{
+    width: 100px;
+    height: 40px;
+    background: blue;
+    outline: none;
+    border: 1px solid red;
+    color: #fff;
+    cursor: pointer;
+}
+.div2 .btn-active{
+    background: green;
+}
+time{
+    color: #fff;
+}
+.tips{
+    text-align: center;
+    color: #fff;
+}
+</style>
+<body>
+    <div class="tips">玩法：选择新手或任一模式后点击开始游戏；在一分钟内点中框内点击不同颜色的方块即可得10分;看看你最终可得多少分！</div>
+    <div class="div1">
+    	<p></p>
+    </div>
+    <div class="div2">
+        <button class="btn1">新手</button>
+        <button class="btn2">简单</button>
+        <button class="btn3">一般</button>
+        <button class="btn4">困难</button>
+        <button class="btn5">噩梦</button>
+        <button class="btn6">地狱</button>
+        <button disabled class="start">开始游戏</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <time>倒计时&nbsp;&nbsp;<span class="fen">01</span>：<span class="miao">00</span></time>&nbsp;&nbsp;&nbsp;&nbsp;
+        <time>得分&nbsp;&nbsp;<span class="grade">0</span></time>
+    </div>
+    <script src="./js/jquery-1.11.1.min.js?v=1" type="text/javascript"></script>
+    <script type="text/javascript">
+        var getRandomColor = function(){//随机一种颜色
+            return  '#' +
+                (function(color){
+                return (color +=  '0123456789abcdef'[Math.floor(Math.random()*16)])
+                  && (color.length == 6) ?  color : arguments.callee(color);
+            })('');
+        }
+    	function qq(width){
+            var divWidth = $('.div1').width(),
+                pWidth = width,
+                divHeight = $('.div1').height(),
+                pHeight = width,
+                num = (divWidth/pWidth) * (divHeight/pHeight),
+                index = parseInt(Math.random()*num);
+            //console.log(num)
+            var str = '';
+            for (var i = 0; i < num; i++) {
+                str += "<p class='p'></p>"
+            }
+            $('.div1').html(str);
+            $('p').css({'background':getRandomColor(),width:width,height:width});
+            $('.div1 p').eq(index).css('background',getRandomColor()).addClass('active');
+            var size = $(".div1 p").size();
+            if (size < num-1) { // 是否已完成 
+        　　　　setTimeout(qq, 0); 
+        　　} else { 
+        　　　　return;
+        　　} 
+    	}
+        var intDiff = parseInt(59);//倒计时总时间
+        function timer(intDiff){
+            window.setInterval(function(){
+                var day=0,
+                    hour=0,
+                    minute=0,
+                    second=0;//时间默认值        
+                if(intDiff >= 0){
+                    //day = Math.floor(intDiff / (60 * 60 * 24));
+                    //hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                    minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                    second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                }else{
+                    return;
+                }
+                if (minute <= 9) minute = '0' + minute;
+                if (second <= 9) second = '0' + second;
+                
+                $('.fen').text(minute);
+                $('.miao').text(second);
+                console.log(intDiff)
+                if(intDiff == 0){
+                    console.log(intDiff)
+                    var grade = $('.grade').text();
+                    alert("时间到！最终得分："+grade+"分");
+                    location.reload();
+                }
+                intDiff--;
+            }, 1000);
+        } 
+        // qq(10);
+        function event(){
+            var num = 0;
+            var difficulty = 0;
+            $('.btn1').click(function(){
+                $(this).addClass('btn-active').siblings().removeClass('btn-active');
+                difficulty = 200;
+                $('.div1 p').width(difficulty+"px");
+                $('.div1 p').height(difficulty+"px");
+                $('.start').attr('disabled',false);
+            });
+            $('.btn2').click(function(){
+                $(this).addClass('btn-active').siblings().removeClass('btn-active');
+                difficulty = 100;
+                $('.div1 p').width(difficulty+"px");
+                $('.div1 p').height(difficulty+"px");
+                $('.start').attr('disabled',false);
+            });
+            $('.btn3').click(function(){
+                $(this).addClass('btn-active').siblings().removeClass('btn-active');
+                difficulty = 50;
+                $('.div1 p').width(difficulty+"px");
+                $('.div1 p').height(difficulty+"px");
+                $('.start').attr('disabled',false);
+            });
+            $('.btn4').click(function(){
+                $(this).addClass('btn-active').siblings().removeClass('btn-active');
+                difficulty = 40;
+                $('.div1 p').width(difficulty+"px");
+                $('.div1 p').height(difficulty+"px");
+                $('.start').attr('disabled',false);
+            });
+            $('.btn5').click(function(){
+                $(this).addClass('btn-active').siblings().removeClass('btn-active');
+                difficulty = 25;
+                $('.div1 p').width(difficulty+"px");
+                $('.div1 p').height(difficulty+"px");
+                $('.start').attr('disabled',false);
+            });
+            $('.btn6').click(function(){
+                $(this).addClass('btn-active').siblings().removeClass('btn-active');
+                difficulty = 10;
+                $('.div1 p').width(difficulty+"px");
+                $('.div1 p').height(difficulty+"px");
+                $('.start').attr('disabled',false);
+            });
+            $('.start').click(function(){
+                var pNum = $('.div1 p').width();
+                qq(pNum);
+                timer(intDiff);
+                $('button').attr('disabled',true);
+            });
+            $('.div1').on('click','.active',function(){
+                qq(difficulty);
+                num = num + 10;
+                $('.grade').text(num);
+            });
+        }
+        event();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>年会滚动的抽奖</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <script src="../js/jquery-1.4.4.min.js?v=1" type="text/javascript"></script>
+    <style>
+        *{margin: 0;padding: 0}
+        .laohujibox{width:1120px;height: 531px;margin:0 auto;position: relative;z-index: 2}
+        .laohuji{width: 859px;height: 530px;background:url(images/laohuji.png?v=1) no-repeat center top;float: left;position: relative;}
+        .yaoba4{width:96px;height:240px;background:url(images/yaoba.png?v=1) no-repeat center top;float: left;cursor: pointer;position: absolute;top:80px;left:833px;}
+        .prize4-zjmd{width: 396px;height: 874px;position: absolute;top:50px;right: 40px;background:url(images/zjmdbg1.png?v=1) no-repeat center top;color: #fff;text-align: center;}
+        .prize4-h1{width:150px;height: 50px;overflow: hidden;text-indent: -999px;background:url(images/tubiao.png?v=1) no-repeat -14px -352px;margin: 30px auto 10px;}
+        .prize4-zjmd-p{font-size:24px;}
+        .prize4-zjmd-box{margin: 38px auto 0;width: 347px;}
+        .prize4-zjmd-box span{display: inline-block;width: 114px;overflow: hidden;}
+        .prize4-h4{height:78px;line-height:76px;font-size:24px;border-bottom: 1px solid #482384;}
+        .zjmdDiv{width: 100%;height:544px;overflow: hidden;border-radius: 4px;}
+        .zjmdDiv ul{overflow: hidden;}
+        .zjmdDiv li{height: 53px;line-height: 53px;border-bottom: 1px solid #482384;font-size: 16px;font-weight:bold;overflow: hidden;text-overflow: ellipsis;}
+        .DownBtn,.upBtn{width: 44px;height:22px;display:inline-block;border: none;background:url(images/tubiao.png?v=1) no-repeat -326px 0px;margin: 35px 0px 0;cursor: pointer;}
+        .upBtn{transform: rotateX(180deg);display: none;}
+               .laohuji-after{width:614px;height:90px;background:url(images/lhjafter.jpg?v=1) no-repeat center;padding: 50px 0;position: absolute;top:126px;left:122px;display: none;}
+        .num1,.num2,.num3,.num4{width:153px;height:80px;overflow: hidden;float: left;position: relative;}
+        .num4{width:153px;height:80px;overflow: hidden;float: left;position: relative;}
+        .num-con1,.num-con2,.num-con3,.num-con4{position: absolute;width: 100%;}
+        .num-con1>div,.num-con2>div,.num-con3>div,.num-con4>div{color:#fff;font-size: 28px;height: 80px;text-align: center;overflow: hidden;}
+        .laohuji-after p{line-height: 40px;}
+        .laohuji-cqz{color:#715695;position: absolute;top:400px;left:330px;text-align: center;font-size: 30px;}
+        .yaobaActive{background-position:6px -250px;margin-top:90px;}
+        .yaobaActive1{z-index: -1;}
+    </style>
+</head>
+<body>
+
+
+<div class="laohujibox">
+    <p style="text-align: center">点击右侧摇把开始抽奖</p>
+    <div class="laohuji">
+        <div class="laohuji-after">
+            <div class="num1">
+                <div class="num-con1"></div>
+            </div>
+            <div class="num2">
+                <div class="num-con2"></div>
+            </div>
+            <div class="num3">
+                <div class="num-con3"></div>
+            </div>
+            <div class="num4">
+                <div class="num-con4">
+                </div>
+            </div>
+        </div>
+        <!--跑马灯-->
+        <div class="lightbox"></div>
+        <p class="laohuji-cqz">四等奖抽取中...</p>
+    </div>
+    <div class="yaoba4"></div>
+</div>
+<!--四等奖中奖名单-->
+<div class="prize4-zjmd">
+    <h1 class="prize4-h1">四等奖</h1>
+    <p class="prize4-zjmd-p">中奖名单</p>
+    <div class="prize4-zjmd-box">
+        <h4 class="prize4-h4"><span>姓名</span><span>部门</span><span>奖项</span></h4>
+        <div class="zjmdDiv">
+            <ul class="zjmdUl4 zjmdUl">
+                <!--<li><span>陈国建</span><span>运营</span><span>新年红包</span></li>-->
+            </ul>
+        </div>
+        <button class="DownBtn"></button>
+        <button class="upBtn"></button>
+    </div>
+</div>
+
+<script>
+    //此方法兼容IE6,此模拟老虎机原理；手动停止的加个判断与需改下letGo4
+    //抽奖这里开始
+    var userName=["张三","李四","王二","麻子","陈国建","欧阳国建","欧阳国建","欧阳1","欧阳2","欧阳3","欧阳4","欧阳5","欧阳6","欧阳7","欧阳8","欧阳9","欧阳10","欧阳11","欧阳12","欧阳13","欧阳14","欧阳15","欧阳16","欧阳17","欧阳18","欧阳19","欧阳20","欧阳21","欧阳22","欧阳23","欧阳24","欧阳25","欧阳26","欧阳27"];//员工
+    var len = userName.length;
+    var numCon1=$(".num-con1"),
+        numCon2=$(".num-con2"),
+        numCon3=$(".num-con3"),
+        numCon4=$(".num-con4");
+
+    // 数据必须先加载进来在执行
+    $(function(){
+        for(var i=0;i<len;i++){
+            var numConHtml="<div><p>运营部</p><p>"+userName[i]+"</p></div>";
+            numCon1.prepend(numConHtml);
+            numCon2.prepend(numConHtml);
+            numCon3.prepend(numConHtml);
+            numCon4.prepend(numConHtml);
+        }
+    })
+    // 数据必须先加载进来
+
+    var yaoba4=$(".yaoba4"),yaoba3=$(".yaoba3"),yaoba2=$(".yaoba2"),yaoba1=$(".yaoba1"); //摇把按钮
+    var laohujiBefore=$(".laohuji-before"); //开始抽奖之前的图片展示
+    var laohujiAfter=$(".laohuji-after");   //开始抽奖之后
+    var divHeight=80;						//获取每个员工的高度（同时四个）
+    var divHeight1=90;						//获取每个员工的高度（一个）
+    var zjmdUl1=$(".zjmdUl1"),zjmdUl2=$(".zjmdUl2"),zjmdUl3=$(".zjmdUl3"),zjmdUl4=$(".zjmdUl4"),zjmdUl=$(".zjmdUl");
+    var flag=true;
+
+    var TextNum1,TextNum2,TextNum3;
+    var numCon1Height=parseInt(divHeight*(len-1));
+    var timer = 3000; 						//定义滚动的时间
+    var index4=0,index3=0,index2=0,index1=0,maxIndex=20; 				//抽奖次数
+    yaoba4.click(function(){
+
+            if(index4<=80){ //最多抽奖人数
+                if(!$(".laohuji-after div").is(":animated")){
+                    reset($(this));
+                    letGo4();
+                    index4+=4;
+                }
+            }else{
+                alert("下面开始要抽三等奖咯!");
+            }
+
+    });
+    function letGo4(){
+        var randomNum = createRandomNumber(4,len-1);//产生4个不相等的随机数
+        var num1=randomNum[0];       	  //在这里显示到对应的员工所在的高度
+        var num2=randomNum[1];
+        var num3=randomNum[2];
+        var num4=randomNum[3];
+        var suiji1 = Math.random()*10+1;
+        var suiji2 = Math.random()*10+1;
+        var suiji3 = Math.random()*10+1;
+        var suiji4 = Math.random()*10+1;
+        numCon1.animate({"top":-numCon1Height},timer/2,"linear", function () {console.log(1)
+            $(this).css("top",0).animate({"top":-divHeight*num1},timer/suiji1,"linear");
+        });
+        numCon2.animate({"top":-numCon1Height},timer/2,"linear", function () {
+            $(this).css("top",0).animate({"top":-divHeight*num2},timer/suiji2,"linear");
+        });
+        numCon3.animate({"top":-numCon1Height},timer/2,"linear", function () {
+            $(this).css("top",0).animate({"top":-divHeight*num3},timer/suiji3,"linear");
+        });
+        numCon4.animate({"top":-numCon1Height},timer/2,"linear", function () {
+            $(this).css("top",0).animate({"top":-divHeight*num4},timer/suiji4,"linear");
+        });
+        setTimeout(function(){
+            var zimdText1="<li><span>"+userName[len-num1-1]+"</span><span>运营</span><span>新年红包</span></li>";
+            var zimdText2="<li><span>"+userName[len-num2-1]+"</span><span>运营</span><span>新年红包</span></li>";
+            var zimdText3="<li><span>"+userName[len-num3-1]+"</span><span>运营</span><span>新年红包</span></li>";
+            var zimdText4="<li><span>"+userName[len-num4-1]+"</span><span>运营</span><span>新年红包</span></li>";
+            zjmdUl4.prepend(zimdText4);zjmdUl4.prepend(zimdText3);zjmdUl4.prepend(zimdText2);zjmdUl4.prepend(zimdText1);
+
+        },timer)
+    };
+    function reset(_this){
+        $(".num-con1,.num-con2,.num-con3,.num-con4").css({"top":0});
+        _this.addClass("yaobaActive yaobaActive1");
+        laohujiBefore.hide();
+        laohujiAfter.show();
+        setTimeout(function(){_this.removeClass("yaobaActive")},100);
+        setTimeout(function(){_this.removeClass("yaobaActive1")},timer);
+    };
+
+    function createRandomNumber(num,maxNum){//产生4个不相等的随机数
+        var flag = 0,i=0,arrLen=0,ran=0,arr=[],res=[];
+
+        if(maxNum - num < 0){
+            flag = maxNum;
+            maxNum = num;
+            num = flag;
+        }
+
+        for(;i<maxNum;i++){arr[i] = i-0+1;}
+
+        arr.length = maxNum;
+        flag = 0;
+        while(num > flag){
+            arrLen = arr.length;
+            ran = Math.floor(arrLen*Math.random());
+            res.push(arr.splice(ran,1)[0]);
+            flag++;
+        }
+        return res;
+    }
+
+</script>
+
+
+</body>
+</html>
