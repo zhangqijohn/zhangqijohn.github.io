@@ -40,9 +40,14 @@
                             type: 'map',
                             mapType: 'china',
                             selectedMode : 'multiple',
-                            itemStyle:{
-                                normal:{label:{show:true}},
-                                emphasis:{label:{show:true}}
+                            itemStyle: {
+                                normal: {
+                                    label: {show: true}, //未选中省份字体显示
+                                    borderWidth: 1,//省份的边框宽度
+                                    borderColor: '#f60',//省份的边框颜色
+                                    color: '#ece2df'//地图背景颜色
+                                },
+                                emphasis: {label: {show: true}} //选中省份字体显示
                             },
                             data:[
                                 {name:'浙江',selected:true}
