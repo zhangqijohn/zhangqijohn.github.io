@@ -23,4 +23,6 @@
 - [分享与复制](https://zhangqijohn.github.io/basis/shareAndCopy.html)
 - [去过的地方or想去的地方](https://zhangqijohn.github.io/basis/map/map.html)
 - [一个小游戏看看你是不是色盲](https://zhangqijohn.github.io/basis/gameColor.html)
+- [中国地图](https://zhangqijohn.github.io/basis/chinaMap.html)
+- [中国城市三级联动](https://zhangqijohn.github.io/basis/city.html)
 
