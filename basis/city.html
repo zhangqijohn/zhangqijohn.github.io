@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>全国省市区三级联动</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+    <link rel="stylesheet" type="text/css" href="./css/city.css" />
+    <style type="text/css">
+        body{ background:#EEEEEE;margin:0; padding:0; font-family:"微软雅黑", Arial, Helvetica, sans-serif; }
+        a{ color:#006600; text-decoration:none;}
+        a:hover{color:#990000;}
+        .top{ margin:5px auto; color:#990000; text-align:center;}
+        .info select{ border:1px #993300 solid; background:#FFFFFF;}
+        .info{ margin:5px; text-align:center;}
+        .info #show{ color:#3399FF;height: 40px;line-height:30px; }
+        .bottom{ text-align:right; font-size:12px; color:#CCCCCC; width:1000px;}
+
+        .title{text-indent: 2em;}
+        .demo{width:80%; margin:20px auto}
+        .demo h3{height:32px; line-height:32px}
+        .demo p{line-height:24px}
+        pre{margin-top:10px; padding:6px; background:#f7f7f7}
+    </style>
+    <script src="./js/jquery-1.11.1.min.js?v=1" type="text/javascript"></script>
+</head>
+<body>
+<div class="container" id="main">
+    <h2 class="title">js省市区三级联动</h2>
+    <div class="info">
+        <div>
+            <select id="s_province" name="s_province"></select>
+            <select id="s_city" name="s_city" ></select>
+            <select id="s_county" name="s_county"></select>
+        </div>
+        <div id="show"></div>
+
+    </div>
+    <script src="./js/area.js"></script>
+    <script>_init_area();</script>
+    <script>
+        $("#s_county").change(function(){
+            $("#show").html("<h3>省:" + $('#s_province').val() + " - 市:" +$('#s_city').val() + " - 县/区:" +$('#s_county').val() + "</h3>");
+        });
+    </script>
+
+
+<P style="height: 1px;background-color: #dfdfdf"></P>
+
+
+    <h2 class="title">jQuery省市区三级联动</h2>
+    <div class="demo">
+        <h3>直接调用</h3>
+        <p>二级联动，默认选项为：请选择</p>
+        <div id="city_1">
+            <select class="prov"></select>
+            <select class="city" disabled="disabled"></select>
+        </div>
+        <p>三级联动，默认省份：南京，隐藏无数据的子级select</p>
+        <div id="city_2">
+            <select class="prov"></select>
+            <select class="city" disabled="disabled"></select>
+            <select class="dist" disabled="disabled"></select>
+        </div>
+                <pre>
+                    $("#city_1").citySelect({nodata:"none",required:false});
+                    $("#city_2").citySelect({prov:"南京",nodata:"none"});
+                </pre>
+    </div>
+
+    <div class="demo">
+        <h3>设置省份、城市、地区（县）的默认值</h3>
+        <p>二级联动</p>
+        <div id="city_3">
+            <select class="prov"></select>
+            <select class="city" disabled="disabled"></select>
+        </div>
+        <p>三级联动</p>
+        <div id="city_4">
+            <select class="prov"></select>
+            <select class="city" disabled="disabled"></select>
+            <select class="dist" disabled="disabled"></select>
+        </div>
+                <pre>
+                    $("#city_3").citySelect({prov:"江苏", city:"南京"});
+                    $("#city_4").citySelect({prov:"江苏", city:"南京", dist:"玄武区南京"});
+                </pre>
+    </div>
+
+    <div class="demo">
+        <h3>自定义下拉选项</h3>
+        <div id="city_5">
+            <select class="prov"></select>
+            <select class="city" disabled="disabled"></select>
+            <select class="dist" disabled="disabled"></select>
+        </div>
+                <pre>
+                    $("#city_5").citySelect({
+                        url:{"citylist":[
+                            {"p":"前端课程","c":[{"n":"HTML5"},{"n":"CSS3","a":[{"s":"HTML"},{"s":"AJAX"}]},{"n":"JSON"}]},
+                            {"p":"编程语言","c":[{"n":"C"},{"n":"C++"},{"n":"Python"},{"n":"PHP"},{"n":"JAVA"}]},
+                            {"p":"数据库","c":[{"n":"Mysql"},{"n":"SqlServer"},{"n":"Oracle"},{"n":"Mssql"}]},
+                        ]},
+                        prov:"",
+                        city:"",
+                        dist:"",
+                        nodata:"none"
+                    });
+                </pre>
+    </div>
+</div>
+<!--<div class="foot">本站为转载，转载原文链接：<a href="http://www.sucaihuo.com" target="_blank">www.sucaihuo.com</a></div>-->
+
+
+<script src="./js/jquery.cityselect.js" type="text/javascript" ></script>
+<script type="text/javascript">
+    $(function() {
+        $("#city_1").citySelect({
+            nodata: "none",
+            required: false
+        });
+        $("#city_2").citySelect({
+            prov: "南京",
+            nodata: "none"
+        });
+
+        $("#city_3").citySelect({
+            prov: "江苏",
+            city: "南京"
+        });
+        $("#city_4").citySelect({
+            prov: "江苏",
+            city: "南京",
+            dist: "玄武区南京",
+            nodata: "none"
+        });
+
+        $("#city_5").citySelect({
+            url: {"citylist": [
+                {"p": "前端课程", "c": [{"n": "HTML5"}, {"n": "CSS3", "a": [{"s": "HTML"}, {"s": "AJAX"}]}, {"n": "JSON"}]},
+                {"p": "编程语言", "c": [{"n": "C"}, {"n": "C++"}, {"n": "Python"}, {"n": "PHP"}, {"n": "JAVA"}]},
+                {"p": "数据库", "c": [{"n": "Mysql"}, {"n": "SqlServer"}, {"n": "Oracle"}, {"n": "Mssql"}]},
+            ]},
+            prov: "",
+            city: "",
+            dist: "",
+            nodata: "none"
+        });
+    });
+</script>
+
+
+</body>
+</html>
+
