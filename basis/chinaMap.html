@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECharts地图选择器</title>
+    <meta name="Keywords" content="study,学习练习"/>
+    <meta name="Description" content="这是个人学习网页"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="author" content="john_zhang" />
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:400px;width: 1000px;margin: 0 auto;"></div>
+<p id="wrong-message" style="color:red;text-align: center;">当前选择：浙江 </p>
+
+
+
+<script src="js/echarts.js"></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            //echarts: 'http://echarts.baidu.com/build/dist'
+            echarts: 'js'
+        }
+    });
+
+    // 使用
+    require(
+            [
+                'echarts',
+                'echarts/chart/map' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+
+                option = {
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: '{b}'
+                    },
+                    series : [
+                        {
+                            name: '中国',
+                            type: 'map',
+                            mapType: 'china',
+                            selectedMode : 'single',//multiple多选,single为单选
+                            itemStyle: {
+                                normal: {
+                                    label: {show: true}, //未选中省份字体显示
+                                    borderWidth: 1,//省份的边框宽度
+                                    borderColor: '#f60',//省份的边框颜色
+                                    color: '#ece2df'//地图背景颜色
+                                },
+                                emphasis:{//鼠标hover样式
+                                    label:{
+                                        show:true,
+                                        textStyle:{
+                                            color:'#fa4f04' //选中省份字体显示
+                                        }
+                                    }
+                                }
+                            },
+                            data:[
+                                {name:'浙江',selected:true}
+                            ]
+                        }
+                    ]
+                };
+                var ecConfig = require('echarts/config');
+                myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
+                    var selected = param.selected;
+                    var str = '当前选择： ';
+                    for (var p in selected) {
+                        if (selected[p]) {
+                            str += p + ' ';
+                        }
+                    }
+                    document.getElementById('wrong-message').innerHTML = str;
+                })
+                // 为echarts对象加载数据
+                myChart.setOption(option);
+            }
+    );
+</script>
+</body>
+
+</html>
