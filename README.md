@@ -25,4 +25,5 @@
 - [一个小游戏看看你是不是色盲](https://zhangqijohn.github.io/basis/gameColor.html)
 - [中国地图](https://zhangqijohn.github.io/basis/chinaMap.html)
 - [中国城市三级联动](https://zhangqijohn.github.io/basis/city.html)
+- [水印](https://zhangqijohn.github.io/basis/watermark.html)
 
