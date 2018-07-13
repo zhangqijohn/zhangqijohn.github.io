@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*reset*/
+        @charset"utf-8";
+        blockquote,body,dd,div,dl,dt,fieldset,form,h1,h2,h3,h4,h5,h6,iframe,input,li,ol,p,pre,td,textarea,th,ul{margin:0;padding:0}
+        li,ul{list-style:none}
+        a,a:active,a:hover,a:link,a:visited{text-decoration:none;cursor: pointer;}
+        img{border:none}
+        .clear{clear:both;height:0}
+        .fl{float:left;display:inline-block}
+        .fr{float:right;display:inline-block}
+        i{font-style: normal;}
+        .icon{background-image: url("https://img.ssl.q1.com/yzsy/images/v2/tubiao.png?v=1");background-repeat: no-repeat;}
+
+        body{background-color: #eef1f8;}
+        #one{padding: 10px 15px;background-color: #FFFFFF;background-size: 50%;background-position: center;opacity: 0.9;}
+        #two{padding: 10px 15px;background:url("https://img.ssl.q1.com/yzsy/images/index/v4/center1_v11.jpg");margin-top: 10px;position: relative;}
+        #three{padding: 10px 15px;-background-color: #FFFFFF;margin-top: 10px;}
+        #two-bg{position: absolute;top:0;right:0;left:0;z-index: 0;width: 200px;height: 200px;}
+        #two-bg img{width: 100%;}
+li{height: 56px;line-height: 60px;}
+    </style>
+</head>
+<body>
+<!--使用背景图添加水印-->
+<div id="one">
+    <p>这是一段文字</p>
+    <ul>
+        <li>这是第1个</li>
+        <li>这是第2个</li>
+        <li>这是第3个</li>
+        <li>这是第4个</li>
+        <li>这是第5个</li>
+    </ul>
+</div>
+<!--使用定位添加水印-->
+<div id="two">
+    <p>这是一大段文字照着找着做做做做做做做做做做做做做做做</p>
+    <ul>
+        <li>这是第1个</li>
+        <li>这是第2个</li>
+        <li>这是第3个</li>
+        <li>这是第4个</li>
+        <li>这是第5个</li>
+    </ul>
+    <!--图片透明 png格式的图片-->
+    <div id="two-bg"><img src="https://img.ssl.q1.com/yzsy/images/v2/tubiao.png?v=1"/></div>
+</div>
+<!---->
+<div id="three">
+    <p>看看看看扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩扩</p>
+    <ul>
+        <li>这是第1个</li>
+        <li>这是第2个</li>
+        <li>这是第3个</li>
+        <li>这是第4个</li>
+        <li>这是第5个</li>
+    </ul>
+</div>
+
+
+<script>
+    //https://blog.csdn.net/xuexizhe88/article/details/77453762
+    //
+    //1、若水印为文字，则mask_div.style.zIndex 值需为负数；若不为负数，则会覆盖其他小于该层级内容；
+    //2、若水印为图片，则传入动态水印内容为空
+    watermark({ watermark_txt: " " })//传入动态水印内容
+    function watermark(settings) {
+        //默认设置
+        var defaultSettings = {
+            watermark_txt: "text",
+            watermark_x: 100,//水印起始位置x轴坐标
+            watermark_y: 20,//水印起始位置Y轴坐标
+            watermark_rows: 20,//水印行数
+            watermark_cols: 20,//水印列数
+            watermark_x_space: 100,//水印x轴间隔
+            watermark_y_space: 50,//水印y轴间隔
+            watermark_color: '#000000',//水印字体颜色
+            watermark_alpha: 0.3,//水印透明度
+            watermark_fontsize: '18px',//水印字体大小
+            watermark_font: '微软雅黑',//水印字体
+            watermark_width: 120,//水印宽度
+            watermark_height: 80,//水印长度
+            watermark_angle: 25,//水印倾斜度数
+            watermark_background:"https://img.ssl.q1.com/yzsy/images/index/v4/logo2.png?v=1" //水印图
+        };
+        //采用配置项替换默认值，作用类似jquery.extend
+        if (arguments.length === 1 && typeof arguments[0] === "object") {
+            var src = arguments[0] || {};
+            for (key in src) {
+                if (src[key] && defaultSettings[key] && src[key] === defaultSettings[key])
+                    continue;
+                else if (src[key])
+                    defaultSettings[key] = src[key];
+            }
+        }
+
+        var oTemp = document.createDocumentFragment();
+
+        //获取页面最大宽度
+        var page_width = Math.min(document.body.scrollWidth-20, document.body.clientWidth-20);
+        //获取页面最大长度
+        var page_height = Math.min(document.body.scrollHeight, document.body.clientHeight);
+
+        //如果将水印列数设置为0，或水印列数设置过大，超过页面最大宽度，则重新计算水印列数和水印x轴间隔
+        if (defaultSettings.watermark_cols == 0 ||
+                (parseInt(defaultSettings.watermark_x
+                        + defaultSettings.watermark_width * defaultSettings.watermark_cols
+                        + defaultSettings.watermark_x_space * (defaultSettings.watermark_cols - 1))
+                > page_width)) {
+            defaultSettings.watermark_cols =
+                    parseInt((page_width
+                            - defaultSettings.watermark_x
+                            + defaultSettings.watermark_x_space)
+                            / (defaultSettings.watermark_width
+                            + defaultSettings.watermark_x_space));
+            defaultSettings.watermark_x_space =
+                    parseInt((page_width
+                            - defaultSettings.watermark_x
+                            - defaultSettings.watermark_width
+                            * defaultSettings.watermark_cols)
+                            / (defaultSettings.watermark_cols - 1));
+        }
+        //如果将水印行数设置为0，或水印行数设置过大，超过页面最大长度，则重新计算水印行数和水印y轴间隔
+        if (defaultSettings.watermark_rows == 0 ||
+                (parseInt(defaultSettings.watermark_y
+                        + defaultSettings.watermark_height * defaultSettings.watermark_rows
+                        + defaultSettings.watermark_y_space * (defaultSettings.watermark_rows - 1))
+                > page_height)) {
+            defaultSettings.watermark_rows =
+                    parseInt((defaultSettings.watermark_y_space
+                            + page_height - defaultSettings.watermark_y)
+                            / (defaultSettings.watermark_height + defaultSettings.watermark_y_space));
+            defaultSettings.watermark_y_space =
+                    parseInt((page_height
+                            - defaultSettings.watermark_y
+                            - defaultSettings.watermark_height
+                            * defaultSettings.watermark_rows)
+                            / (defaultSettings.watermark_rows - 1));
+        }
+        var x;
+        var y;
+        for (var i = 0; i < defaultSettings.watermark_rows; i++) {
+            y = defaultSettings.watermark_y + (defaultSettings.watermark_y_space + defaultSettings.watermark_height) * i;
+            for (var j = 0; j < defaultSettings.watermark_cols; j++) {
+                x = defaultSettings.watermark_x + (defaultSettings.watermark_width + defaultSettings.watermark_x_space) * j;
+
+                var mask_div = document.createElement('div');
+                mask_div.id = 'mask_div' + i + j;
+                mask_div.appendChild(document.createTextNode(defaultSettings.watermark_txt));
+                //设置水印div倾斜显示
+                mask_div.style.webkitTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+                mask_div.style.MozTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+                mask_div.style.msTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+                mask_div.style.OTransform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+                mask_div.style.transform = "rotate(-" + defaultSettings.watermark_angle + "deg)";
+                mask_div.style.visibility = "";
+                mask_div.style.position = "absolute";
+                mask_div.style.left = x + 'px';
+                mask_div.style.top = y + 'px';
+                mask_div.style.overflow = "hidden";
+                mask_div.style.zIndex = "99";
+                //mask_div.style.border="solid #eee 1px";
+                mask_div.style.opacity = defaultSettings.watermark_alpha;
+                mask_div.style.fontSize = defaultSettings.watermark_fontsize;
+                mask_div.style.fontFamily = defaultSettings.watermark_font;
+                mask_div.style.color = defaultSettings.watermark_color;
+                mask_div.style.textAlign = "center";
+                mask_div.style.width = defaultSettings.watermark_width + 'px';
+                mask_div.style.height = defaultSettings.watermark_height + 'px';
+                mask_div.style.display = "block";
+                mask_div.style.background="url("+defaultSettings.watermark_background+") no-repeat";
+                mask_div.style.backgroundSize="contain";
+                oTemp.appendChild(mask_div);
+
+            }
+            ;
+        }
+        ;
+        document.body.appendChild(oTemp);
+    }
+</script>
+<!--
+<script src="https://css2.ssl.q1.com/jquery/jquery-1.11.1.min.js?v=2018051103" type="text/javascript"></script>
+<script>
+    /**
+     * 文字加图片水印效果
+     * id 要加水印的区域
+     * watermarkImg 水印为图片的图片url
+     * watermarkText 水印文字
+     */
+    //作者：不飞不鸣之鸟
+    //链接：https://www.jianshu.com/p/75121c278ef9
+    //來源：简书
+    //简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+    watermarkWord("https://img.ssl.q1.com/yzsy/images/v2/tubiao.png?v=1","" ) ;
+    function watermarkWord(watermarkImg , watermarkText) {
+        var screenHeight = window.screen.height
+        var watermarkImg = watermarkImg ;
+        var watermarkText =  watermarkText;
+
+        if (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/9./i) == "9.") {
+            var step = 180 / 480 * screenHeight;
+            for (var i = 0; i <= parseInt($("body").height() / step); i++) {
+                $('body').append('<div style="z-index:-999;width:100%;text-align:center;opacity:0.2;color:#000;position:absolute;top:' + step * (i) + 'px;font-size:2em;transform:rotate(-30deg); -ms-transform:rotate(-30deg); -o-tranform:rotate(-30deg); -webkit-transform:rotate(-30deg); -moz-transform:rotate(-30deg);filter:progid:DXImageTransform.Microsoft.Alpha(opacity=10));">' + watermarkText + '<br /><img style="width:8em;" src="' + watermarkImg + '" /></div>');
+            }
+        } else {
+            var step = 180 / 480 * screenHeight;
+            for (var i = 0; i <= parseInt($("body").height() / step); i++) {
+                $('body').append('<div style="z-index:-999;width:100%;text-align:center;opacity:0.5;color:#000;position:absolute;top:' + step * (i) + 'px;font-size:2em;transform:rotate(-30deg); -ms-transform:rotate(-30deg); -o-tranform:rotate(-30deg); -webkit-transform:rotate(-30deg); -moz-transform:rotate(-30deg);filter:progid:DXImageTransform.Microsoft.Alpha(opacity=10) progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\', M11=0.866025404, M12=0.5, M21=-0.5, M22=0.866025404);">' + watermarkText + '<br /><img  style="width:8em;" src="' + watermarkImg + '" /></div>');
+            }
+        }
+    }
+
+</script>-->
+</body>
+</html>
