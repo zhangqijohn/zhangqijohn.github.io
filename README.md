@@ -1,4 +1,4 @@
-# study
+﻿# study
 这是一个个人学习目录。
 
 ###css3练习
@@ -26,4 +26,6 @@
 - [中国地图](https://zhangqijohn.github.io/basis/chinaMap.html)
 - [中国城市三级联动](https://zhangqijohn.github.io/basis/city.html)
 - [水印](https://zhangqijohn.github.io/basis/watermark.html)
+
+###ES6
 
