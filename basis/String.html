@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>字符串属性和方法</title>
+</head>
+<body>
+
+<br/>字符串属性
+<br/>属性	描述
+<br/>constructor	返回创建字符串属性的函数
+<br/>length	返回字符串的长度
+<br/>prototype	允许您向对象添加属性和方法
+
+<br/>charAt()	返回指定索引位置的字符
+<br/>charCodeAt()	返回指定索引位置字符的 Unicode 值
+<br/>concat()	连接两个或多个字符串，返回连接后的字符串
+<br/>fromCharCode()	将 Unicode 转换为字符串
+<br/>indexOf()	返回字符串中检索指定字符第一次出现的位置
+<br/>lastIndexOf()	返回字符串中检索指定字符最后一次出现的位置
+<br/>localeCompare()	用本地特定的顺序来比较两个字符串
+<br/>match()	找到一个或多个正则表达式的匹配
+<br/>replace()	替换与正则表达式匹配的子串
+<br/>search()	检索与正则表达式相匹配的值
+<br/>slice()	提取字符串的片断，并在新的字符串中返回被提取的部分
+<br/>split()	把字符串分割为子字符串数组
+<br/>substr()	从起始索引号提取字符串中指定数目的字符
+<br/>substring()	提取字符串中两个指定的索引号之间的字符
+<br/>toLocaleLowerCase()	根据主机的语言环境把字符串转换为小写，只有几种语言（如土耳其语）具有地方特有的大小写映射
+<br/>toLocaleUpperCase()	根据主机的语言环境把字符串转换为大写，只有几种语言（如土耳其语）具有地方特有的大小写映射
+<br/>toLowerCase()	把字符串转换为小写
+<br/>toString()	返回字符串对象值
+<br/>toUpperCase()	把字符串转换为大写
+<br/>trim()	移除字符串首尾空白
+<br/>valueOf()	返回某个字符串对象的原始值
+<br/>
+
+<p id="p1">animate</p>
+
+
+<script>
+var a = new String()
+var txt = "Hello World";
+txt.constructor     // function String() { [native code] }
+txt.length          //11
+txt.charAt(0)       //H
+txt.charCodeAt(0)   //72
+txt.concat("!")     //Hello World!
+
+//string.indexOf(searchvalue,start)
+//searchvalue	必需。规定需检索的字符串值。
+//start	可选的整数参数。规定在字符串中开始检索的位置。它的合法取值是 0 到 string Object.length - 1。如省略该参数，则将从字符串的首字符开始检索
+//返回值 Number	查找指定字符串第一次出现的位置，如果没找到匹配的字符串则返回 -1。
+txt.indexOf("W")    //7
+txt.lastIndexOf("l") //9
+
+// string.search(searchvalue)
+//searchvalue	必须。查找的字符串或者正则表达式。
+//Number	与指定查找的字符串或者正则表达式相匹配的 String 对象起始位置。
+txt.search("W")
+
+//首先要明确search()的参数必须是正则表达式，而indexOf()的参数只是普通字符串。indexOf()是比search()更加底层的方法。
+//如果只是对一个具体字符串来查找，那么使用indexOf()的系统资源消耗更小，效率更高；如果是查找具有某些特征的字符串（比如查找以a开头，后面是数字的字符串），那么indexOf()就无能为力，必须要使用正则表达式和search()方法了。
+
+
+
+//string.match(regexp)
+//参数值  regexp	必需。规定要匹配的模式的 RegExp 对象。如果该参数不是 RegExp 对象，则需要首先把它传递给 RegExp 构造函数，将其转换为 RegExp 对象。
+//返回值  Array	存放匹配结果的数组。该数组的内容依赖于 regexp 是否具有全局标志 g。 如果没找到匹配结果返回 null 。
+txt.match(/rld/ig)  //[rld]
+
+//string.replace(searchvalue,newvalue)
+txt.replace("World","john") // "Hello john";
+
+
+//string.split(separator,limit)
+//separator	可选。字符串或正则表达式，从该参数指定的地方分割 string Object。
+//limit	可选。该参数可指定返回的数组的最大长度。如果设置了该参数，返回的子串不会多于这个参数指定的数组。如果没有设置该参数，整个字符串都会被分割，不考虑它的长度。
+txt.split("")  //["Hello", "World"]
+
+
+//string.slice(start,end)
+//start	必须. 要抽取的片断的起始下标。第一个字符位置为 0
+//end	可选。 紧接着要截取的片段结尾的下标。若未指定此参数，则要提取的子串包括 start 到原字符串结尾的字符串。如果该参数是负数，那么它规定的是从字符串的尾部开始算起的位置。
+txt.slice(1,5) //ello
+
+//string.substr(start,length)
+//start	必需。要抽取的子串的起始下标。必须是数值。如果是负数，那么该参数声明从字符串的尾部开始算起的位置。也就是说，-1 指字符串中最后一个字符，-2 指倒数第二个字符，以此类推。
+//length	可选。子串中的字符数。必须是数值。如果省略了该参数，那么返回从 stringObject 的开始位置到结尾的字串。
+
+txt.substr(1,5) //ello
+
+//string.substring(from, to)
+//from	必需。一个非负的整数，规定要提取的子串的第一个字符在 string Object 中的位置。
+//to	可选。一个非负的整数，比要提取的子串的最后一个字符在 string Object 中的位置多 1。如果省略该参数，那么返回的子串会一直到字符串的结尾。
+
+txt.substring(1,5) //ello
+// 与 slice() 和 substr() 方法不同的是，substring() 不接受负的参数。
+// https://www.cnblogs.com/imelemon/p/6035810.html
+
+
+txt.toLowerCase(); //hell world
+txt.toUpperCase(); //HELLO WORLD;
+
+//string.valueOf()
+//valueOf() 方法可返回 String 对象的原始值。
+//注意： valueOf() 方法通常由 JavaScript 在后台自动进行调用，而不是显式地处于代码中。
+ txt.valueOf() //Hello World
+
+var txt = "Hello World";
+var a1 = txt.split().join();
+
+console.log(a1) // Hello World
+
+
+var txt = "Hello World!";
+document.write("<p>字体变大: " + txt.big() + "</p>");
+document.write("<p>字体缩小: " + txt.small() + "</p>");
+document.write("<p>字体加粗: " + txt.bold() + "</p>");
+document.write("<p>斜体: " + txt.italics() + "</p>");
+document.write("<p>固定定位: " + txt.fixed() + "</p>");
+document.write("<p>加删除线: " + txt.strike() + "</p>");
+document.write("<p>字体颜色: " + txt.fontcolor("green") + "</p>");
+document.write("<p>字体大小: " + txt.fontsize(6) + "</p>");
+document.write("<p>下标: " + txt.sub() + "</p>");
+document.write("<p>上标: " + txt.sup() + "</p>");
+document.write("<p>链接: " + txt.link("http://www.w3cschool.cc") + "</p>");
+document.write("<p>闪动文本: " + txt.blink() + " (不能用于IE,Chrome,或者Safari)</p>");
+
+
+</script>
+
+
+</body>
+</html>

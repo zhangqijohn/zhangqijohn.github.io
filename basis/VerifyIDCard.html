@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js校验身份证</title>
+    <style>
+        #idIpt{width:380px;line-height: 36px;font-size:20px;}
+    </style>
+</head>
+<body>
+<div>
+    <input id="idIpt" type="text" maxlength="18" placeholder="大侠，这里测试你的身份证">
+    <span id="idIptTips"></span>
+</div>
+<pre>
+    <code>
+
+用js教你校验身份证
+
+【身份证号码的规则】
+6位地方代码+8位出生年月日数字+2位顺序码+1位性别代码+1位校验码
+
+1）地方代码:
+地方代码的前两位由特定的省份代码组成，至于原理呢...没有，我们并不需要纠结或者记住来源，只需要校验输入身份证号中的前两位是否在这些省份代码里即可；
+地区代码为何只校验前两位，是因为三四位是市级代码、五六位是县级代码，这些代码数量众多，一一校验会很耗费性能，而在后面的校验码和顺序码的校验会涉及到前面17位，
+因此只要前面有一位数字是错误的都会导致生成的校验码是错误的，因此校验也不能通过，故而只校验前两位。
+
+{
+11:"北京",12:"天津",13:"河北",
+14:"山西",15:"内蒙古",21:"辽宁",
+22:"吉林",23:"黑龙江 ",31:"上海",
+32:"江苏",33:"浙江",34:"安徽",
+35:"福建",36:"江西",37:"山东",
+41:"河南",42:"湖北 ",43:"湖南",
+44:"广东",45:"广西",46:"海南",
+50:"重庆",51:"四川",52:"贵州",
+53:"云南",54:"西藏 ",61:"陕西",
+62:"甘肃",63:"青海",64:"宁夏",
+65:"新疆",71:"台湾",81:"香港",
+82:"澳门",91:"国外 "};
+
+于是我们可以定义一个省份代码数组,并且编写一个校验前两位的函数：
+var checkCityNoIsOk=function (cityNo) {
+var provinceCodeArr = [
+"11", "12", "13", "14", "15", "21",
+"22", "23", "31", "32", "33", "34",
+"35", "36", "37", "41", "42", "43",
+"44", "45", "46", "50", "51", "52",
+"53", "54", "61", "62", "63", "64",
+"65", "71", "81", "82", "91"
+];
+for (var i = 0; i < provinceCodeArr.length; i++) {
+    if (cityNo == provinceCodeArr[i]) {
+        return true;
+    }
+}
+    return false;
+}
+
+有了这个函数，地方代码的校验就妥妥的了，网友可能会疑惑，地方代码不是6位吗，为什么只校验前两位就可以了呢？别急，先走下一个环节
+
+2）出生年月日
+出生年月日没什么玄机的，只要校验出年月日是标准的年月日即可，于是我们可以创建一个函数来校验年月日的，如下
+var checkBirthIsOk=function(year,month,day){
+    try{
+        //获取年龄
+        var age = Math.round( (nowdate - bir) / (365 * 24 * 60 * 60 * 1000));
+        if(age>=18){
+            return true;
+        }
+    }
+    catch(e){
+    //一切不标准的年月日都会抛出异常
+        return false;
+    }
+    return false;
+}
+代码中有18岁的校验，是因为以前的要求是成年人才有身份证，现在貌似一出生就有身份证号了，如果真是这样，则把18岁的判断限制去掉即可。
+
+3）顺序码：
+表示在同一省份代码所标识的区域范围内，对同年同月同日出生的人编定的顺序号，顺序码的奇数为男，偶数为女
+
+4）校验码:
+校验码是根据前面17位数字码，按照ISO 7064:1983.MOD 11-2校验码计算出来的检验码
+算出来的校验码范围为1-10但是如果是10为了遵循18位身份证号的规则，就得用X来替代10，这就解释了为什么
+有些身份证号码最后一位是X
+校验码的规则是：
+1.身份证的前17位，每一位乘以一个相应的加权因子
+他们对应的因子为[7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]
+2.得出新的17位数相加。
+3.用加出来和除以11求余数
+4.余数对应校验表[1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2],其中10展现为X
+5.得到余数对应校验表。比如余数是0则结果1  余数是4结果是9...
+于是我们可以创建一个函数来校验：
+var checkFactorIsOk=function(idCardNo){
+var factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];// 加权因子
+var checktable = [1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2];// 校验值对应表
+var checksum = 0;
+var befor17 = idCardNo.substr(0, 17);
+for (var i = 0; i < 17; i++) {
+var num = parseInt(befor17.substr(i, 1)) * factor[i];
+checksum += num;
+}
+//结果求余
+var yushu = checksum % 11;
+// 余数只可能有0 1 2 3 4 5 6 7 8 9 10这11个数字
+if (yushu > 10) {
+    return false;
+}
+var s = checktable[yushu];
+var checkNoStr = idCardNo.substr(17, 1);
+if (checkNoStr) {
+// 如果是“X”或者“x” 第二位 则只能对应 对应表的 10
+if (checkNoStr == "X" || checkNoStr == "Ｘ") {
+    if (s == 10) {
+        return true;
+    } else {
+        return false;
+    }
+}
+// 如果不是字母，则最后一位分别对应 对应表 即可
+else if (parseInt(checkNoStr) == s) {
+        return true;
+    } else {
+        return false;
+    }
+}
+}
+
+
+最终完整的代码如下：
+var checkIdCardIsOk = function (idcardNo) {
+//校验省份代码
+var checkCityNoIsOk = function (cityNo) {
+var provinceCodeArr = [
+"11", "12", "13", "14", "15", "21",
+"22", "23", "31", "32", "33", "34",
+"35", "36", "37", "41", "42", "43",
+"44", "45", "46", "50", "51", "52",
+"53", "54", "61", "62", "63", "64",
+"65", "71", "81", "82", "91"
+];
+for (var i = 0; i < provinceCodeArr.length; i++) {
+    if (cityNo == provinceCodeArr[i]) {
+        return true;
+    }
+}
+return false;
+}
+//校验出生日期
+var checkBirthIsOk = function (year, month, day) {
+try {
+//获取年龄
+var nowdate=new Date();
+var bir = new Date(bstr.substring(0, 4), bstr.substring(4, 6), bstr.substring(6, 8));
+var age = Math.round((nowdate - bir) / (365 * 24 * 60 * 60 * 1000));
+    if (age >= 18) {
+        return true;
+    }
+}
+catch (e) {
+        //一切不标准的年月日都会抛出异常
+        return false;
+    }
+    return false;
+}
+//校验顺序码和校验码
+var checkFactorIsOk = function (idCardNo) {
+var factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];// 加权因子
+var checktable = [1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2];// 校验值对应表
+var checksum = 0;
+var befor17 = idCardNo.substr(0, 17);
+for (var i = 0; i < 17; i++) {
+    var num = parseInt(befor17.substr(i, 1)) * factor[i];
+    checksum += num;
+}
+//结果求余
+var yushu = checksum % 11;
+// 余数只可能有0 1 2 3 4 5 6 7 8 9 10这11个数字
+if (yushu > 10) {
+    return false;
+}
+var s = checktable[yushu];
+var checkNoStr = idCardNo.substr(17, 1);
+if (checkNoStr) {
+    // 如果是“X”或者“x” 第二位 则只能对应 对应表的 10
+    if (checkNoStr == "X" || checkNoStr == "Ｘ") {
+        if (s == 10) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // 如果不是字母，则最后一位分别对应 对应表 即可
+    else if (parseInt(checkNoStr) == s) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+if (!idcardNo) {
+    return false;
+}
+idcardNo = idcardNo.toUpperCase();
+//整体校验
+var isMatch = (/^(\d{17})([0-9]|X)$/.test(idcardNo));
+if (!isMatch) {
+    return false;
+}
+//省份代码校验
+var city = idcardNo.substr(0, 2);
+if (!checkCityNoIsOk(city)) {
+    return false;
+}
+//出生年月日校验
+var bstr = idcardNo.substr(6, 8);
+var year = bstr.substring(0, 4);
+var month = bstr.substring(4, 6);
+var day = bstr.substring(6, 8);
+
+if (!checkBirthIsOk(year, month, day)) {
+    return false;
+}
+//校验码+顺序码校验
+if (!checkFactorIsOk(idcardNo)) {
+    return false;
+}
+return true;
+}
+
+使用方法：
+var isok=checkIdCardIsOk("45258119860923393X");
+console.log(isok);//false
+
+    </code>
+</pre>
+<script>
+    function checkIdCardIsOk(idcardNo) {
+
+        //校验省份代码
+
+        var checkCityNoIsOk = function (cityNo) {
+
+            var provinceCodeArr = [
+
+                "11", "12", "13", "14", "15", "21",
+
+                "22", "23", "31", "32", "33", "34",
+
+                "35", "36", "37", "41", "42", "43",
+
+                "44", "45", "46", "50", "51", "52",
+
+                "53", "54", "61", "62", "63", "64",
+
+                "65", "71", "81", "82", "91"
+
+            ];
+
+            for (var i = 0; i < provinceCodeArr.length; i++) {
+
+                if (cityNo == provinceCodeArr[i]) {
+
+                    return true;
+
+                }
+
+            }
+
+            return false;
+
+        }
+
+//校验出生日期
+
+        var checkBirthIsOk = function (year, month, day) {
+
+            try {
+
+                //获取年龄
+
+                var nowdate=new Date();
+
+                var bir = new Date(bstr.substring(0, 4), bstr.substring(4, 6), bstr.substring(6, 8));
+
+                var age = Math.round((nowdate - bir) / (365 * 24 * 60 * 60 * 1000));
+
+                if (age >= 18) {
+
+                    return true;
+
+                }
+
+            }
+
+            catch (e) {
+
+                //一切不标准的年月日都会抛出异常
+
+                return false;
+
+            }
+
+            return false;
+
+        }
+
+//校验顺序码和校验码
+
+        var checkFactorIsOk = function (idCardNo) {
+
+            var factor = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];// 加权因子
+
+            var checktable = [1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2];// 校验值对应表
+
+            var checksum = 0;
+
+            var befor17 = idCardNo.substr(0, 17);
+
+            for (var i = 0; i < 17; i++) {
+
+                var num = parseInt(befor17.substr(i, 1)) * factor[i];
+
+                checksum += num;
+
+            }
+
+            //结果求余
+
+            var yushu = checksum % 11;
+
+            // 余数只可能有0 1 2 3 4 5 6 7 8 9 10这11个数字
+
+            if (yushu > 10) {
+
+                return false;
+
+            }
+
+            var s = checktable[yushu];
+
+            var checkNoStr = idCardNo.substr(17, 1);
+
+            if (checkNoStr) {
+
+                // 如果是“X”或者“x” 第二位 则只能对应 对应表的 10
+
+                if (checkNoStr == "X" || checkNoStr == "Ｘ") {
+
+                    if (s == 10) {
+
+                        return true;
+
+                    } else {
+
+                        return false;
+
+                    }
+
+                }
+
+                // 如果不是字母，则最后一位分别对应 对应表 即可
+
+                else if (parseInt(checkNoStr) == s) {
+
+                    return true;
+
+                } else {
+
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        if (!idcardNo) {
+
+            return false;
+
+        }
+
+        idcardNo = idcardNo.toUpperCase();
+
+        //整体校验
+
+        var isMatch = (/^(\d{17})([0-9]|X)$/.test(idcardNo));
+
+        if (!isMatch) {
+
+            return false;
+
+        }
+
+        //省份代码校验
+
+        var city = idcardNo.substr(0, 2);
+
+        if (!checkCityNoIsOk(city)) {
+
+            return false;
+
+        }
+
+        //出生年月日校验
+
+        var bstr = idcardNo.substr(6, 8);
+
+        var year = bstr.substring(0, 4);
+
+        var month = bstr.substring(4, 6);
+
+        var day = bstr.substring(6, 8);
+
+
+
+        if (!checkBirthIsOk(year, month, day)) {
+
+            return false;
+
+        }
+
+        //校验码+顺序码校验
+
+        if (!checkFactorIsOk(idcardNo)) {
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
+
+    //测试走一波
+    var idIpt = document.getElementById("idIpt");
+    var idIptTips = document.getElementById("idIptTips");
+    idIpt.onkeyup = function(){
+        var  idIptValue = this.value = this.value.replace(/\D/g,'');
+        if(checkIdCardIsOk(idIptValue)){
+            idIptTips.innerHTML="ok";
+        }else{
+            idIptTips.innerHTML="大虾，你输入的身份证号码不正确";
+        }
+    }
+
+
+</script>
+</body>
+</html>
