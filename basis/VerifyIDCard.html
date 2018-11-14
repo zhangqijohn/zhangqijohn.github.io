@@ -439,8 +439,8 @@ console.log(isok);//false
     var idIpt = document.getElementById("idIpt");
     var idIptTips = document.getElementById("idIptTips");
     idIpt.onkeyup = function(){
-        var  idIptValue = this.value = this.value.replace(/\D/g,'');
-        if(checkIdCardIsOk(idIptValue)){
+        //var  idIptValue = this.value  = this.value.replace(/\D/g,'');
+        if(checkIdCardIsOk(this.value)){
             idIptTips.innerHTML="ok";
         }else{
             idIptTips.innerHTML="大虾，你输入的身份证号码不正确";
