@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scroll</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        .parentBox{}
+        .childBox{width: 100%;height: 300px;border: 1px solid red;}
+        .childBox.doSomething{text-align: right;transition: all 3s; }
+    </style>
+</head>
+<body>
+
+<div class="parentBox">
+    <div class="childBox box1">
+            Just do it
+    </div>
+    <div class="childBox box2">
+        Anything is possible
+    </div>
+    <div class="childBox box3">
+        Nothing is inpossible
+    </div>
+    <div class="childBox box4">
+        HELLO WORLD!
+    </div>
+    <div class="childBox box5">
+        YES,YOU ARE RIGHT!
+    </div>
+    <div class="childBox box6">
+        SURE,No problem.
+    </div>
+
+</div>
+
+<script>
+
+var glb = {
+    getTop: function (e) {
+        var offset = e.offsetTop;
+        if (e.offsetParent != null) offset += glb.getTop(e.offsetParent);
+        return offset;
+    },
+    //获取元素的横坐标
+    getLeft: function (e) {
+        var offset = e.offsetLeft;
+        if (e.offsetParent != null) offset += glb.getLeft(e.offsetParent);
+        return offset;
+    },
+
+    //监听冒泡事件
+    //dom对象，事件类型，调用方法
+    addHandler: function (element, type, handler) {
+        if (element.addEventListener) {
+            element.addEventListener(type, handler, false);
+        }
+        else if (element.attachEvent) {
+            element.attachEvent("on" + type, handler);
+        }
+        else {
+            element["on" + type] = handler;
+        }
+    },
+    //删除监听冒泡事件
+    //dom对象，事件类型，调用方法
+    removeHandler: function (element, type, handler) {
+        if (element.removeEventListener) {
+            element.removeEventListener(type, handler, false);
+        }
+        else if (element.detachEvent) {
+            element.detachEvent("on" + type, handler);
+        }
+        else {
+            element["on" + type] = null;
+        }
+    },
+    getScrollTop:function (){
+        var scrollTop=0;
+        if(document.documentElement&&document.documentElement.scrollTop){
+            scrollTop=document.documentElement.scrollTop;
+        }else if(document.body){
+            scrollTop=document.body.scrollTop;
+        }
+        return scrollTop;
+    },
+
+    doSomeThing:function (el){
+        var elTop = glb.getTop(el);
+        var elLeft = glb.getLeft(el);
+        var sTop = glb.getScrollTop();
+        var windowTop = window.innerHeight;
+
+
+        if(true){
+            console.log(windowTop)
+        }
+
+    }
+};
+
+window.onscroll = function () {
+    var childBox = document.getElementsByClassName("childBox")[3];
+    glb.doSomeThing(childBox)
+}
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+1、npm i webpack -d   安装webpack
+
+2、npm i webpack-cli -d    安装webpack-cli
+
+3、npm init -y    初始化
+
+4、npm i jquery -s
+
+5、npm i html-webpack-plugin -d   html
+
+6、npm i style-loader css-loader -d  css
+
+7、npm i url-loader file-loader -d  css image
+
+8、npm i html-withimg-loader -d   html image
+
+9、npm i mini-css-extract-plugin -d  css分离
+
+10、npm i clean-webpack-plugin -d  删除
+
+11、npm i optimize-css-assets-webpack-plugin -d 压缩css
+
+10、webpack
+
+
+
+
