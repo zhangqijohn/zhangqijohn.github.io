@@ -14,7 +14,7 @@
 ### 手机端
 - [拼图小游戏](https://zhangqijohn.github.io/basis/h5/gamepintu.html)
 - [轮播图](https://zhangqijohn.github.io/basis/h5/force.html)
-200
+
 ### 其它demo
 - [判断滚动方向](https://zhangqijohn.github.io/basis/scrollFunc.html)
 - [模拟滚动条](https://zhangqijohn.github.io/basis/AnalogScrollBar.html)
