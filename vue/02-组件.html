@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>局部组件的创建</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="app"></div>
+<div id="app1"></div>
+
+<script>
+    //声子 挂子 用子
+   //  var App = {
+   //      data(){return{}},
+   //      methods:{
+   //          clickhands(){
+   //              console.log(this)
+   //          }
+   //      },
+   //      template:`
+   //          <div>
+   //              <p>this is p</p>
+   //              <button @click="clickhands">click</button>
+   //          </div>
+   //      `
+   //  }
+   // var vm1 =  new Vue({
+   //     el:"#app",
+   //     data(){return{
+   //
+   //     }},
+   //     components:{myApp:App},
+   //     template:"<myApp></myApp>"
+   //
+   // })
+
+    //全局组件
+    Vue.component('component-a', {
+             methods:{
+                 clickhands(){
+                     console.log(this)
+                 }
+             },
+             template:`
+    m                                             <div>
+                     <p>this is component-a</p>
+                     <button @click="clickhands">click</button>
+                 </div>
+             `
+    })
+    Vue.component('component-b', {data(){return{}},template:`this is component-b` })
+    Vue.component('component-c', {data(){return{}},template:`this is component-b`})
+
+   var vm2 = new Vue({ el: '#app1',
+        template:`<component-a/><component-b/><component-c/>`
+    })
+</script>
+
+
+
+</body>
+</html>

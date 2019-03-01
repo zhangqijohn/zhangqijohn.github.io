@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>路由匹配</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <h2>hello Vue</h2>
+    <p>
+        <router-link :to="{name:'login',params:{id:1}}">登录</router-link>
+        <router-link :to="{name:'register',query:{userId:2}}">注册</router-link>
+    </p>
+    <router-view></router-view>
+</div>
+<pre>
+    路由的使用
+    1.引入包，两个全局的组件 router-link to(相当于a href) 、router-view(匹配路由组件的出口)
+    2.创建实例化VueRouter对象
+    3.匹配路由规则
+    4.挂载new Vue()实例化对象中
+
+    给vue实例化对象挂载了两个对象 this.$router(它就是VueRouter) this.$route(配置路由信息的对象)
+    this.$route.params 、 this.$route.query
+
+
+     路由的参数
+        path:'/user/:id'
+        :to = {name:'路由的名字',params:{'id':1}}
+        :to = {name:'路由的名字',query:{'id':1}}
+
+     嵌套路由（应用子的路由是不同的结构）
+    /home/user ===> /home/register
+    一个router-view中嵌套另一个router-view
+</pre>
+
+<script>
+
+    //路由范式
+    //1.xxx.html#/user/1 params 动态路由参数
+    //2.xxx.html#/user?userId=1 query
+
+    var  login = {
+        template: '<div>login</div>',
+        created(){
+            console.log(this.$route.params)
+        }
+    }
+    var register = { template: '<div>register</div>',
+        created(){
+            console.log(this.$route.query)
+        } }
+    // const routes = [
+    //     { path: '/login', component: login ,name:"login"},
+    //     { path: '/register', component: register,name:"register" }
+    // ]
+    const router = new VueRouter({
+        //routes // (缩写) 相当于 routes: routes
+        routes:[
+            //动态路由
+            { path: '/login/:id',name:"login", component: login },
+            { path: '/register',name:"register", component: register }
+        ]
+    })
+    const app = new Vue({
+        router
+    }).$mount('#app')
+
+
+</script>
+
+</body>
+</html>

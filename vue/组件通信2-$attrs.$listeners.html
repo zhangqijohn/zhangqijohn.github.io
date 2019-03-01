@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件通信2</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div>
+    1.多组件的嵌套，中间组件  可使用v-bind="$attrs" v-on="$listeners" 接受与传递通信
+
+</div>
+
+<div id="app1"></div>
+
+<script>
+    //多组件的嵌套
+    //1.先在父组件绑定自定义的事件childHandler
+    //2.中间组件  可使用v-bind="$attrs" v-on="$listeners" 接受与传递通信
+    //3.在子组件中触发原生的事件 在函数中使用$emit触发自定义的childHandler
+
+
+    //子组件
+    Vue.component('D', {
+        props:["msgBind"],
+        data(){return{
+            msgC:this.msgBind //'123'
+        }},
+        template:`
+            <div>
+                子组件:
+                <input  type="text" v-model="msgC" @input="changeValue(msgC)" v-bind="$attrs" >{{msgC}}
+            </div>
+        `,
+        methods:{
+            changeValue(val){
+                this.$emit('getCData',val)
+            }
+        }
+
+    });
+    Vue.component('C', {
+        data(){return{ }},
+        template:`<D v-bind="$attrs" v-on="$listeners"></D>`
+    });
+    Vue.component('B', {
+        data(){return{ }},
+        template:`<C v-bind="$attrs" v-on="$listeners"></C>`
+    });
+    Vue.component('A', {
+        data(){return{ }},
+        porps:['msg'],
+        template:`<B v-bind="$attrs" v-on="$listeners"></B>`
+    });
+    var app={
+        data(){return{msg:"父组件数据!"}},
+        template:`
+            <div>
+                <p>这是父组件:{{msg}}</p>
+                <A v-bind:msgBind="msg" v-on:getCData="getCDataFn"></A>
+            </div>
+        `,
+        methods: {
+            getCDataFn(val){
+                this.msg = val
+            }
+        }
+    }
+
+    var vm = new Vue({ el: '#app1',
+        components:{app},
+        template:`<app></app>`
+    })
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+    var app = {
+        data(){return{
+            isShow:false
+        }},
+        template: `
+            <div class="app">
+                <button ref="btn1">我是按钮1</button>
+
+                <input type="text" placeholder="修改数据后自动获取焦点" ref="ipt1" v-show="isShow">
+            </div>
+        `,
+        mounted(){
+            //如果是标签绑定 ref='xxx'属性，使用this.$refs.xxx来获取原生的jsDom对象；
+            // ref属性值不能重名，若重名，获取到的为最后一个Dom对象
+            //如果是给组件绑定ref属性，那么this.$refs.xxx获取的是当前组件的对象
+            console.log(this.$refs.btn1)
+
+            //$nextTick() 是在Dom更新循环结束之后执行回调函数，在修改数据之后使用此方法，在回调之后获取到更新之后的Dom
+            this.isShow = true;
+            this.$nextTick(()=> {
+                this.$refs.ipt1.focus();
+            })
+        }
+    }
+
+    var vm = new Vue({
+        el:'#app',
+        template:`<app/>`,
+        components:{app}
+    })
+
+</script>
+
+
+</body>
+</html>

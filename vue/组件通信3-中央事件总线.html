@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件通信3</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<pre>
+    同级组件 间通信
+    中央事件总线
+    1.创建一个公共的类
+    2.$on 绑定自定义的事件
+    3.$emit 触发自定义的事件
+   （$on与$emit必须绑定同一个实例化对象）
+
+</pre>
+
+<div id="app1"></div>
+
+<script>
+    //上面两种方式处理的都是父子组件之间的数据传递
+    //若如果两个组件不是父子关系；
+    //这种情况可以使用中央事件总线的方式。
+    //新建一个Vue事件bus对象，然后通过bus.$emit触发事件。bus.$on监听触发的事件
+    var bus =new Vue(); //中央事件总线
+
+    Vue.component('brother1', {
+        data(){return{
+            msg:"brother1 data"
+        }},
+        template:`
+             <div>
+               <input type="text" v-model="msg" >
+               <button @click="passdata(msg)">传值</button>
+             </div>
+        `,
+        methods: {
+            passdata(val){
+                bus.$emit("globalEvent",val)
+            }
+        }
+    });
+    Vue.component('brother2', {
+        data(){return{
+            msg:"brother2 data",
+            msg2:"默认值"
+        }},
+        template:`
+             <div>
+                {{msg}};传递过来的参数：{{msg2}}
+             </div>
+        `,
+        mounted() {
+            bus.$on("globalEvent",function(val){
+                this.msg2=val
+            })
+        }
+    });
+    Vue.component('parent', {
+        data(){return{
+            id:1,
+            msg:"父组件数据",
+            name:"john"
+        }},
+        template:`
+             <div>
+                <brother1></brother1>
+                <brother2></brother2>
+             </div>
+        `,
+        methods:{
+            childHandler(val){
+                this.msg=val
+            }
+        }
+    });
+   var vm = new Vue({ el: '#app1',
+        template:`<parent></parent>`
+    })
+</script>
+
+
+
+</body>
+</html>
