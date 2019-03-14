@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百分比进度条</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        body{background-color: #212129}
+        .box{width: 100%;min-width: 1200px;}
+        .center1{width:846px;margin: 0 auto;}
+        .center1_top{width: 100%;height:410px;border-bottom:1px dashed #404046; }
+        .center1_bottom{width: 100%;height:410px;}
+        .circleBox{width: 184px;height:336px;float: left;margin:34px 49px;position: relative; }
+        .circleBox_tit{width: 100%;line-height: 36px;position: absolute;top:70px;left:0;text-align: center;font-size: 18px;color: #d7d7d7;z-index: 3}
+        .circleBox5 .circleBox_tit{font-size: 16px;}
+        .circleBox6 .circleBox_tit{font-size: 15px;}
+        .circleChart{width: 184px;height: 184px;}
+        .circleChart .circleChart_text{color: #34eca5;font-size:20px;font-weight: 600;line-height: 36px;position: absolute;top:104px;left:0;text-align: center;width: 100%;}
+        .circleBox_des{width:168px;line-height:24px;height:48px;font-size:14px;color: #d7d7d7;margin: 24px auto 18px}
+        .circleBox5 .circleBox_des{text-align: center;}
+        .center1_vote{display:block;width: 142px;height: 42px;line-height: 42px;text-indent:66px;color: #34eca5;border: 1px solid #56565b;border-radius: 3px;margin: 0 auto;
+        background: url("./images/vote1.png?v=1") no-repeat 30% 12px ;}
+        .center1_vote.f,.center1_vote:hover{background:#34eca5 url("./images/vote2.png?v=1") no-repeat 30% 12px;color: #23222a;border: 1px solid #34eca5;}
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="center1">
+        <div class="center1_top">
+            <div class="circleBox circleBox1">
+                <h3 class="circleBox_tit">删减冗长的玩法</h3>
+                <div class="circleChart" id="1"></div>
+                <p class="circleBox_des">比如铁骑、佛宝、经脉、天神、元神等等</p>
+                <a href="javascript:;" class="center1_vote f">投票</a>
+            </div>
+            <div class="circleBox circleBox2">
+                <h3 class="circleBox_tit">装备打造精简化</h3>
+                <div class="circleChart" id="2"></div>
+                <p class="circleBox_des">删除附魔系统、装备可以更高级强化等等</p>
+                <a href="javascript:;" class="center1_vote">投票</a>
+            </div>
+            <div class="circleBox circleBox3">
+                <h3 class="circleBox_tit">增加坐骑新玩法</h3>
+                <div class="circleChart" id="3"></div>
+                <p class="circleBox_des">增加坐骑属性和培养系统等</p>
+                <a href="javascript:;" class="center1_vote">投票</a>
+            </div>
+
+        </div>
+        <div class="center1_bottom ">
+            <div class="circleBox circleBox4">
+                <h3 class="circleBox_tit">重做玩法和系统</h3>
+                <div class="circleChart" id="4"></div>
+                <p class="circleBox_des">比如主线任务、结婚系统、兄弟系统、日常任务等等</p>
+                <a href="javascript:;" class="center1_vote">投票</a>
+            </div>
+            <div class="circleBox circleBox5">
+                <h3 class="circleBox_tit">道具商城每周折扣</h3>
+                <div class="circleChart" id="5"></div>
+                <p class="circleBox_des">最低三折起……</p>
+                <a href="javascript:;" class="center1_vote">投票</a>
+            </div>
+            <div class="circleBox circleBox6">
+                <h3 class="circleBox_tit">手机端双端数据互通</h3>
+                <div class="circleChart" id="6"></div>
+                <p class="circleBox_des">开放手机端和电脑端双端数据互通，随时可以玩远征</p>
+                <a href="javascript:;" class="center1_vote">投票</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/circleChart.min.js"></script>
+<script>
+
+    var value1 = 50;
+    var value2 = 65;
+    var value3 = 75;
+    var value4 = 85;
+    var value5 = 95;
+    var value6 = 100;
+    $(".circleChart#1").circleChart({size:184,value:value1,text:0,onDraw:function(el,circle){circle.text(value1+"%")}});
+    $(".circleChart#2").circleChart({size:184,value:value2,text:0,onDraw:function(el,circle){circle.text(value2+"%")}});
+    $(".circleChart#3").circleChart({size:184,value:value3,text:0,onDraw:function(el,circle){circle.text(value3+"%")}});
+    $(".circleChart#4").circleChart({size:184,value:value4,text:0,onDraw:function(el,circle){circle.text(value4+"%")}});
+    $(".circleChart#5").circleChart({size:184,value:value5,text:0,onDraw:function(el,circle){circle.text(value5+"%")}});
+    $(".circleChart#6").circleChart({size:184,value:value6,text:0,onDraw:function(el,circle){circle.text(value6+"%")}});
+
+
+
+    // $(".circleChart#1").circleChart({
+    //     size: 184,
+    //     value: value1,
+    //     text: 0,
+    //     onDraw: function(el, circle) {
+    //         circle.text(value1+"%");
+    //     }
+    // });
+
+</script>
+
+
+
+
+
+</body>
+</html>
