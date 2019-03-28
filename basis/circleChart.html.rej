@@ -1,0 +1,19 @@
+diff a/basis/circleChart.html b/basis/circleChart.html	(rejected hunks)
+@@ -2,7 +2,7 @@
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+-    <title>百分比进度条</title>
++    <title>百分比进度条1</title>
+     <style>
+         *{margin: 0;padding: 0;}
+         body{background-color: #212129}
+@@ -36,7 +36,7 @@
+             <div class="circleBox circleBox2">
+                 <h3 class="circleBox_tit">装备打造精简化</h3>
+                 <div class="circleChart" id="2"></div>
+-                <p class="circleBox_des">删除附魔系统、装备可以更高级强化等等</p>
++                <p class="circleBox_des">删除附魔系统、装备可以更高级强化等</p>
+                 <a href="javascript:;" class="center1_vote">投票</a>
+             </div>
+             <div class="circleBox circleBox3">
