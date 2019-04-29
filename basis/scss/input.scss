@@ -1,0 +1,25 @@
+
+
+@import "variables.scss";
+
+$bgColor:#304156;
+body{
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  background:#dfdfdf;
+}
+.nav{
+  width: 600px;
+  height: 300px;
+  overflow: auto;
+  li{
+    border: 1px solid red;
+    a{
+      background:$bgColor;
+      color: #f8cb3b;
+    }
+  }
+}

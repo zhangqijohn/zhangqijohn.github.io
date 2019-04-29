@@ -76,19 +76,10 @@
 <script src="js/circleChart.min.js"></script>
 <script>
 
-    var value1 = 50;
-    var value2 = 65;
-    var value3 = 75;
-    var value4 = 85;
-    var value5 = 95;
-    var value6 = 100;
-    $(".circleChart#1").circleChart({size:184,value:value1,text:0,onDraw:function(el,circle){circle.text(value1+"%")}});
-    $(".circleChart#2").circleChart({size:184,value:value2,text:0,onDraw:function(el,circle){circle.text(value2+"%")}});
-    $(".circleChart#3").circleChart({size:184,value:value3,text:0,onDraw:function(el,circle){circle.text(value3+"%")}});
-    $(".circleChart#4").circleChart({size:184,value:value4,text:0,onDraw:function(el,circle){circle.text(value4+"%")}});
-    $(".circleChart#5").circleChart({size:184,value:value5,text:0,onDraw:function(el,circle){circle.text(value5+"%")}});
-    $(".circleChart#6").circleChart({size:184,value:value6,text:0,onDraw:function(el,circle){circle.text(value6+"%")}});
-
+    for(let i=0;i<6;i++){
+        var value=[10,20,30,40,50,60]
+        $(".circleChart#"+(i+1)).circleChart({size:184,value:value[i],text:0,onDraw:function(el,circle){circle.text(value[i]+"%")}});
+    }
 
 
     // $(".circleChart#1").circleChart({
