@@ -27,8 +27,8 @@
 - [中国城市三级联动](https://zhangqijohn.github.io/basis/city.html)
 - [水印](https://zhangqijohn.github.io/basis/watermark.html)
 - [圆形百分比进度条](https://zhangqijohn.github.io/basis/circleChart.html)
+- [黑影跟随鼠标移入/移出](https://zhangqijohn.github.io/basis/mouseEnter.html)
 - [webpack_demo](https://github.com/zhangqijohn/zhangqijohn.github.io/tree/master/basis/webpack_demo)
-
 
 ### ES6
 

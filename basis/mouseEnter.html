@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>黑影跟随鼠标移入/移出</title>
+    <style>
+        .ul {width: 800px;margin: 0 auto;}
+        li{width: 160px;height: 160px;float: left;border: 1px solid #0a8cde;list-style: none;margin: 5px;position: relative;overflow: hidden}
+        div{width: 100%;height: 100%;position: absolute;left: -100%;top:0;background: rgba(0,0,0,.5)}
+        div.trans{transition: all .3s;}
+
+    </style>
+</head>
+<body>
+<ul>
+    <li><div></div></li><li><div></div></li><li><div></div></li><li><div></div></li>
+    <li><div></div></li><li><div></div></li><li><div></div></li><li><div></div></li>
+    <li><div></div></li><li><div></div></li><li><div></div></li><li><div></div></li>
+</ul>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script>
+    function calculate(element, ev) {
+        var lanren = {0:{top:'-100%',left:'0'},1:{top:'0',left:'100%'},2:{top:'100%',left:'0'},3:{top:'0',left:'-100%'}};
+        var w = element.offsetWidth,
+            h = element.offsetHeight,
+            x = (ev.pageX - element.offsetLeft - (w / 2) * (w > h ? (h / w) : 1)),
+            y = (ev.pageY - element.offsetTop - (h / 2) * (h > w ? (w / h) : 1)),
+            d = Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4; //d = 0为top 1为right 2为bottom 3为left
+        return lanren[d]
+    };
+    $("li").hover(function (e) {
+        var $content = $(this).find('div');
+        //调整位置
+        $content.removeClass('trans').css(calculate(this,e));
+        //reflow
+        $content[0].offsetWidth;
+        //启用过渡
+        $content.addClass('trans').css({left: '0', top: '0'});
+    },function (e) {
+        $(this).find('div').css(calculate(this,e));
+    })
+</script>
+
+</body>
+</html>
