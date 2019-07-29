@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+    <script crossorigin src="js/react.development.js"></script>
+    <script crossorigin src="js/react-dom.development.js"></script>
+    <script crossorigin src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    function LoginButton (props) {
+        return <h1>欢迎回来!</h1>;
+    }
+
+    function GuestGreeting(props) {
+        return <h1>请先注册。</h1>;
+    }
+    class LoginControl extends React.Component {
+        constructor(props) {
+            super(props);
+            this.handleLoginClick = this.handleLoginClick.bind(this);
+            this.handleLogoutClick = this.handleLogoutClick.bind(this);
+            this.state = {isLoggedIn: false};
+        }
+
+        handleLoginClick() {
+            this.setState({isLoggedIn: true});
+        }
+
+        handleLogoutClick() {
+            this.setState({isLoggedIn: false});
+        }
+
+        render() {
+            const isLoggedIn = this.state.isLoggedIn;
+
+            let button = null;
+            if (isLoggedIn) {
+                button = <button onClick={this.handleLogoutClick}>out</button>;
+            } else {
+                button = <button onClick={this.handleLoginClick}>LoggedIn</button>;
+            }
+
+            return (
+                <div>
+                    {button}
+                </div>
+            );
+        }
+    }
+
+    ReactDOM.render(
+        <LoginControl />,
+        document.getElementById('root')
+    );
+</script>
+</body>
+</html>

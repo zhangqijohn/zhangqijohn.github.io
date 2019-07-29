@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单与事件</title>
+    <script crossorigin src="js/react.development.js"></script>
+    <script crossorigin src="js/react-dom.development.js"></script>
+    <script crossorigin src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    class HelloMessage extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {value: 'Hello Runoob!'};
+            this.handleChange = this.handleChange.bind(this);
+        }
+
+        handleChange(event) {
+            this.setState({value: event.target.value});
+        }
+        render() {
+            var value = this.state.value;
+            return(
+                <div>
+                    <input type="text" value={value} onChange={this.handleChange} />
+                    <h4>{value}</h4>
+                </div>);
+        }
+    }
+    ReactDOM.render(
+        <HelloMessage />,
+        document.getElementById('root')
+    );
+</script>
+
+
+
+
+</body>
+</html>

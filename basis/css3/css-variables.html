@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS 变量</title>
+    <style>
+        body {
+            --foo: #7F583F;
+            --bar: #F7EFD2;
+            background-color:var(--bar) ;
+        }
+    </style>
+</head>
+<body>
+<pre>
+1.声明css变量：
+
+　　body{　　　　　　　　　　
+
+　　　--foo: #7F583F;
+　　　--bar: #F7EFD2;
+
+　　}
+
+　　用--来声明变量，原因很简单因为$foo被sass用掉了，@foo被less用掉了，所以css变量声明选择--foo。
+
+　　注意：变量只能用作属性值，不能用作属性名。如：--foo：margin-top； --foo：20px  错误！！！
+
+2.var()函数：一个参数var(--foo)用于读取变量的值；两个参数 var （--foo，#456798）时，第二个参数为默认值，当变量不存在时，使用默认值。
+
+　　注意：第二个参数不处理内部的逗号和空格：
+
+　　var（--foo，“tom”，“jack”），tom和jack为var（）的第二个参数。
+
+　　var（--foo，10px 20px 15px），同理10px 20px 15px为第二个参数。
+
+3.变量值的类型：变量为字符串时可以与其他字符串拼接。
+
+　　--bar ："hello";
+
+　　--foo : var(--bar)" world";
+
+　　变量为数值时不能与单位直接连用，需要用calc（）函数进行拼接
+
+　　--foo：20；
+
+　　margin-top：var（--foo）px  //无效
+
+　　margin-top：calc（var（--foo）*1px）； // 有效
+
+　　变量带有单位时，不能是字符串，写成字符串无效。　　　　　　　　　　　　　　
+
+　　/* 无效 */
+　　.foo {
+　　　　--foo: '20px';
+　　　　font-size: var(--foo);
+　　}
+
+　　/* 有效 */
+　　.foo {
+　　　　--foo: 20px;
+　　　　font-size: var(--foo);
+　　}
+
+4.变量的作用域：变量的作用域与css层叠样式的规则一致　　　　　　　　　　　　　
+
+　　< style>
+　　　:root { --color: blue; }
+　　　div { --color: green; }
+　　　#alert { --color: red; }
+　　　* { color: var(--color); }
+　　　 < /style>
+
+　　　< p>blue< /p>
+　　　< div>green< /div>
+　　　< div id="alert">red< /div>
+
+　　全局变量通常放在 ：root {} 里面
+
+</pre>
+
+基本的语法就这些，详情请看阮一峰老师CSS 变量教程
+<a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html">http://www.ruanyifeng.com/blog/2017/05/css-variables.html</a>
+<br/>
+<br/>
+
+</body>
+</html>

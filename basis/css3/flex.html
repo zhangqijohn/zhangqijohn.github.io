@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex布局</title>
+    <style>
+        p{background-color: #0a8cde;width: 60px;height: 60px;margin: 5px}
+        .flexBox1{display: flex;flex-direction: row;justify-content: center;
+            width: 600px;height: 200px;margin: 0 auto;border: 1px solid red;}
+    </style>
+</head>
+<body>
+<mark>
+    容器的属性:
+    flex-direction: row(水平方向，起点在左端) | row-reverse | column (垂直方向，起点在上沿)| column-reverse;
+    flex-wrap:  nowrap | wrap | wrap-reverse;
+    flex-flow: <flex-direction> || <flex-wrap>;
+    justify-content: flex-start | flex-end | center | space-between | space-around;
+    align-items: flex-start | flex-end | center | baseline | stretch;
+    align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+</mark>
+
+<section class="flexBox1">
+    <p>水平方向起点在左端</p>
+    <p>垂直方向起点在上沿</p>
+    <p>132</p>
+    <p>132</p>
+</section>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件生命周期</title>
+    <script crossorigin src="js/react.development.js"></script>
+    <script crossorigin src="js/react-dom.development.js"></script>
+    <script crossorigin src="js/babel.min.js"></script>
+    <style>
+        #example{min-height:800px}
+    </style>
+    <!--仅用于开发环境-->
+   <!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>-->
+
+    <!--适合用于生产环境-->
+    <!--如果需要加载指定版本的 react 和 react-dom，可以把 16 替换成所需加载的版本号。-->
+    <!--<script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>-->
+</head>
+<body>
+<!--<p>crossorigin :能在 React 16 及以上的版本中有更好的错误处理体验。 CDN 是否设置了 Access-Control-Allow-Origin: * HTTP 请求头</p>-->
+<br/>
+<pre>
+
+挂载
+当组件实例被创建并插入 DOM 中时，其生命周期调用顺序如下：
+
+constructor()
+static getDerivedStateFromProps()
+render()
+componentDidMount()
+
+更新
+当组件的 props 或 state 发生变化时会触发更新。组件更新的生命周期调用顺序如下：
+
+static getDerivedStateFromProps()
+shouldComponentUpdate()
+render()
+getSnapshotBeforeUpdate()
+componentDidUpdate()
+
+卸载
+当组件从 DOM 中移除时会调用如下方法：
+
+componentWillUnmount()
+错误处理
+当渲染过程，生命周期，或子组件的构造函数中抛出错误时，会调用如下方法：
+
+static getDerivedStateFromError()
+componentDidCatch()
+
+其他 APIs
+组件还提供了一些额外的 API：
+    setState()
+    forceUpdate()
+
+class 属性
+    defaultProps
+    displayName
+实例属性
+    props
+    state
+</pre>
+
+<div id="root"></div>
+<script type="text/babel">
+    // ReactDOM.render(
+    //     <h1>hello world</h1>,
+    //     document.getElementById('root')
+    // )
+
+    // function clock() {
+    //     const ele = (
+    //         <div>本地时间：{new Date().toLocaleTimeString()}</div>
+    //     )
+    //     ReactDOM.render(
+    //         ele,
+    //         document.getElementById('root')
+    //     )
+    // }
+    // setInterval(clock,1000)
+
+
+    // 组件，周期
+    // class Clock extends React.Component {
+    //     constructor(props) {
+    //         super(props);
+    //         this.state = {date: new Date()};
+    //     }
+    //
+    //     componentDidMount() {
+    //         this.timerID = setInterval(
+    //             () => this.tick(),
+    //             1000
+    //         );
+    //     }
+    //
+    //     componentWillUnmount() {
+    //         clearInterval(this.timerID);
+    //     }
+    //
+    //     tick() {
+    //         this.setState({
+    //             date: new Date()
+    //         });
+    //     }
+    //
+    //     render () {
+    //         return(
+    //             <div>本地时间：{this.state.date.toLocaleTimeString()}</div>
+    //         )
+    //     }
+    // }
+    //
+    // ReactDOM.render(<Clock/>,document.getElementById('root'))
+
+    // 事件
+    // 通过箭头函数和 Function.prototype.bind 来实现。
+    // <button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+    // <button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+    // class Toggle extends React.Component{
+    //     constructor(props) {
+    //         super(props);
+    //         this.state = {toggleon: true}
+    //         this.handleClick = this.handleClick.bind(this);
+    //     }
+    //
+    //     handleClick(e){
+    //         e.preventDefault();
+    //         this.setState(state=>({
+    //             toggleon: !state.toggleon
+    //         }))
+    //     }
+    //
+    //     render(){
+    //         return (<a href="#" onClick={this.handleClick}>{this.state.toggleon ? 'on' : 'off'}</a> );
+    //
+    //     }
+    // }
+    //
+    // ReactDOM.render(<Toggle/>,document.getElementById('root'))
+
+    // 条件渲染
+    class LoginControl extends React.Component {
+        constructor(props) {
+            super(props);
+            this.handleLoginClick = this.handleLoginClick.bind(this);
+            this.handleLogoutClick = this.handleLogoutClick.bind(this);
+            this.state = {isLoggedIn: false};
+        }
+
+        handleLoginClick() {
+            this.setState({isLoggedIn: true});
+        }
+
+        handleLogoutClick() {
+            this.setState({isLoggedIn: false});
+        }
+
+        render() {
+            const isLoggedIn = this.state.isLoggedIn;
+            let button;
+
+            if (isLoggedIn) {
+                button = <LogoutButton onClick={this.handleLogoutClick} />;
+            } else {
+                button = <LoginButton onClick={this.handleLoginClick} />;
+            }
+
+            return (
+                <div>
+                    <Greeting isLoggedIn={isLoggedIn} />
+                    {button}
+                </div>
+            );
+        }
+    }
+
+    function UserGreeting(props) {
+        return <h1>Welcome back!</h1>;
+    }
+
+    function GuestGreeting(props) {
+        return <h1>Please sign up.</h1>;
+    }
+
+    function Greeting(props) {
+        const isLoggedIn = props.isLoggedIn;
+        if (isLoggedIn) {
+            return <UserGreeting />;
+        }
+        return <GuestGreeting />;
+    }
+
+    function LoginButton(props) {
+        return (
+            <button onClick={props.onClick}>
+                Login
+            </button>
+        );
+    }
+
+    function LogoutButton(props) {
+        return (
+            <button onClick={props.onClick}>
+                Logout
+            </button>
+        );
+    }
+
+    ReactDOM.render(
+        <LoginControl />,
+        document.getElementById('root')
+    );
+
+
+
+</script>
+</body>
+</html>

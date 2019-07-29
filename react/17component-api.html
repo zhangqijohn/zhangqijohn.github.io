@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件 API</title>
+    <script crossorigin src="js/react.development.js"></script>
+    <script crossorigin src="js/react-dom.development.js"></script>
+    <script crossorigin src="js/babel.min.js"></script>
+</head>
+<body>
+<pre>
+    设置状态：setState
+    替换状态：replaceState
+    设置属性：setProps
+    替换属性：replaceProps
+    强制更新：forceUpdate
+    获取DOM节点：findDOMNode
+    判断组件挂载状态：isMounted
+
+    setState(object nextState[, function callback])
+    nextState，将要设置的新状态，该状态会和当前的state合并
+    callback，可选参数，回调函数。该函数会在setState设置成功，且组件重新渲染后调用。
+
+</pre>
+<div id="root"></div>
+<script type="text/babel">
+    class Counter extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {clickCount: 0};
+            this.handleClick = this.handleClick.bind(this);
+        }
+
+        handleClick() {
+            this.setState(function(state) {
+                return {clickCount: state.clickCount + 1};
+            });
+        }
+        render () {
+            return (<h2 onClick={this.handleClick}>点我！点击次数为: {this.state.clickCount}</h2>);
+        }
+    }
+    ReactDOM.render(
+    <Counter />,
+        document.getElementById('root')
+    );
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
