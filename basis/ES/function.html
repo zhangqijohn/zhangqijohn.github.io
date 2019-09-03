@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Function 构造函数 </title>
+</head>
+<body>
+
+
+
+<pre>
+Function
+属性
+    Function.arguments              以数组形式获取传入函数的所有参数。此属性已被arguments替代。
+    Function.arity              用于指定的函数的参数的个数，但已被删除。使用length属性代替。
+    Function.caller             获取调用函数的具体对象。
+    Function.displayName        获取函数的display name。
+    Function.length             获取函数的接收参数个数。
+    Function.prototype          声明函数的原型构造方法，详细请参考
+    Function.name               获取函数的名称。
+方法
+    Function.prototype.apply()  在一个对象的上下文中应用另一个对象的方法；参数能够以数组形式传入。
+    Function.prototype.bind()   bind()方法会创建一个新函数,称为绑定函数.当调用这个绑定函数时,绑定函数会以创建它时传入 bind()方法的第一个参数作为 this,传入 bind()方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数.
+    Function.prototype.call()   在一个对象的上下文中应用另一个对象的方法；参数能够以列表形式传入。
+    Function.prototype.isGenerator() 若函数对象为generator，返回true，反之返回 false。
+    Function.prototype.toSource()   获取函数的实现源码的字符串。 覆盖了 Object.prototype.toSource 方法。
+    Function.prototype.toString()   获取函数的实现源码的字符串。覆盖了 Object.prototype.toString 方法。
+</pre>
+
+<script>
+// Function 构造函数 创建一个新的Function对象。 在 JavaScript 中, 每个函数实际上都是一个Function对象。
+// 语法：new Function ([arg1[, arg2[, ...argN]],] functionBody)
+const adder = new Function("a", "b", "return a + b");
+
+// 调用函数
+adder(2, 6); //  8
+
+</script>
+
+<div class="testClass">Lorem ipsum</div>
+<p>Some text</p>
+<div class="testClass">dolor sit amet</div>
+
+<script type="text/javascript">
+    var domQuery = (function() {
+        var aDOMFunc = [
+            Element.prototype.removeAttribute,
+            Element.prototype.setAttribute,
+            CSSStyleDeclaration.prototype.removeProperty,
+            CSSStyleDeclaration.prototype.setProperty
+        ];
+
+        function setSomething (bStyle, sProp, sVal) {
+            var  bSet = Boolean(sVal), fAction = aDOMFunc[bSet | bStyle << 1],
+                aArgs = Array.prototype.slice.call(arguments, 1, bSet ? 3 : 2),
+                aNodeList = bStyle ? this.cssNodes : this.nodes;
+
+            if (bSet && bStyle) { aArgs.push(""); }
+            for (
+                var nItem = 0, nLen = this.nodes.length;
+                nItem < nLen;
+                fAction.apply(aNodeList[nItem++], aArgs)
+            );
+            this.follow = setSomething.caller;
+            return this;
+        }
+
+        function setStyles (sProp, sVal) { return setSomething.call(this, true, sProp, sVal); }
+        function setAttribs (sProp, sVal) { return setSomething.call(this, false, sProp, sVal); }
+        function getSelectors () { return this.selectors; };
+        function getNodes () { return this.nodes; };
+
+        return (function (sSelectors) {
+            var oQuery = new Function('return arguments.callee.follow.apply(arguments.callee, arguments);');
+            oQuery.selectors = sSelectors;
+            oQuery.nodes = document.querySelectorAll(sSelectors);
+            oQuery.cssNodes = Array.prototype.map.call(oQuery.nodes, function (oInlineCSS) { return oInlineCSS.style; });
+            oQuery.attributes = setAttribs;
+            oQuery.inlineStyle = setStyles;
+            oQuery.follow = getNodes;
+            oQuery.toString = getSelectors;
+            oQuery.valueOf = getNodes;
+            return oQuery;
+        });
+    })();
+</script>
+<script type="text/javascript">
+    domQuery('.testClass').attributes('lang', 'en')('title', 'Risus abundat in ore stultorum')
+    .inlineStyle('background-color', 'black')('color', 'white')('width', '100px')('height', '50px');
+
+    //console.log(5<<0)
+    console.log(5>>>0)
+    console.log(5>>>1)
+    console.log(5>>2)
+    console.log(5>>3)
+    console.log(5>>4)
+    console.log(5>>5)
+</script>
+
+<script>
+    // 通过 AsyncFunction 构造器创建一个异步函数
+    function resolveAfter2Seconds(x){
+        return new Promise(resolve => {
+            setTimeout(()=>{
+                resolve(x)
+            },2000)
+        })
+    }
+    var AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+    var a = new AsyncFunction('a', 'b', 'return await resolveAfter2Seconds(a) + await resolveAfter2Seconds(b);');
+    a(10, 20).then(v => {
+        console.log(v); // 4 秒后打印 30
+    });
+
+</script>
+
+
+
+
+</body>
+</html>

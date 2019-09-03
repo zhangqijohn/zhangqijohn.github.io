@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table.reference {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 1000px;
+            margin: 4px auto;
+        }
+        table.reference tr:nth-child(odd) {
+            background-color: #f6f4f0;
+        }
+        table.reference th {
+            color: #fff;
+            background-color: #555;
+            border: 1px solid #555;
+            font-size: 12px;
+            padding: 3px;
+            vertical-align: top;
+            text-align: left;
+        }
+        table.reference td {
+            line-height: 2em;
+            min-width: 24px;
+            border: 1px solid #d4d4d4;
+            padding: 5px;
+            padding-top: 7px;
+            padding-bottom: 7px;
+            vertical-align: top;
+        }
+        span.new {
+            float: right;
+            color: #fff;
+            background-color: #90b575;
+            font-weight: 700;
+            padding-left: 1px;
+            padding-right: 1px;
+            border: 1px solid #fff;
+            outline: 1px solid #90b575;
+            line-height: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<form action="">
+    color 类型用在input字段主要用于选取颜色 <input type="color" name="color"><br/>
+    date 类型允许你从一个日期选择器选择一个日期。<input type="date" name="date"><br/>
+    datetime 类型允许你选择一个日期（UTC 时间）。<input type="datetime" name="datetime"><br/>
+    datetime-local 类型允许你选择一个日期和时间 (无时区). <input type="datetime-local" name="datetime-local"><br/>
+    email 类型用于应该包含 e-mail 地址的输入域。<input type="email" name="email"><br/>
+    month 类型允许你选择一个月份。<input type="month" name="month"><br/>
+    number 类型用于应该包含数值的输入域。数量 ( 1 到 5 之间 ): <input type="number" name="quantity" min="1" max="5"><br/>
+    range 类型用于应该包含一定范围内数字值的输入域。现在的值：<span id="rangeValue"></span>
+        <input type="range" name="points" min="1" max="10" id="rangeIpt" oninput="getTxt1CursorPosition()"><br/>
+    search 类型用于搜索域，比如站点搜索或 Google 搜索。<input type="search" name="search"><br/>
+    定义输入电话号码字段:     <input type="tel" name="tel"><br/>
+    定义可输入时间控制器（无时区）：<input type="time" name="time"><br/>
+    在提交表单时，会自动验证 url 域的值。<input type="url" name="homepage"><br/>
+    week 类型允许你选择周和年。<input type="week" name="week"><br/>
+    button <input type="button" name="button" value="button"><br/>
+    checkbox <input type="checkbox" name="checkbox" value="checkbox"><br/>
+    file <input type="file" name="file" ><br/>
+    hidden <input type="hidden" name="hidden"><br/>
+    image <input type="image" name="image"><br/>
+    password <input type="password" name="password" id="password"><br/>
+    <script>
+        document.write(document.getElementById("password").value)
+    </script>
+    radio <input type="radio" name="radio"><br/>
+    reset <input type="reset" name="reset" value="reset"><br/>
+    submit <input type="submit" name="submit" value="submit"><br/>
+    text <input type="text" name="text"><br/>
+</form>
+
+<table class="reference">
+    <tbody>
+    <tr>
+        <th align="left" width="22%">属性</th>
+        <th align="left" width="37%">值</th>
+        <th align="left" width="41%">描述</th>
+    </tr>
+    <tr>
+        <td><b href="att-input-accept.html">accept</b></td>
+        <td>audio/*
+
+            video/*
+
+            image/*
+            <i>MIME_type</i></td>
+        <td>规定通过文件上传来提交的文件的类型。
+            (只针对type="file")</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-align.html">align</b></td>
+        <td>left
+
+            right
+
+            top
+
+            middle
+
+            bottom</td>
+        <td><span class="deprecated">HTML5已废弃，不赞成使用。规定图像输入的对齐方式。 (只针对type="image")</span></td>
+    </tr>
+    <tr>
+        <td><b href="att-input-alt.html">alt</b></td>
+        <td><i>text</i></td>
+        <td>定义图像输入的替代文本。 (只针对type="image")</td>
+    </tr>
+    <tr>
+        <td ><b>autocomplete</b><span class="new">New</span></td>
+        <td>on
+
+            off</td>
+        <td>autocomplete 属性规定 &lt;input&gt; 元素输入字段是否应该启用自动完成功能。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-autofocus.html">autofocus</b><span class="new">New</span></td>
+        <td>autofocus</td>
+        <td>属性规定当页面加载时 &lt;input&gt;  元素应该自动获得焦点。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-checked.html">checked</b></td>
+        <td>checked</td>
+        <td>checked 属性规定在页面加载时应该被预先选定的  &lt;input&gt; 元素。 (只针对 type="checkbox" 或者 type="radio")</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-disabled.html">disabled</b></td>
+        <td>disabled</td>
+        <td>disabled 属性规定应该禁用的 &lt;input&gt; 元素。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-form.html">form</b><span class="new">New</span></td>
+        <td><i>form_id</i></td>
+        <td>form 属性规定 &lt;input&gt; 元素所属的一个或多个表单。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-formaction.html">formaction</b><span class="new">New</span></td>
+        <td><i>URL</i></td>
+        <td>属性规定当表单提交时处理输入控件的文件的 URL。(只针对 type="submit" 和 type="image")</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-formenctype.html">formenctype</b><span class="new">New</span></td>
+        <td>application/x-www-form-urlencoded
+
+            multipart/form-data
+
+            text/plain</td>
+        <td>属性规定当表单数据提交到服务器时如何编码(只适合 type="submit" 和 type="image")。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-formmethod.html">formmethod</b><span class="new">New</span></td>
+        <td>get
+            post</td>
+        <td>定义发送表单数据到 action URL 的 HTTP 方法。 (只适合 type="submit" 和 type="image")</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-formnovalidate.html">formnovalidate</b><span class="new">New</span></td>
+        <td>formnovalidate</td>
+        <td>formnovalidate 属性覆盖 &lt;form&gt; 元素的 novalidate 属性。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-formtarget.html">formtarget</b><span class="new">New</span></td>
+        <td>_blank
+
+            _self
+
+            _parent
+
+            _top
+            <em>framename</em></td>
+        <td>规定表示提交表单后在哪里显示接收到响应的名称或关键词。(只适合 type="submit" 和 type="image")</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-height.html">height</b><span class="new">New</span></td>
+        <td><i>pixels</i></td>
+        <td>规定  &lt;input&gt;元素的高度。(只针对type="image")</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-list.html">list</b><span class="new">New</span></td>
+        <td><i>datalist_id</i></td>
+        <td>属性引用  &lt;datalist&gt; 元素，其中包含 &lt;input&gt; 元素的预定义选项。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-max.html">max</b><span class="new">New</span></td>
+        <td><i>number
+
+            date</i></td>
+        <td>属性规定 &lt;input&gt; 元素的最大值。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-maxlength.html">maxlength</b></td>
+        <td><i>number</i></td>
+        <td>属性规定 &lt;input&gt; 元素中允许的最大字符数。 </td>
+    </tr>
+    <tr>
+        <td><b href="att-input-min.html">min</b><span class="new">New</span></td>
+        <td><i>number
+
+            date</i></td>
+        <td>属性规定 &lt;input&gt;元素的最小值。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-multiple.html">multiple</b><span class="new">New</span></td>
+        <td>multiple</td>
+        <td>属性规定允许用户输入到 &lt;input&gt; 元素的多个值。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-name.html">name</b></td>
+        <td><i>text</i></td>
+        <td>name 属性规定 &lt;input&gt; 元素的名称。 </td>
+    </tr>
+    <tr>
+        <td><b href="att-input-pattern.html">pattern</b><span class="new">New</span></td>
+        <td><em>regexp</em></td>
+        <td>pattern 属性规定用于验证 &lt;input&gt; 元素的值的正则表达式。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-placeholder.html">placeholder</b><span class="new">New</span></td>
+        <td><i>text</i></td>
+        <td>placeholder 属性规定可描述输入 &lt;input&gt; 字段预期值的简短的提示信息
+            。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-readonly.html">readonly</b></td>
+        <td>readonly</td>
+        <td>readonly 属性规定输入字段是只读的。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-required.html">required</b><span class="new">New</span></td>
+        <td>required</td>
+        <td>属性规定必需在提交表单之前填写输入字段。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-size.html">size</b></td>
+        <td><i>number</i></td>
+        <td>size 属性规定以字符数计的  &lt;input&gt; 元素的可见宽度。 </td>
+    </tr>
+    <tr>
+        <td><b href="att-input-src.html">src</b></td>
+        <td><i>URL</i></td>
+        <td>src 属性规定显示为提交按钮的图像的 URL。 (只针对
+            type="image")</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-step.html">step</b><span class="new">New</span></td>
+        <td><i>number</i></td>
+        <td>step 属性规定 &lt;input&gt; 元素的合法数字间隔。</td>
+    </tr>
+    <tr>
+        <td><b href="att-input-type.html">type</b></td>
+        <td>button、checkbox、color、date、datetime、datetime-local、email
+            、file、hidden、image、month、number、password、radio、range、reset、search、submit、tel、text、time、url、week</td>
+        <td>type 属性规定要显示的  &lt;input&gt; 元素的类型。 </td>
+    </tr>
+    <tr>
+        <td><b href="att-input-value.html">value</b></td>
+        <td><i>text</i></td>
+        <td>指定 &lt;input&gt; 元素 value 的值。<b>
+
+        </b></td>
+    </tr>
+    <tr>
+        <td><b href="att-input-width.html">width</b><span class="new">New</span></td>
+        <td><i>pixels</i></td>
+        <td>width 属性规定  &lt;input&gt; 元素的宽度。  (只针对type="image")</td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    getTxt1CursorPosition()
+    function getTxt1CursorPosition(){
+        document.getElementById("rangeValue").innerText = document.getElementById('rangeIpt').value +"0%";
+    }
+</script>
+
+</body>
+</html>

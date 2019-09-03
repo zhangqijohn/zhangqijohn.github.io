@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>十大经典排序算法</title>
+</head>
+<body>
+<pre>
+    名词解释：
+    n：数据规模
+    k："桶"的个数
+    In-place：占用常数内存，不占用额外内存
+    Out-place：占用额外内存
+    稳定性：排序后 2 个相等键值的顺序和排序之前它们的顺序相同
+</pre>
+<div>
+    <img src="./images/sort.png" alt="">
+    <img src="./images/sort1.png" alt="">
+</div>
+
+
+
+1.1 冒泡排序
+ 算法步骤
+比较相邻的元素。如果第一个比第二个大，就交换他们两个。
+对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。这步做完后，最后的元素会是最大的数。
+针对所有的元素重复以上的步骤，除了最后一个。
+持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。
+<pre>
+    function bubbleSort(arr) {
+        var len = arr.length;
+        for (var i = 0; i < len - 1; i++) {
+            for (var j = 0; j < len - 1 - i; j++) {
+                if (arr[j] > arr[j+1]) {        // 相邻元素两两对比
+                    var temp = arr[j+1];        // 元素交换
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+        return arr;
+    }
+</pre>
+<script>
+    var arr = [12,14,5,21,6,16,7,9,10,22,23,11,13,28,25,26,15,8,17]
+   console.log(bubbleSort(arr))
+    function bubbleSort(arr) {
+       var len =  arr.length
+        for(var i = 0;i < len - 1;i++){
+            for(var j = 0;j < len - i - 1;i++){
+                if (arr[j] > arr[j+1]) {        // 相邻元素两两对比
+                    var temp = arr[j+1];        // 元素交换
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
+</script>
+
+
+
+
+</body>
+</html>

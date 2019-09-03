@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>window.location对象详解</title>
+</head>
+<body>
+<pre>
+http://worker.zq.dev.q1.com/github/ES/ES5/window.location%E5%AF%B9%E8%B1%A1%E8%AF%A6%E8%A7%A3.html?jt=30t2#10
+    hash	设置或返回从井号 (#) 开始的 URL（锚）。
+    host	设置或返回主机名和当前 URL 的端口号。
+    hostname	设置或返回当前 URL 的主机名。
+    href	设置或返回完整的 URL。
+    pathname	设置或返回当前 URL 的路径部分。
+    port	设置或返回当前 URL 的端口号。
+    protocol	设置或返回当前 URL 的协议。
+    search	设置或返回从问号 (?) 开始的 URL（查询部分）。
+</pre>
+
+<script>
+console.log(window.location.hash)       // #10
+console.log(window.location.host)       // worker.zq.dev.q1.com/
+console.log(window.location.hostname)   //  worker.zq.dev.q1.com
+console.log(window.location.href)       // http://worker.zq.dev.q1.com/github/ES/ES5/window.location%E5%AF%B9%E8%B1%A1%E8%AF%A6%E8%A7%A3.html?jt=30t2#10
+console.log(window.location.pathname)   // /github/ES/ES5/window.location%E5%AF%B9%E8%B1%A1%E8%AF%A6%E8%A7%A3.html
+console.log(window.location.port)       //
+console.log(window.location.protocol)   // http:
+console.log(window.location.search)     // ?jt=30t2
+
+
+</script>
+
+
+
+
+</body>
+</html>

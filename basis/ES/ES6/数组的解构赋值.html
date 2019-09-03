@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let data1 = {
+        serverId : '2107001',
+        userId : '123456',
+        money : 1000
+    }
+    let data2 = {
+        serverId : '',
+        userId : '',
+        money : 0 ,
+        methods : 'wechat'
+    }
+
+    Object.assign(data2,data1)
+    //console.log(data2)
+
+    var a = [1,2,3];
+    var b = a.slice(0);
+    var c = a.concat();
+    b.push(4);
+    c.push(5);
+
+    console.log(a);   //[1,2,3]
+    console.log(b);   //[1,2,3,4]
+    console.log(c);    //[1,2,3,5]
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

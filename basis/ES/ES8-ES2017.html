@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>ES8-ES2017</title>
+</head>
+<body>
+<pre>
+    字符串填充（padStart 和 padEnd）
+    Object.values
+    Object.entries
+    Object.getOwnPropertyDescriptors()
+    函数参数列表和调用中的尾随逗号
+    Async Functions (异步函数)
+    共享内存 和 Atomics
+</pre>
+
+<script>
+    console.log('abc'.padStart(4))     // ' abc'
+    console.log('abc'.padStart(4,'hellow'))     // habc'
+    console.log('abc'.padEnd(4))     // 'abc '
+    console.log('abc'.padEnd(4,'hellow'))     // 'abch'
+
+    const obj = { name: 'Fred', age: 87 }
+    const arr = ['Fred', 'Tony']
+
+    console.log(Object.values(obj))     // ['Fred', 87]
+    console.log(Object.values(arr))     // ['Fred', 'Tony']
+    console.log(Object.keys(obj))       // ['name', 'age']
+    console.log(Object.keys(arr))       // ['0', '1']
+    console.log(Object.entries(obj))    // [['name', 'Fred'], ['age', 87]]
+    console.log(Object.entries(arr))    // [['0', 'Fred'], ['1', 'Tony']]
+
+    // Object.getOwnPropertyDescriptors()
+    // 此方法返回对象的所有自有（非继承的）属性描述符。
+    //
+    // JavaScript 中的任何对象都有一组属性，每个属性都有一个描述符。
+    //
+    // 描述符是属性(property) 的一组特性(attributes)，它由以下的子集组成：
+    //
+    // value：属性的值
+    // writable：true 表示改属性可以被修改
+    // get：属性的 getter 函数，在读取属性时调用
+    // set：属性的 setter 函数，在属性设置值时调用
+    // configurable：如果为 false ，则不能删除属性，也不能更改任何属性，但值除外
+    // enumerable：如果属性是可枚举的，则为 true
+    // Object.getOwnPropertyDescriptors(obj) 接受一个对象，并返回一个带有描述符集的对象。
+    const person1 = {
+        set name(newName) {
+            console.log(newName)
+        }
+    }
+    const person2 = {}
+    Object.assign(person2, person1)
+
+    const person3 = {}
+    Object.defineProperties(person3,Object.getOwnPropertyDescriptors(person1))
+
+
+    person1.name = 'x' // x
+    person2.name = 'x' //丢失了 setter ，因为它没有复制过来。
+    person3.name = 'x'// x
+
+
+    // Async Functions (异步函数)
+</script>
+
+
+
+
+</body>
+</html>

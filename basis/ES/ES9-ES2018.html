@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<pre>
+    Rest(剩余)/Spread(展开) 属性
+    Promise.prototype.finally()
+        当一个 promise 得到满足（fulfilled）时，它会一个接一个地调用 then() 方法。
+        如果在此期间发生错误，则跳过 then() 方法并执行 catch()方法;
+        finally() 允许您运行一些代码，无论 promise 的执行成功或失败。
+
+    正则表达式改进 先行断言(lookahead) 和 后行断言(lookbehind)
+    Unicode 属性转义 \p{…} 和 \P{…}  /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+    命名捕获组（Named capturing groups）
+    正则表达式的 ‘s’ 标志 s 标志是 ‘single line'(单行)的缩写，它使 . 匹配新的行字符。如果没有它，点将匹配普通字符，而不是新行
+</pre>
+
+
+
+<script>
+    const { first, second, ...others } = { first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+    console.log(first) // 1
+    console.log(second) // 2
+    console.log(others) // { third: 3, fourth: 4, fifth: 5 }
+    const items = { first, second, ...others }
+    console.log(items) //{ first: 1, second: 2, third: 3, fourth: 4, fifth: 5 }
+
+    // for await (const line of readLines(filePath)) {
+    //     console.log(line)
+    // };
+
+    // 当一个 promise运行时， finally() 允许您运行一些代码，无论 promise 的执行成功或失败。
+    fetch('file.json')
+    .then(data => data.json())
+    .catch(error => console.error(error))
+    .finally(() => console.log('finished'))
+
+    // 先行断言(lookahead)：您可以使用 ?= 匹配一个字符串，该字符串后面跟着一个特定的子字符串：
+    var reg = /Roger(?= Waters)/
+    console.log(reg.test('Roger is my dog')) //false
+    reg.test('Roger is my dog and Roger Waters is a famous musician') //true
+
+    // ?! 执行逆操作，匹配一个字符串，该字符串后面没有一个特定的子字符串：
+    var reg1 = /Roger(?= Waters)/
+    reg1.test('Roger is my dog') //true
+    reg1.test('Roger Waters is a famous musician') //false
+
+    // 后行断言(lookbehind)，是一个新功能，使用 ?< =。
+    var reg2=/(?<=Roger) Waters/
+    reg2.test('Pink Waters is my dog') //false
+    reg2.test('Roger is my dog and Roger Waters is a famous musician') //true
+
+    var reg3 = /(?<!Roger) Waters/
+    reg3.test('Pink Waters is my dog') //true
+    reg3.test('Roger is my dog and Roger Waters is a famous musician') //false
+
+
+    //命名捕获组（Named capturing groups） 可以为捕获组分配一个名称，而不是仅在结果数组中分配一个 slot（插槽）：
+    const re = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+    const result = re.exec('2019-08-30')
+
+    console.log(result.groups.year) // '2019';
+    console.log(result.groups.month) // '08';
+    console.log(result.groups.day) //  '30';
+
+
+    // s 标志是 ‘single line'(单行)的缩写，它使 . 匹配新的行字符。如果没有它，点将匹配普通字符，而不是新行
+    var reg4 = /hi.welcome/
+    var reg5 = /hi.welcome/s
+    reg4.test('hi\nwelcome') // false
+    reg5.test('hi\nwelcome') // true
+</script>
+
+
+
+
+
+</body>
+</html>

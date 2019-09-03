@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScript Array 对象</title>
+</head>
+<body>
+<h3>参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array</a>
+</h3>
+
+字符串、数字、布尔、数组、对象、Null、Undefined
+<p>数据类型：String Number Boolean Array Object Null Undefined</p>
+
+<pre>
+1.Array 对象属性
+    属性	描述
+    constructor	返回对创建此对象的数组函数的引用。
+    length	设置或返回数组中元素的数目。
+    prototype	使您有能力向对象添加属性和方法。
+
+<!--<script>
+    var arr0 = new Array();
+    console.log(arr0.constructor===Array) //true
+    console.log(arr0.length) //0
+
+    function person(name,age) {this.name = name;this.age = age}
+    var zs = new person("zhangsan","18");
+    console.log(zs.constructor===person) //true
+
+    function vip(name,level) {  this.name = name ; this.level = level;}
+    var vipPeople = new vip("zs",1);vip.prototype.money = null;vip.__proto__.sty = null;vipPeople.money = 100;vipPeople.sty = 'sb';
+    console.log(vipPeople)
+</script>-->
+</pre>
+<pre>
+2.Array 对象方法
+    方法	描述
+    reverse()	颠倒数组中元素的顺序。
+    concat(arrayX,arrayX,......,arrayX)	连接两个或更多的数组，并返回结果。
+    join()	把数组的所有元素放入一个字符串。元素通过指定的分隔符进行分隔。
+
+    push()	向数组的末尾添加一个或更多元素，并返回新的长度。
+    unshift(newelement1,newelement2,....,newelementX)	向数组的开头添加一个或更多元素，并返回新的长度。
+
+    shift()	删除并返回数组的第一个元素
+    pop()	删除并返回数组的最后一个元素
+
+    slice(start,end)	从某个已有的数组返回选定的元素
+    sort()	对数组的元素进行排序
+    splice(index,howmany,item1,.....,itemX)	删除元素，并向数组添加新元素。
+    toSource()	返回该对象的源代码。
+    toString()	把数组转换为字符串，并返回结果。
+    toLocaleString()	把数组转换为本地数组，并返回结果。
+
+    valueOf()	返回数组对象的原始值
+
+3.使用ES6新的迭代器（ @@iterator ）
+    let iterator = numbers[Symbol.iterator]();
+
+    数组的 entries 、 keys 和 values 方法
+    let aEntries = numbers.entries(); // 得到键值对的迭代器
+    let aKeys = numbers.keys(); // 得到数组索引的迭代器
+    let aValues = numbers.values(); //values 方法返回的 @@iterator 则包含数组的值
+
+4.Array.from 方法根据已有的数组创建一个新数组。比如，要复制 numbers 数组，可以这样做：
+    let numbers2 = Array.from(numbers);
+    还可以传入一个用来过滤值的函数，例子如下：
+    let evens = Array.from(numbers, x => (x % 2 == 0));
+
+5. 使用 Array.of 方法
+    let arr = Array.of(1,2,3) == let arr = [1,2,3]
+
+6. 使用 fill 方法 fill(target[,keyStart[,keyEnd]])
+    let arrFill = [0,1,2,3]
+    arrFill.fill('replace',2,3) //[0,1,replace,3]
+
+    let ones = Array(6).fill(1);
+    上面的代码创建了一个长度为 6 ，所有的值都是 1 的数组（ [1, 1, 1, 1, 1, 1] ）。
+
+7. 使用 copyWithin 方法
+copyArray.copyWithin(target[,keyStart[,keyEnd]]);
+
+</pre>
+
+
+
+<script>
+var array = [0,1,2,3,4,5]
+// console.log(array.concat(0))
+// console.log(array.concat(0,2))
+// console.log(array.join())
+//console.log(array.pop())
+//console.log(array.shift())
+// console.log(array.push(6,7,8))
+// console.log(array.reverse())
+// console.log(array.sort())
+// console.log(array.splice(1,8,1,2,3,4))
+// // console.log(bill.toSource())
+// console.log(array.toLocaleString())
+// console.log(array.unshift(-2,-1))
+// console.log(array.valueOf())
+
+var numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+function isEven(x) { console.log(x) ;  return (x % 2 == 0)} // 如果x是2的倍数，就返回true
+//numbers.every(isEven) // every 方法会迭代数组中的每个元素，直到返回 false 。
+//numbers.some(isEven) //和 every 的行为类似，不过 some 方法会迭代数组的每个元素，直到函数返回 true ：
+
+// document.writeln(numbers.map(x => x % 2 ==0))
+// document.writeln(numbers.filter(x => x % 2 ==0))
+// numbers.forEach(x=>  console.log((x % 2 == 0)) )
+// for(let i of numbers){    console.log( i % 2===0 ? 'even' : 'odd' )}
+
+var iterator = numbers[Symbol.iterator]()
+document.writeln(iterator.next().value) // 1
+
+var aEntries = numbers.entries();
+document.writeln(aEntries.next().value) //[0, 1] 得到键值对的迭代器
+
+var aKeys = numbers.keys()
+document.writeln(aKeys.next()) //{value: 0, done: false } 得到数组索引的迭代器
+
+document.writeln(Array.from(numbers)) //Array.from 复制
+let dupNumbers = Array.from(numbers,x => (x % 2 ==0))
+document.writeln(dupNumbers) //Array.from 复制
+
+//Array.of 方法根据传入的参数创建一个新数组。以下面的代码为例：
+let numbers3 = Array.of(1);// == let numbers3 =  [1]
+
+let arrFill = [0,1,2,3]
+document.writeln(arrFill.fill('replace',2,3))
+
+
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
