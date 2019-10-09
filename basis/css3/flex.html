@@ -4,31 +4,66 @@
     <meta charset="UTF-8">
     <title>flex布局</title>
     <style>
-        p{background-color: #0a8cde;width: 60px;height: 60px;margin: 5px}
-        .flexBox1{display: flex;flex-direction: row;justify-content: center;
-            width: 600px;height: 200px;margin: 0 auto;border: 1px solid red;}
+        .fl{float: left}
+        section{display: flex; width:100px;height: 100px;margin:10px;border: 1px solid #000;}
+        p{background-color: #f30;margin:5px 8px;;width: 20px;height: 20px;border-radius: 50%}
+
     </style>
 </head>
 <body>
-<mark>
-    容器的属性:
+<mark>注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</mark>
+<pre>
+容器的属性:
     flex-direction: row(水平方向，起点在左端) | row-reverse | column (垂直方向，起点在上沿)| column-reverse;
-    flex-wrap:  nowrap | wrap | wrap-reverse;
-    flex-flow: <flex-direction> || <flex-wrap>;
-    justify-content: flex-start | flex-end | center | space-between | space-around;
-    align-items: flex-start | flex-end | center | baseline | stretch;
-    align-content: flex-start | flex-end | center | space-between | space-around | stretch;
-</mark>
+    flex-wrap:  nowrap（默认：不换行） | wrap | wrap-reverse;
+    flex-flow: lex-direction flex-wrap;（row nowrap）
+    justify-content: flex-start | flex-end | center | space-between | space-around; 横向对齐方式
+    align-items: flex-start | flex-end | center | baseline | stretch; 纵向对齐方式
+    align-content: flex-start | flex-end | center | space-between | space-around | stretch; 多根轴线的对齐方式
+元素属性
+    order: integer(整数),/* default 0 */; 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+    flex-grow: number /* default 0 */; 定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+    flex-shrink: number /* default 0 */;定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+    flex-basis: length | auto; /* default auto */ 定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
+    flex: 是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。 该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。
+    align-self: auto | flex-start | flex-end | center | baseline | stretch;属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
+</pre>
+<ul>
+<li class="fl">
+<div>1饼</div>
+<style>.flexBox1{justify-content: center;align-items: center}</style>
+<section class="flexBox1"><p></p></section>
+</li>
+<li class="fl">
+<div>2饼</div>
+<style>.flexBox2{ flex-direction: column;justify-content: center;align-items: center;}</style>
+<section class="flexBox2"><p></p><p></p></section>
+</li>
+<li class="fl">
+<div>3饼</div>
+<style>.flexBox3{ flex-direction: column;align-items: center;}.flexBox3 p:first-child{align-self: flex-start}.flexBox3 p:last-child{align-self: flex-end}</style>
+<section class="flexBox3"><p></p><p></p><p></p></section>
+</li>
+<li class="fl">
+<div>4饼</div>
+<style>.flexBox4{ flex-wrap:wrap;justify-content: center;align-items: center;}</style>
+<section class="flexBox4"><p></p><p></p><p></p><p></p></section>
+</li>
+<li class="fl">
+<div>5饼</div>
+<style>.flexBox5{ flex-wrap:wrap;justify-content: center;align-items: center;}.flexBox5 p:nth-child(3){margin: 0 30%}</style>
+<section class="flexBox5"><p></p><p></p><p></p><p></p><p></p></section>
+</li>
 
-<section class="flexBox1">
-    <p>水平方向起点在左端</p>
-    <p>垂直方向起点在上沿</p>
-    <p>132</p>
-    <p>132</p>
-</section>
+<li class="fl">
+    <div>6饼</div>
+    <style>.flexBox4{ flex-wrap:wrap;justify-content: center;align-items: center;}</style>
+    <section class="flexBox4"><p></p><p></p><p></p><p></p><p></p><p></p></section>
+</li>
 
 
 
+</ul>
 
 </body>
 </html>
