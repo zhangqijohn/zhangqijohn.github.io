@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS颜色的几种写法</title>
+    <style>div{margin: 15px 0}</style>
+</head>
+<body>
+
+<h3>
+可以用以下方法来规定 CSS 中的颜色：
+    十六进制色、RGB 颜色、RGBA 颜色、英文名颜色、HSL 颜色、HSLA 颜色、预定义/跨浏览器颜色名
+</h3>
+
+<div style="color:#ff0000">
+1) hex_number使用十六进制颜色：最常用 ,所有浏览器都支持十六进制颜色值。 <br>
+    十六进制颜色是这样规定的：#RRGGBB，其中的 RR（红色）、GG（绿色）、BB（蓝色）十六进制整数规定了颜色的成分。所有值必须介于 0 与 F 之间。<br>
+    color: #ff0000;
+</div>
+
+<div style="color:rgb(255, 0, 0)">
+2）rgb_number 使用rgb 数值：所有浏览器都支持 RGB 颜色值。<br>
+    RGB 颜色值是这样规定的：rgb(red, green, blue)。每个参数 (red、green 以及 blue) 定义颜色的强度，可以是介于 0 与 255 之间的整数，或者是百分比值（从 0% 到 100%）。<br>
+    color:rgb(255, 0, 0)
+    color1:rgb(255, 255, 255)
+</div>
+
+<div style="color:rgba(255, 0, 0, 1)">
+3）rgb_number 使用rgba：RGBA 颜色值得到以下浏览器的支持：IE9+、Firefox 3+、Chrome、Safari 以及 Opera 10+。<br>
+    RGBA 颜色值是这样规定的：rgba(red, green, blue, alpha)。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字。<br>
+    color:rgba(0%, 0%, 0%, 1)
+    color:rgba(100%, 100%, 100%, 1)
+</div>
+
+<div style="color:red">
+4）color_name 颜色的英文名：因为CSS 规范推荐的颜色名称仅支持少量，不建议在网页中使用颜色名,避免有些颜色名不被浏览器解析，或者不同浏览器对颜色的解释差异<br>
+    如： black（纯黑），silver（浅灰），navy（深蓝）， blue（浅蓝），green（深绿），lime	（浅绿），  teal（靛青），aqua（天蓝），maroon（深红），red	（大红），purple（深紫），fuchsia（品红），olive（褐黄），yellow（明黄），gray（深灰），white（壳白）<br>
+    color:red
+</div>
+
+<div style="color:hsl(360, 100%, 50%)">
+5）hsl_name： HSL 颜色值得到以下浏览器的支持：IE9+、Firefox、Chrome、Safari 以及 Opera 10+。<br>
+    HSL 指的是 hue（色调）、saturation（饱和度）、lightness（亮度） - 表示颜色柱面坐标表示法。<br>
+    H 是色盘上的度数（从 0 到 360） - 0 (或 360) 是红色，120 是绿色，240 是蓝色。S 是百分比值；0% 意味着灰色，而 100% 是全彩。L 同样是百分比值；0% 是黑色，100% 是白色。<br>
+    color:hsl(360, 100%, 50%)
+</div>
+
+<div style="color:hsla(360, 100%, 50%, .6)">
+6）hsla_name 颜色值得到以下浏览器的支持：IE9+、Firefox 3+、Chrome、Safari 以及 Opera 10+。<br>
+    HSLA 颜色值是这样规定的：hsla(hue, saturation, lightness, alpha)，其中的 alpha 参数定义不透明度。alpha 参数是介于 0.0（完全透明）与 1.0（完全不透明）的数字。<br>
+    color:hsla(360, 100%, 50%, .6)
+</div>
+
+
+
+
+</body>
+</html>

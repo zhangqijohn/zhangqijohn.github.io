@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生成唯一的uuid</title>
+</head>
+<body>
+
+
+<script>
+    //用于生成uuid
+    function S4() {
+        return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    }
+    function guid() {
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+    console.time();
+    var max = 10e3, // 生成100万组数字，比对是否有重复的
+        i = 0,
+        arr = [];
+    for(;i<max;i++){
+        arr.push(guid())
+    }
+    // arr = Array.from(new Set(arr))
+    arr = uniq2(arr)
+    function uniq2(string) {
+        var newStr = ''
+        for(var x = 0;x < string.length;x++){
+            if(newStr.indexOf(string[x])==-1){
+                newStr += string[x]
+            }
+        }
+        return newStr;
+    }
+    document.write(arr.length)
+    console.timeEnd();
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

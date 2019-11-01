@@ -1,13 +1,13 @@
 ﻿// webpack.config.js
 const path = require('path')
- 
+
 // 导入在内存中生成HTML页面的插件
 // 只要是插件，都一定要放到plugins节点中去
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //提取css到单独文件的插件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); //压缩css插件
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //清除上一个版本文件
- 
+
 module.exports = {
     // 入口：表示要使用webpack打包哪个文件
     entry: path.join(__dirname, './src/js/index.js'),
@@ -58,33 +58,33 @@ module.exports = {
         // 所有第三方模块的 匹配规则
         rules: [
             // 配置处理.css文件的第三方loader规则
-            //{ //本页面css
-				//test: /\.css$/,
-				//use: ['style-loader', 'css-loader']
-            //},
+            { //本页面css
+				test: /\.js$/,
+				use: './app.js'
+            },
 
-			{//link 单独css
-				test: /\.css$/,
-				use: [MiniCssExtractPlugin.loader, "css-loader"]
-			},
-			{ //img
-				test: /\.(png|jpg|gif|svg)$/,
-				use:[{
-					loader: 'url-loader',
-					options: 
-					{
-						outputPath:'images/',
-						publicPath:'https://img.ssl.q1.com/yz/images/huodong/hd/',
-						limit:500,
-						name: '[name].[hash:5].[ext]'
-                        //name: '[name].[ext]?v=[hash:3]'
-					}
-				}]
-			},
-			{ //html
-				test: /\.(htm|html)$/i, 
-				use: ['html-withimg-loader']
-			}
+			// {//link 单独css
+			// 	test: /\.css$/,
+			// 	use: [MiniCssExtractPlugin.loader, "css-loader"]
+			// },
+			// { //img
+			// 	test: /\.(png|jpg|gif|svg)$/,
+			// 	use:[{
+			// 		loader: 'url-loader',
+			// 		options:
+			// 		{
+			// 			outputPath:'images/',
+			// 			publicPath:'https://img.ssl.q1.com/yz/images/huodong/hd/',
+			// 			limit:500,
+			// 			name: '[name].[hash:5].[ext]'
+            //             //name: '[name].[ext]?v=[hash:3]'
+			// 		}
+			// 	}]
+			// },
+			// { //html
+			// 	test: /\.(htm|html)$/i,
+			// 	use: ['html-withimg-loader']
+			// }
         ]
     }
 }
