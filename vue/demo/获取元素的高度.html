@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <style>
+        p{padding: 0;margin: 0}
+      .scrollWrap{ width:150px;height: 150px; overflow: auto; }
+      .scroll-content { position: relative; transition: top 0.5s; }
+      .scroll-content p{ line-height:25px; text-align: center;margin: 10px 0 }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="scrollWrap">
+     <div class="scroll-content" :style="{ top }" @mouseenter="Stop()" @mouseleave="Up()">
+        <p v-for="(item,i) in prizeList" :ref="prizeList" :key="i" :class="item.id" class="plist"><span :href="item.src">{{item.name}}</span></p>
+       </div>
+    </div>
+</div>
+
+
+<script>
+    new Vue({
+        el:'#app',
+        data() {
+            return {
+                prizeList: [
+                    { name: '城轨采购网',src:'http://www.railunique.com',id:'a1'},
+                    { name: '天津地铁电子采购平台',src:'http://www.railunique.com',id:'a2' },
+                    { name: '南昌地铁',src:'http://www.railunique.com',id:'a3' },
+                    { name: '南昌地铁',src:'http://www.railunique.com',id:'a4' },
+                    { name: '兰州地铁招标信息,兰州地铁招标信息兰州地铁招标信息兰州地铁招标信息兰州地铁招标信息，兰州地铁招标信息兰州地铁招标信息兰州地铁招标信息',src:'http://www.railunique.com',id:'a5' },
+                    { name: '西安公共资源交易中心',src:'http://www.railunique.com',id:'a6' },
+                ],
+                activeIndex: 0,
+                intnum: undefined,
+                top:'',
+                topVaule:''
+            }
+        },
+        mounted(){
+            // let height = window.getComputedStyle(this.$refs.element).height; // 100px
+            this.$nextTick(()=>{
+                // let height= this.$refs.prize[0].offsetHeight;
+                // console.log(window.getComputedStyle(this.$refs.prize).height)
+                console.log((window.getComputedStyle(document.querySelector(".plist")).height).replace(/px$/,''))
+                this.topVaule = window.getComputedStyle(document.querySelector(".plist")).height.replace(/px$/,'')
+                this.top= - JSON.stringify(JSON.parse(this.topVaule)) +'px'
+                console.log(this.top)
+                console.log(this.topVaule)
+            })
+
+        },
+    })
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

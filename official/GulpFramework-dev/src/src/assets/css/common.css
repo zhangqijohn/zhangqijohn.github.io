@@ -1,0 +1,39 @@
+body,div,p,ul,h1,h2,h3,h4,h5,h6,header,footer,aside,nav,menu{
+    padding: 0;
+    margin: 0;
+}
+a{
+    color: #222;
+    text-decoration: none;
+}
+a:hover{
+    color: red
+}
+body{
+    font-size: 12px;
+    line-height: 36px;
+    background: #eee;
+}
+li{
+    list-style: none;
+}
+h1,h2,h3,h4,h5,h6{
+    font-size: 100%;
+    font-weight: normal;
+}
+.center{
+    text-align: center;
+}
+
+.white{
+    color: white !important;
+}
+.red{
+    color:red !important;
+}
+.yellow{
+    color:yellow !important;
+}
+.orange{
+    color:orange !important;
+}

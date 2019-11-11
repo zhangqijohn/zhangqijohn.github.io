@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuex</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex"></script>
+    <style>pre{background-color: #2d2d2d;;color: #fff;padding:10px;border-radius: 10px;width: 700px}</style>
+</head>
+<body>
+<pre>
+“单向数据流”理念的简单示意：    view->actions->state->view
+vuex 核心概念:State 、Getter、 Mutation、 Action、 Module
+Vue Components (Dispatch)--> Actions (Commit) --> Mutations (Mutate) --> State (Render)-->  Vue Components
+</pre>
+<div id="app">
+
+
+    <span @click="minus">-</span>{{this.$store.state.count}} <span @click="plus">+</span>
+</div>
+<script>
+    const store = new Vuex.Store({
+        state: {
+            count: 1
+        },
+        mutations: {
+            minus (state, val) {
+                state.count -= 1
+            },
+            plus  (state, val) {
+                state.count += 1
+            }
+        },
+        actions: {
+            calc ( { commit }, val) {
+                commit('minus', val)
+            }
+        },
+        getters: {
+            doneTodo: state => state.count //   count: state => {  do some things}
+        }
+    })
+
+    var vm = new Vue({
+        el:'#app',
+        store,
+        data() {
+            return {
+                msg: 'hello world'
+            };
+        },
+        methods:{
+            minus() {
+                this.$store.commit('minus')
+            },
+            plus() {
+                this.$store.commit('plus')
+            }
+        }
+    })
+
+</script>
+
+
+
+</body>
+</html>

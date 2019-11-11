@@ -1,0 +1,18 @@
+.news{
+  width:600px;
+  float: left;
+  li{
+    clear: both;
+    overflow: hidden;
+    line-height: 32px;
+    span{
+      float: right;
+    }
+    a{
+      color: #eee;
+    }
+    a:hover{
+      color: #f00;
+    }
+  }
+}

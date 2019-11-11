@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="app-container">
+
+      <el-table
+              v-loading="loading"
+              element-loading-text="拼命加载中"
+              element-loading-spinner="el-icon-loading"
+              element-loading-background="rgba(255, 255, 255, 0.8)"
+              border
+              highlight-current-row
+              :data="queryResult"
+              class="header-container">
+          <el-table-column
+                  align="center"
+                  width="150"
+                  label="通行证ID"
+                  prop="passportId">
+          </el-table-column>
+          <el-table-column
+                  align="center"
+                  label="用户ID"
+                  prop="userId">
+          </el-table-column>
+          <el-table-column
+                  align="center"
+                  width="150"
+                  label="角色ID"
+                  prop="roleId">
+          </el-table-column>
+          <el-table-column
+                  align="center"
+                  label="角色名称"
+                  prop="roleName">
+          </el-table-column>
+          <el-table-column
+                  width="200"
+                  align="center"
+                  label="创建时间"
+                  prop="createTime">
+              <template slot-scope="scope">
+                  {{ scope.row.createTime | formatDate }}
+              </template>
+          </el-table-column>
+          <el-table-column
+                  align="center"
+                  label="钻石"
+                  prop="gold">
+          </el-table-column>
+          <el-table-column
+                  align="center"
+                  label="金币"
+                  prop="money">
+          </el-table-column>
+          <el-table-column
+                  align="center"
+                  label="角色等级"
+                  prop="level">
+          </el-table-column>
+          <el-table-column
+                  align="center"
+                  label="经验值"
+                  prop="exp">
+          </el-table-column>
+          <el-table-column
+                  width="100"
+                  align="center"
+                  label="操作">
+              <template slot-scope="scope">
+                  <el-button type="primary" size="mini" class="el-icon-zoom-in" @click="viewDetail(scope.row.roleId)">详情</el-button>
+              </template>
+          </el-table-column>
+      </el-table>
+
+
+  </div>
+</div>
+<script>
+    var app = new Vue({
+         el: '#app',
+         data () {
+         return {
+              rules: {},
+              queryData: {mulLanguages: []       },
+              checkAll: true,
+              checkedLanguage: [],
+              language: [
+                  {languageId: 1, desc: '中文', title: '', content: ''},
+                  {languageId: 2, desc: '英文', title: '', content: ''},
+                  {languageId: 3, desc: '英1文', title: '', content: ''}
+              ],
+              isIndeterminate: false,
+              activeName: '中文',
+         }
+  },
+  created () {
+      this.checkedLanguage = this.language
+      this.queryData.mulLanguages = this.language
+  },
+  methods: {
+       //  语种选择
+    handleCheckedChange (value) {
+      //let checkedCount = value.length
+       // this.checkAll = checkedCount === this.language.length
+       // this.isIndeterminate = checkedCount > 0 && checkedCount < this.language.length
+       this.checkedLanguage = value
+       this.queryData.mulLanguages = value
+       this.activeName =this.checkedLanguage[0].desc
+    },
+
+  },
+
+})
+</script>
+
+
+</body>
+</html>

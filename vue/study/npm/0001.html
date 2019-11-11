@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+
+    <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="city in cities" :label="city.id" :key="city.id">{{city.type}}</el-checkbox>
+    </el-checkbox-group>
+    <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="city in cities" :label="city.id" :key="city.id">{{city.type}}</el-checkbox>
+    </el-checkbox-group>
+    <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="city in cities" :label="city.id" :key="city.id">{{city.type}}</el-checkbox>
+    </el-checkbox-group>
+</div>
+<script>
+    var yz = ["123", "", "", "132", "", "", "", "132", "", "", "", "", "", "", "", "", "", ""]
+    console.log(yz.filter(d=>d))
+
+    var str="asdfk,asdf34,,,,,,5345,,,,";
+    str=str.replace(new RegExp(',+',"gm"),',');
+    console.log(str)
+</script>
+
+
+</body>
+</html>

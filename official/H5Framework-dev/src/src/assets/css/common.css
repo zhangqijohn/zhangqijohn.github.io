@@ -1,0 +1,84 @@
+html,body,div,p,ul,li,dl,dt,dd,em,i,span,a,img,input,h1,h2,h3,h4,h5 {margin:0;padding:0}
+a,img,input {border:none;}
+body{
+    font-family: system,-apple-system,BlinkMacSystemFont,CenturyGothic,PingFang SC,Arial,Microsoft YaHei,wenquanyi micro hei,Hiragino Sans GB,Hiragino Sans GB W3,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,Helvetica,sans-serif;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+a {text-decoration:none;}
+ul,li{list-style: none}
+a, img, input {-webkit-touch-callout: none;}
+img{
+    border: none;
+    max-width: 100%;
+}
+input,
+textarea,
+button,
+select,
+option,
+optgroup{
+    outline: none;
+}
+button{
+    border: none;
+}
+table{
+    border-collapse: collapse;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    overflow-x: hidden;
+}
+.clearfix:after {
+    display: block;
+    content: "";
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+}
+
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.center{
+    text-align: center;
+}
+.inline-block{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.red{
+    color: #f00 !important;
+}
+.green{
+    color: #11b657 !important;
+}
+.gray{
+    color: #878787 !important;
+}
+.yellow{
+    color: #fdff38 !important;
+}
+.orange{
+    color: #ff7e20 !important;
+}
+
+.app-container{
+    padding: 10px;
+}
+.mask{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background: #fff;
+}

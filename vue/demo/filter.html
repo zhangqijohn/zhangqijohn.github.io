@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+  <div v-for="i in messages" :key="i.id">
+    {{i.name}},   {{i.src}} ,{{i.id | formatChanles}}
+  </div>
+</div>
+<script>
+var app = new Vue({
+  el: '#app',
+  data () {
+      return {
+          // prizeList: [
+          //     { name: '城轨采购网',src:'http://www.railunique.com',id:'0'},
+          //     { name: '天津地铁电子采购平台',src:'http://www.railunique.com',id:'1' },
+          //     { name: '天津地铁电子采购平台',src:'http://www.railunique.com',id:'2' },
+          //     { name: '南昌地铁',src:'http://www.railunique.com',id:'3' },
+          //     { name: '南昌地铁',src:'http://www.railunique.com',id:'4' },
+          //     { name: '兰州地铁招标信息,兰州地铁招标信息兰州地铁招标信息兰铁招标信息',src:'http://www.railunique.com',id:'5' },
+          //     { name: '西安公共资源交易中心',src:'http://www.railunique.com',id:'6' },
+          // ],
+          chanles: [
+              {id: 0, label: '系'},
+              {id: 1, label: '世'},
+              {id: 2, label: '国'},
+              {id: 3, label: '帮'},
+              {id: 4, label: '会'},
+              {id: 5, label: '队伍'},
+              {id: 6, label: '团队'},
+              {id: 7, label: '省'},
+              {id: 8, label: '城'},
+              {id: 9, label: '当前'},
+              {id: 10, label: '区域'},
+              {id: 11, label: '联盟'},
+              {id: 12, label: '私聊'}
+          ]
+      }
+  },
+  computed: {
+      messages(val) {
+          var newVal = val
+          // newVal.filter(x=>{
+          //     x.channel = app0.chanles[x].label
+          //     x.sendTime = simpleFormat(x.sendTime)
+          // })
+          console.log(val)
+          return newVal
+      }
+  },
+  beforeCreate() {
+      app0 = this;
+  },
+    mounted () {
+        this.addmes()
+    },
+  methods: {
+      formatChanles (val) {
+          return app0.chanles[value].label
+      },
+      addmes () {
+          var num = 0
+          window.time = setInterval(() => {
+              num++
+              this.messages.push({ 'gameId': 2107,
+                  'serverId': 103305,
+                  'server': '测试世界(103305)',
+                  'senderId': 105080,
+                  'senderName': '蓝仙',
+                  'receiverId': 0,
+                  'receiverName': '',
+                  'channel': 2,
+                  'sendTimeUnix': 1569444961,
+                  'sendTime': '2019-09-25T20:56:01Z',
+                  'content': '这是新增的信息' + num,
+                  'id': '5d8ceaf2d86d350001bceced'
+              })
+          }, 1000)
+      },
+    },
+  filters: {
+    formatChanles (value) {
+       return app0.chanles[value].label
+    }
+  }
+})
+
+function simpleFormat (date) {
+    if (date === undefined || date === null || date === '') {
+        return date
+    } else {
+        return moment(date).format('YYYY-MM-DD HH:mm:ss')
+    }
+}
+var a = {
+    'gameId': 2107,
+    'serverId': 103305,
+    'server': '测试世界(103305)',
+    'senderId': 105080,
+    'senderName': '蓝仙',
+    'receiverId': 0,
+    'receiverName': '',
+    'channel': 2,
+    'sendTimeUnix': 1569444961,
+    'sendTime': '2019-09-25T20:56:01Z',
+    'content': "<a href='client::moveto(1,362.95,6.82,306.79)'>皇城(362,306)</a><head headBgId=0 bubbleId=0 />",
+    'id': '5d8ceaf2d86d350001bceced'
+}
+</script>
+
+
+</body>
+</html>

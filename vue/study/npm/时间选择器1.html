@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <el-date-picker
+            v-model="value1"
+            type="date"
+            placeholder="开始日期"
+            :picker-options="pickerOptions0">
+    </el-date-picker>
+    <el-date-picker
+            v-model="value2"
+            type="date"
+            placeholder="结束日期"
+            :picker-options="pickerOptions1">
+    </el-date-picker>
+
+</div>
+<script>
+    let vm=new Vue({
+        el:'#app',
+        data(){
+            return {
+                value1:"",
+                value2:"",
+                pickerOptions0: {
+                    disabledDate: (time) => {
+                        // if (this.value2 != "") {
+                        //     return time.getTime() > Date.now() || time.getTime() > this.value2;
+                        // } else {
+                        //     return time.getTime() > Date.now();
+                        // }
+                        return time.getTime() < Date.now() - 8.64e7;//8.64e7=1000*60*60*24一天
+                    }
+                },
+                pickerOptions1: {
+                    disabledDate: (time) => {
+                        return time.getTime() < this.value1 || time.getTime() < Date.now()- 8.64e7;//8.64e7=1000*60*60*24一天
+                    }
+                },
+            }
+        }
+    })
+
+
+</script>
+</body>
+</html>

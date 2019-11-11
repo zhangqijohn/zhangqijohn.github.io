@@ -1,0 +1,100 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+button,input,textarea{
+    outline: none;
+}
+ul{
+    list-style: none;
+}
+.red{
+    color: red !important;
+}
+.green{
+    color: green !important;
+}
+.yellow{
+    color: yellow !important;
+}
+.fr{
+    float: right;
+}
+.fl{
+    float: left;
+}
+.layout{
+    width: 1000px;
+    padding: 24px;
+    margin: auto;
+    box-sizing: border-box;
+}
+.center{
+    text-align: center
+}
+.ui-btn{
+    display: inline-block;
+    font-size: 18px;
+    padding: 10px;
+    margin-right: 12px;
+    color: #fff;
+    background: cornflowerblue;
+    border:none;
+    cursor: pointer;
+}
+.title{
+    margin-bottom: 12px;
+}
+.box{
+    background: #eee;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.mod-nav{
+    line-height: 32px;
+}
+
+.device {
+    width: 753px;
+    height: 384px;
+    padding: 30px 40px;
+    border-radius: 20px;
+    background: #111;
+    border: 3px solid white;
+    margin: 5px auto;
+    position: relative;
+    box-shadow: 0px 0px 5px #000;
+}
+.device .arrow-left {
+    background: red;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+.device .arrow-right {
+    background: red;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+.swiper-container {
+    width: 753px;
+    height: 384px;
+    margin: 0 auto;
+}
+.content-slide {
+    padding: 20px;
+    color: #fff;
+}
+
+.icon{
+    display: inline-block;
+    vertical-align: middle;
+}

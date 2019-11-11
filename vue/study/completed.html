@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>completed</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .screen{text-decoration: line-through;}
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <li
+            v-for="i in task"
+            :class="['ss','ss1',{'screen':i.screen}]"
+            @click="toggleTask(i)"
+        >
+            {{i.body}}
+        </li>
+    </ul>
+</div>
+
+<!--<task-app></task-app>-->
+<templete id="task-templete">
+    <ul>
+        <li v-for="i in task" >
+            {{i}}
+        </li>
+    </ul>
+</templete>
+
+
+<script>
+    Vue.component("task-app",{
+        props: ['todo'],
+        templete:"#task-templete",
+
+    })
+
+    new Vue({
+        el:"#app",
+        data:{
+            task:[
+                {id:0,body:"1111",screen:true},
+                {id:1,body:"2222",screen:false},
+                {id:2,body:"3333",screen:true}
+            ]
+        },
+        methods:{
+            toggleTask:function (i) {
+                i.screen = !i.screen;
+            }
+        }
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

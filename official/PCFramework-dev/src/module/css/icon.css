@@ -1,0 +1,18 @@
+.icon-error{
+    width:40px;
+    height: 40px;
+    background: url("/icon/error.png") no-repeat;
+    background-size: 100%;
+}
+.icon-success{
+    width:40px;
+    height: 40px;
+    background: url("/icon/success.png") no-repeat;
+    background-size: 100%;
+}
+.icon-warning {
+    width: 40px;
+    height: 40px;
+    background: url("/icon/warning.png") no-repeat;
+    background-size: 100%;
+}

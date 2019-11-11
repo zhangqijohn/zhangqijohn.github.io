@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VUE优化技巧</title>
+</head>
+<body>
+
+1.什么是性能优化
+    页面加载性能（加载时间）
+    动画与操作性能（是否流畅无卡顿）
+    内存、电量消耗（内存占用，耗电量）
+
+2.性能体系
+        -》现状评估和建立指标 -》 加载太慢
+        -》技术方案      -》CDN库
+性能体系-》执行          -》搭建CDN
+        -》结果分析      -》果然快了
+        -》找老板        -》升职加薪
+
+技术方案： 缓存 -》客户端控制的强缓存策略
+降低请求成本： http dns 有客户端控制，隔一段时间主动请求DNS获取域名IP。不走系统的DNS
+            TCP/TLS链接妇幼：由服务端升级到http2,尽量合并域名
+
+减少请求数 js/css打包到html
+            用JS控制图片的懒加载
+
+
+vue ：路由按需引用
+
+<script>
+
+    var num = 1.63
+
+
+    console.log(num |0)
+</script>
+
+
+</body>
+</html>

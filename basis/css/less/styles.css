@@ -1,0 +1,73 @@
+/*
+  *1.变量 @
+  *变量可以定义在了规则块外边，也可定义在{}规则内
+  *查找变量的顺序是先在局部定义中找，如果找不到，则查找上级定义，直至全局。
+*/
+.box {
+  color: #fe33ac;
+  border-color: #fdcdea;
+}
+.box div {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+/*
+  *2.嵌套
+  *2-1. 父选择器的标识符&;
+  *2-2. 群组选择器的嵌套;
+  *2-3. 子组合选择器和同层组合选择器：>、+和~;
+  *2-4. 嵌套属性;
+*/
+#content article ~ article {
+  border-top: 1px dashed #ccc;
+}
+#content article > section {
+  background: #eee;
+}
+#content article dl dt {
+  color: #333;
+}
+#content article dl dd {
+  color: #555;
+}
+nav + #content article {
+  margin-top: 0;
+}
+/*
+  *3. 导入;
+*/
+.import {
+  width: 110px;
+  height: 10px;
+}
+/*
+  *4.混合(Mixins);
+*/
+.generic-error {
+  border: 5px solid #f00;
+  color: #f00;
+  /*直接调用error mixins*/
+}
+/*
+  *5.继承;
+*/
+.block {
+  display: block;
+  margin: 10px 5px;
+}
+p {
+  display: block;
+  margin: 10px 5px;
+}
+/*
+  *6.运算符（Operations）
+*/
+p {
+  margin: 20px;
+}
+/*
+ *7.颜色函数
+*/
+p {
+  color: #1a1a1a;
+}

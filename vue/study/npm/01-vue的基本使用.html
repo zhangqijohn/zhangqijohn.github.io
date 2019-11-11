@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <p>{{ number + 1 }}</p>
+        <p>{{ ok ? 'YES' : 'NO' }}</p>
+        <p>{{ msg.split('').reverse().join('') }}</p>
+        <div v-show="isShow">v_show</div>
+        <div v-if="Math.random() > 0.5">
+            Now you see me
+        </div>
+        <div v-else>
+            Now you don't
+        </div>
+
+        <div v-for="i in item" :key="i.id" :class='{f:i.id}'>{{i.txt}}</div>
+
+        <div>
+            <input type="text" v-bind:value="msg"> {{msg}}
+        </div>
+        <div>
+            <input type="text" v-model="message"> {{message}}
+        </div>
+    </div>
+
+    <pre>
+        v-text == {{}}
+        v-html
+        v-show
+        v-if
+        v-else
+        v-else-if
+        v-for
+        v-on
+        v-bind
+        v-model
+        v-slot
+        v-pre
+        v-cloak
+        v-once
+    </pre>
+
+    <script>
+      var vm = new Vue({
+            el:"#app",
+            data(){
+                //数据属性
+                // vue 还暴露了一些有用的实例属性与方法。原定义的有前缀$
+                return {
+                    msg:"helloworld!",
+                    number:1,
+                    ok:true,
+                    message:"<b>helloworld</b>",
+                    isShow:true,
+                    item:[{id:1,txt:"1111"},{id:2,txt:"2222"},{id:3,txt:"3333"}]
+                }
+            }
+        })
+
+        console.log(vm)
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "mod",
+  "version": "1.0.0",
+  "description": "modjs",
+  "main": "fis-conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "open": "fis3 server open",
+    "stop": "fis3 server stop",
+    "start": "fis3 server start",
+    "dev": "fis3 server start && gulp && fis3 release",
+    "build": "gulp && fis3 release prod"
+  },
+  "keywords": [
+    "modjs"
+  ],
+  "author": "mixtan",
+  "license": "ISC",
+  "dependencies": {
+    "del": "^4.0.0",
+    "fis3-hook-commonjs": "^0.1.31",
+    "fis3-postpackager-loader": "^2.1.11",
+    "fs-extra": "^7.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp.spritesmith": "^6.9.0"
+  }
+}

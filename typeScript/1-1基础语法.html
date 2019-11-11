@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TypeScript 基础</title>
+</head>
+<body>
+<pre>
+安装 npm install -g typescript
+查看版本号 tsc -v
+执行以下命令将 TypeScript 转换为 JavaScript 代码：tsc lesson1.ts
+使用 node 命令来执行 test.js 文件：node test.js
+
+TypeScript 是一种给 JavaScript 添加特性的语言扩展。增加的功能包括：
+    类型批注和编译时类型检查
+    类型推断
+    类型擦除
+    接口
+    枚举
+    Mixin
+    泛型编程
+    名字空间
+    元组
+    Await
+以下功能是从 ECMA 2015 反向移植而来：
+    类
+    模块
+    lambda 函数的箭头语法
+    可选参数以及默认参数
+
+
+tsc 常用编译参数如下表所示：
+    --help // 显示帮助信息  tsc lesson1.ts --help
+    --module // 载入扩展模块
+    --target // 设置ECMA版本
+    --declaration // 额外生成一个 .d.ts 扩展名的文件。 tsc lesson1.ts --declaration  // 生成 lesson1.js lesson1.d.ts  两个文件
+    --removeComments // 删除文件的注释
+    --out // 编译多个文件并合并到一个输出的文件
+    --sourcemap // 生成一个 sourcemap (.map) 文件。sourcemap 是一个存储源代码与编译代码对应位置映射的信息文件。
+    --module noImplicitAny // 在表达式和声明上有隐含的 any 类型时报错
+    --watch 在监视模式下运行编译器。会监视输出文件，在它们改变时重新编译。
+
+
+</pre>
+
+
+
+
+
+
+
+
+</body>
+</html>

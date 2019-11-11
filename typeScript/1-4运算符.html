@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TypeScript 运算符</title>
+</head>
+<body>
+<pre>
+TypeScript 主要包含以下几种运算：
+    算术运算符
+    逻辑运算符
+    关系运算符
+    按位运算符
+    赋值运算符
+    三元/条件运算符
+    字符串运算符
+    类型运算符
+
+关系运算符
+运算符	描述	    比较	返回值
+==	    等于	    x==8	false
+x==5	true
+!=	    不等于	    x!=8	true
+>	    大于	    x>8	    false
+<	    小于	    x<8	    true
+>=	    大于或等于	x>=8	false
+<=	    小于或等于	x<=8	true
+
+位运算符
+位操作是程序设计中对位模式按位或二进制数的一元和二元操作。
+; 0001
+运算符	描述	                                                                                        例子	    类似于	    结果	十进制
+&	    AND，按位与处理两个长度相同的二进制数，两个相应的二进位都为 1，该位的结果值才为 1，否则为 0。	x = 5 & 1	0101 & 0001	0001	0001	 1
+|	    OR，按位或处理两个长度相同的二进制数，两个相应的二进位中只要有一个为 1，该位的结果值为 1。	    x = 5 | 1	0101 | 0001	0101	 5
+~	    取反，取反是一元运算符，对一个二进制数的每一位执行逻辑反操作。使数字 1 成为 0，0 成为 1。	    x = ~ 5	    ~0101	    1010	 -6
+^	    异或，按位异或运算，对等长二进制模式按位或二进制数的每一位执行逻辑异按位或操作。
+        操作的结果是如果某位不同则该位为 1，否则该位为 0。	                                            x = 5 ^ 1	0101 ^ 0001	0100	 4
+<<	    左移，把 << 左边的运算数的各二进位全部左移若干位，
+    由 << 右边的数指定移动的位数，高位丢弃，低位补 0。	                                                x = 5 << 1	0101 << 1	1010	 10
+>>	    右移，把 >> 左边的运算数的各二进位全部右移若干位，>> 右边的数指定移动的位数。	                x = 5 >> 1	0101 >> 1	0010	 2
+>>>	    无符号右移，与有符号右移位类似，除了左边一律使用0 补位。	                                    x = 2 >>> 1	0010 >>> 1	0001	 1
+
+</pre>
+
+<script>
+    let list = [4, 5, 6];
+    for(x in list){
+        console.log(list[x])
+    }
+    for(let x of list){
+        console.log(x)
+    }
+
+    list.forEach((val, idx, array) => {
+        // val: 当前值
+        // idx：当前index
+        // array: Array
+        console.log(val, idx, array)
+    });
+    list.every((val, idx, array) => {
+        // val: 当前值
+        // idx：当前index
+        // array: Array
+        console.log(val, idx, array)
+        return true;
+    });
+    list.some((val, idx, array) => {
+        // val: 当前值
+        // idx：当前index
+        // array: Array
+        console.log(val, idx, array)
+    });
+
+</script>
+
+</body>
+</html>

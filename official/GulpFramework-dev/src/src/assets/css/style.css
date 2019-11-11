@@ -1,0 +1,146 @@
+body{
+    background: url("../img/2560X1600-1.jpg") no-repeat;
+    background-size: cover;
+}
+.home-page{
+    width: 1000px;
+    min-height: 200px;
+    margin: 0 auto 10px;
+    font-size: 18px;
+}
+.home-page h1 {
+    font-size: 24px;
+    padding: 14px 24px 5px;
+    text-align: center;
+}
+.home-page p {
+    text-align: center;
+    color: #fff;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, .5);
+    padding-bottom: 24px;
+}
+
+.menu{
+    margin-bottom: 14px;
+}
+.menu a{
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+}
+.news{
+    width: 780px;
+    margin: 10px auto;
+}
+.news{
+    color: #ccc;
+    margin-top: 30px;
+    padding: 24px 30px;
+    border-radius: 10px;
+    background: #000;
+    background: rgba(20,20,20,.5);
+}
+.news li a{
+    color: #ccc;
+}
+.news li a:hover{
+    color: #fff;
+    text-decoration: underline;
+}
+.news li span {
+    float: right;
+}
+.news li {
+    font-size: 14px;
+    line-height: 24px;
+    clear: both;
+    overflow: hidden;
+}
+.news h2{
+    color: #fff;
+    font-size: 18px;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.device {
+    width: 753px;
+    height: 384px;
+    padding: 30px 40px;
+    border-radius: 20px;
+    background: #111;
+    border: 3px solid white;
+    margin: 5px auto;
+    position: relative;
+    box-shadow: 0px 0px 5px #000;
+}
+.device .arrow-left {
+    background: red;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+.device .arrow-right {
+    background: red;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+.swiper-container {
+    width: 753px;
+    height: 384px;
+    margin: 0 auto;
+}
+.content-slide {
+    padding: 20px;
+    color: #fff;
+}
+.title {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.pagination {
+    position: absolute;
+    left: 0;
+    text-align: center;
+    bottom:5px;
+    width: 100%;
+}
+.swiper-pagination-switch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background: #999;
+    box-shadow: 0px 1px 2px #555 inset;
+    margin: 0 3px;
+    cursor: pointer;
+}
+.swiper-active-switch {
+    background: #fff;
+}
+.box{
+    background: url("https://img.ssl.q1.com/lw/images/login/login190216/one_img1.jpg") no-repeat;
+}
+.footer{
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    padding: 20px;
+}

@@ -1,0 +1,98 @@
+/*
+  *1.变量 @
+  *变量可以定义在了规则块外边，也可定义在{}规则内
+  *查找变量的顺序是先在局部定义中找，如果找不到，则查找上级定义，直至全局。
+*/
+@base: #f938ab;
+
+.box-shadow(@style, @c) when (iscolor(@c)) {
+  -webkit-box-shadow: @style @c;
+  box-shadow:         @style @c;
+}
+.box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+  .box-shadow(@style, rgba(0, 0, 0, @alpha));
+}
+.box {
+  color: saturate(@base, 5%);
+  border-color: lighten(@base, 30%);
+  div { .box-shadow(0 0 5px, 30%) }
+}
+
+/*
+  *2.嵌套
+  *2-1. 父选择器的标识符&;
+  *2-2. 群组选择器的嵌套;
+  *2-3. 子组合选择器和同层组合选择器：>、+和~;
+  *2-4. 嵌套属性;
+*/
+#content {
+  article {
+    ~ article { border-top: 1px dashed #ccc }
+    > section { background: #eee }
+    dl > {
+      dt { color: #333 }
+      dd { color: #555 }
+    }
+    nav + & { margin-top: 0 }
+  }
+}
+
+
+/*
+  *3. 导入;
+*/
+@import "import.less";
+
+
+/*
+  *4.混合(Mixins);
+*/
+@import "Mixins.less";
+.generic-error {
+  .error(5px);/*直接调用error mixins*/
+}
+
+/*
+  *5.继承;
+*/
+.block{display: block;
+  margin: 10px 5px;}
+
+p{
+  .block;//继承.block选择器下所有样式
+}
+
+/*
+  *6.运算符（Operations）
+*/
+@base_margin: 10px;
+@double_margin: @base_margin * 2;
+p{margin:@double_margin}
+
+
+/*
+ *7.颜色函数
+*/
+@color:#000;
+p{color:lighten(@color, 10%)}
+//lighten(@color, 10%); /* 返回的颜色在@color基础上变亮10% */
+//darken(@color, 10%);  /* 返回的颜色在@color基础上变暗10%*/
+//saturate(@color, 10%);  /* 返回的颜色在@color基础上饱和度增加10% */
+//desaturate(@color, 10%); /* 返回的颜色在@color基础上饱和度降低10%*/
+//spin(@color, 10);  /* 返回的颜色在@color基础上色调增加10 */
+//spin(@color, -10); /* 返回的颜色在@color基础上色调减少10 */
+//mix(@color1, @color2); /* 返回的颜色是@color1和@color2两者的混合色 */
+
+/*
+  *8.预处理器的高级应用
+  实现方式是利用关键词“when”
+*/
+.mixin (@a) when (@a >= 10) {
+  background-color: black;
+}
+.mixin (@a) when (@a < 10) {
+  background-color: white;
+}
+.class1 { .mixin(12) }
+.class2 { .mixin(6) }
+

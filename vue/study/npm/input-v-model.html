@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>input </title>
+    <link rel="stylesheet" href="//unpkg.com/element-ui@2.3.9/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+    <el-input v-model="num" @input="changeNum"></el-input>
+</div>
+
+<script src="//unpkg.com/vue/dist/vue.js"></script>
+<script src="//unpkg.com/element-ui@2.3.9/lib/index.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data(){
+            return {
+                num: 30,
+            }
+        },
+        methods: {
+            changeNum(val) {
+                this.$nextTick(()=>{
+                    this.num = this.num.replace(/\d/,'')
+                    console.log(this.num)
+                })
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

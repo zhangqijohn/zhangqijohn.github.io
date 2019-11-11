@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gulp-Framework</title>
+    <!--引入公用CSS样式-->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../../assets/css/swiper.css">
+    <link rel="stylesheet" href="../../assets/css/common.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- endinject -->
+</head>
+<body>
+<div class="home-page">
+    <h1>test</h1>
+    <div class="center menu">
+        <a href="../news/index.html">news</a>
+        <a href="../photos/index.html">photos</a>
+        <a href="../details/index.html">details</a>
+    </div>
+    <div class="device">
+        <a class="arrow-left" href="#"></a>
+        <a class="arrow-right" href="#"></a>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="../../assets/img/9.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="../../assets/img/11.jpg" alt=""></div>
+                <div class="swiper-slide"><img src="../../assets/img/12.jpg" alt=""></div>
+            </div>
+        </div>
+        <div class="pagination"></div>
+    </div>
+    <div class="news">
+        <h2>新闻列表</h2>
+    </div>
+    <script id="newsListTemp" type="text/html">
+      <ul>
+          {{each list item index key}}
+          <li>
+              <a href="{{item.url}}">{{item.title}}</a><span>{{item.date}}</span>
+          </li>
+          {{/each}}
+      </ul>
+    </script>
+</div>
+
+
+<!-- inject:js -->
+<!--引入JS公用库-->
+<script src="../../assets/js/lib/es5-shim.min.js"></script>
+<script src="../../assets/js/lib/es5-sham.min.js"></script>
+<script src="../../assets/js/lib/json3.min.js"></script>
+<script src="../../assets/js/lib/artTemplate.js"></script>
+<script src="../../assets/js/lib/swiper.js"></script>
+<script src="../../assets/js/lib/jquery.js"></script>
+
+<!--引入JS公用模块-->
+<script src="../../assets/js/app/util.js"></script>
+<script src="../../assets/js/app/banner.js"></script>
+<script src="../../assets/js/app/news.js"></script>
+<script src="../../assets/js/app/footer.js"></script>
+<script src="../../assets/js/app/app.js"></script>
+
+<!-- endinject -->
+</body>
+</html>

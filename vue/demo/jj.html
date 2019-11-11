@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+<button :disabled="{disabled:a === 2  ? true :false"} > 解禁</button>
+    <button  @click="aa"> aa</button>
+</div>
+<script>
+    new Vue({
+
+        el:'#app',
+        data(){
+            return{
+                a:3,
+                type:{
+                    id:1,
+                    label:'a'
+                },
+                id:1,
+                label:'a',
+            }
+        },
+        created(){
+
+            console.log(this.a === 2 || this.a === 4)
+
+        },
+        methods:{
+            aa(){
+                console.log(this.a === 2 || this.a === 4)
+
+            }
+
+        }
+
+    })
+
+
+
+</script>
+</body>
+</html>

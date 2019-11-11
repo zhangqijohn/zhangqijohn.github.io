@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-date-picker
+        v-model="value1"
+        type="date"
+        placeholder="选择开始日期"
+        :picker-options="pickerOptions0"
+        @input="picker01"
+    >
+    </el-date-picker>
+    <el-date-picker
+        v-model="value2"
+        type="date"
+        placeholder="选择结束日期"
+        :picker-options="pickerOptions1"
+        @input="picker02"
+        ref="ipt2">
+    </el-date-picker>
+
+</div>
+<script>
+    let vm=new Vue({
+        el:'#app',
+        data (){
+            return {
+                pickerOptions0:this.beginDate(),
+                pickerOptions1:this.processDate(),
+                // pickerOptions0: {
+                //     disabledDate(time) {
+                //         return time.getTime() < Date.now()-8.64e7;
+                //     }
+                // },
+                // pickerOptions1: {
+                //     disabledDate(time) {
+                //         console.log(this.value1)
+                //         if (this.value1) {  //如果开始时间不为空，则结束时间大于开始时间
+                //             return new Date(this.value1).getTime() > time.getTime()
+                //         } else {
+                //             return time.getTime() < Date.now()-8.64e7;//开始时间不选时，结束时间最大值小于等于当天
+                //         }
+                //     }
+                // },
+                value1:'2019-08-22 12:00',
+                value2:'',
+            }
+        },
+        methods:{
+            beginDate(){
+                const self = this
+                return {
+                    disabledDate(time){
+                        if (this.value2) {  //如果结束时间不为空，则小于结束时间
+                            return new Date(this.beginDate()).getTime() < time.getTime()
+                        } else {
+
+                            return time.getTime() < Date.now() - 8.64e7;//8.64e7=1000*60*60*24一天
+                        }
+
+                    }
+                }
+            },
+            processDate() {
+                console.log(this.value1)
+                const  self = this
+                return {
+                    disabledDate(time) {
+
+                        return new Date(this.value1).getTime() > time.getTime()
+                        if (this.value1) {  //如果开始时间不为空，则结束时间大于开始时间
+                            return new Date(this.value1).getTime() > time.getTime()
+                        } else {
+                            //return time.getTime() < Date.now() - 8.64e7;//8.64e7=1000*60*60*24一天
+                            // return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+                            //return time.getTime() > Date.now()//开始时间不选时，结束时间最大值小于等于当天
+                        }
+                    }
+                }
+            },
+            // pickerOptions0: { //只可以选择今天以及今天以后的时间：
+            //     disabledDate(time) {
+            //         return time.getTime() < Date.now() - 8.64e7;//8.64e7=1000*60*60*24一天
+            //     }
+            // }
+            picker01(){
+                //console.log(this.$refs.ipt2.disabledDate(new Date(this.value1) ))
+                //this.$refs.ipt2.disabledDate(time){ return new Date(this.value1).getTime() > time.getTime()}
+            },
+            picker02(){
+                console.log(this.value2)
+            }
+        },
+        watch: {
+            pickerOptions0:{
+                handler(val, oldVal){
+                    console.log("b.c: "+val, oldVal);//但是这两个值打印出来却都是一样的
+                },
+                deep:true
+            }
+        }
+
+    })
+    // vm.$watch(
+    //     function () {
+    //         // 表达式 `this.a + this.b` 每次得出一个不同的结果时
+    //         // 处理函数都会被调用。
+    //         // 这就像监听一个未被定义的计算属性
+    //         return this.a + this.b
+    //     },
+    //     function (newVal, oldVal) {
+    //         // 做点什么
+    //         console.log(newVal, oldVal)
+    //     }
+    // )
+
+</script>
+</body>
+</html>

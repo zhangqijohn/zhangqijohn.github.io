@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/module/css/common.css">
+</head>
+<body>
+<h1 class="center">news page</h1>
+<div class="box">
+    <a href="../about.html" class="ui-btn">to about page</a>
+    <a href="../index.html" class="ui-btn">to home page</a>
+</div>
+<div class="mod-news"></div>
+<div class="center box mod-pager">加载更多>></div>
+<script type="text/html" id="newsList">
+        {{each list value index}}
+        <div class="box">
+            <h2>{{value.title}}</h2>
+            <p>{{value.content}}</p>
+            <p>发布时间:{{value.date}}</p>
+            <p><a href="{{value.link}}">查看更多>></a></p>
+        </div>
+        {{/each}}
+</script>
+<!-- [lt ie 8]-->
+<script src="/lib/es5-sham.min.js" data-loader></script>
+<script src="/lib/es5-shim.min.js" data-loader></script>
+<script src="/lib/json3.min.js" data-loader></script>
+<!--end -->
+<script src="/lib/template-web.js" data-loader></script>
+<script src="/lib/mod.js" data-loader></script>
+<script src="/lib/jquery-1.11.3.js" data-loader></script>
+<script src="/module/js/news.js"></script>
+<script>
+    var news = require('/module/js/news')
+    var $pager = $('.mod-pager')
+    $pager.click(function () {
+        news.render()
+    })
+</script>
+</body>
+</html>

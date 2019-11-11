@@ -1,0 +1,10 @@
+.mod-index{
+    min-height: 800px;
+}
+.mod-banner{
+    display: none;
+}
+.body{
+    background: url("../../img/2560X1600-1.jpg") no-repeat;
+    background-size: cover;
+}

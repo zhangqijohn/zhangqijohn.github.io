@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+    <div class="block">
+        <el-table
+                border
+                highlight-current-row
+                :data="queryResult"
+                class="header-container">
+            <el-table-column
+                    align="center"
+                    width="150"
+                    label="通行证ID"
+                    prop="passportId">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="用户ID"
+                    prop="userId">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    width="150"
+                    label="角色ID"
+                    prop="roleId">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="角色名称"
+                    prop="roleName">
+            </el-table-column>
+            <el-table-column
+                    width="200"
+                    align="center"
+                    label="创建时间"
+                    prop="createTime">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="钻石"
+                    prop="gold">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="金币"
+                    prop="money">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="角色等级"
+                    prop="level">
+            </el-table-column>
+            <el-table-column
+                    align="center"
+                    label="经验值"
+                    prop="exp">
+            </el-table-column>
+            <el-table-column
+                    width="100"
+                    align="center"
+                    label="操作">1
+            </el-table-column>
+        </el-table>
+
+        <span class="demonstration">完整功能</span>
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="currentPage"
+                :page-sizes="[10, 20, 50, 100]"
+                :page-size="100"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="400">
+        </el-pagination>
+    </div>
+</div>
+<script>
+    var list = {"pageIndex":1,"pageSize":100,"total":466,"records":[{"passportId":"wwj_01181707","userId":107,"roleId":101,"roleName":"费穗禾tt","createTime":"2019-01-18T09:07:44Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"bbb112","userId":108,"roleId":102,"roleName":"汪心怡","createTime":"2019-01-18T09:18:28Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"cxy588","userId":109,"roleId":103,"roleName":"靳思语","createTime":"2019-01-18T09:26:46Z","gold":9835,"money":987084,"level":1,"exp":210},{"passportId":"bbb113","userId":110,"roleId":104,"roleName":"吕霖落","createTime":"2019-01-18T09:26:53Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"bbb114","userId":111,"roleId":105,"roleName":"卫樱儿","createTime":"2019-01-18T09:32:27Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_1003","userId":112,"roleId":106,"roleName":"印珍儿","createTime":"2019-01-18T09:33:21Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"wwj_01181826","userId":114,"roleId":107,"roleName":"邹汐123","createTime":"2019-01-18T10:26:31Z","gold":9250,"money":2125,"level":1,"exp":2570},{"passportId":"hjc135","userId":113,"roleId":108,"roleName":"韩梦雪","createTime":"2019-01-18T10:27:59Z","gold":0,"money":59115,"level":6,"exp":25171},{"passportId":"a103","userId":117,"roleId":109,"roleName":"盛梓琳","createTime":"2019-01-19T02:03:27Z","gold":9963,"money":1008150,"level":1,"exp":0},{"passportId":"313r","userId":118,"roleId":110,"roleName":"甘霈诗","createTime":"2019-01-19T02:24:24Z","gold":333332008,"money":333300738,"level":2,"exp":5910},{"passportId":"ue218888","userId":116,"roleId":111,"roleName":"谭虹苓","createTime":"2019-01-19T02:25:31Z","gold":0,"money":42623,"level":5,"exp":18210},{"passportId":"cxy590","userId":119,"roleId":112,"roleName":"韩雅绫","createTime":"2019-01-19T02:37:18Z","gold":0,"money":39323,"level":5,"exp":18210},{"passportId":"ue219","userId":120,"roleId":113,"roleName":"嘉芷柔","createTime":"2019-01-19T06:55:40Z","gold":0,"money":12771,"level":2,"exp":3270},{"passportId":"313r2","userId":122,"roleId":114,"roleName":"沈雯珺","createTime":"2019-01-19T08:04:25Z","gold":33333333,"money":33327320,"level":1,"exp":180},{"passportId":"313r25","userId":124,"roleId":115,"roleName":"戎俪","createTime":"2019-01-19T09:13:23Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"31","userId":125,"roleId":116,"roleName":"包韵","createTime":"2019-01-19T09:16:09Z","gold":0,"money":10000,"level":2,"exp":3240},{"passportId":"ue222667789","userId":126,"roleId":117,"roleName":"居佳妍","createTime":"2019-01-19T09:54:28Z","gold":22146,"money":6000,"level":1,"exp":0},{"passportId":"ue223","userId":127,"roleId":118,"roleName":"方依娴","createTime":"2019-01-21T16:07:05Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"ue224","userId":128,"roleId":119,"roleName":"熊雪利","createTime":"2019-01-21T16:09:35Z","gold":0,"money":2000,"level":1,"exp":0},{"passportId":"ue225","userId":129,"roleId":120,"roleName":"于菲","createTime":"2019-01-22T16:08:46Z","gold":22162,"money":45004,"level":3,"exp":7362},{"passportId":"313","userId":130,"roleId":121,"roleName":"彭含烟","createTime":"2019-01-19T10:31:50Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"1sr5","userId":131,"roleId":122,"roleName":"於可心","createTime":"2019-01-19T10:33:27Z","gold":444094,"money":448726,"level":1,"exp":1920},{"passportId":"tc_10088","userId":132,"roleId":123,"roleName":"艾淑雅","createTime":"2019-01-19T03:14:26Z","gold":1000000,"money":1000000,"level":39,"exp":1003240},{"passportId":"a104","userId":133,"roleId":124,"roleName":"曾凯玲","createTime":"2019-01-21T02:13:50Z","gold":9970,"money":28000,"level":1,"exp":0},{"passportId":"a105","userId":134,"roleId":125,"roleName":"佟笑笑","createTime":"2019-01-21T02:27:07Z","gold":99010,"money":1200,"level":1,"exp":0},{"passportId":"a106","userId":135,"roleId":126,"roleName":"严钰","createTime":"2019-01-21T07:16:29Z","gold":999120,"money":878000,"level":1,"exp":0},{"passportId":"lm","userId":123,"roleId":127,"roleName":"娜娜","createTime":"2019-01-21T07:40:09Z","gold":975789,"money":1086921,"level":51,"exp":1894508},{"passportId":"ue240","userId":136,"roleId":128,"roleName":"翁璐","createTime":"2019-01-21T08:25:30Z","gold":1532,"money":17000,"level":1,"exp":0},{"passportId":"1sr54","userId":137,"roleId":129,"roleName":"杜雪霞","createTime":"2019-01-21T08:58:50Z","gold":546745,"money":557962,"level":2,"exp":4642},{"passportId":"ue241","userId":138,"roleId":130,"roleName":"卢依娴","createTime":"2019-01-23T16:56:51Z","gold":221474,"money":10323,"level":1,"exp":30},{"passportId":"tc_10088999","userId":139,"roleId":131,"roleName":"庄文雅","createTime":"2019-01-22T01:59:36Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_100889991","userId":140,"roleId":132,"roleName":"韩语馨","createTime":"2019-01-22T02:01:25Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_100889992","userId":141,"roleId":133,"roleName":"席钰莹","createTime":"2019-01-22T02:02:14Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_10111","userId":142,"roleId":134,"roleName":"肖茹心","createTime":"2019-01-22T02:24:39Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_101115","userId":143,"roleId":135,"roleName":"元宇桐","createTime":"2019-01-22T02:26:03Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_101116","userId":144,"roleId":136,"roleName":"关央","createTime":"2019-01-22T02:27:09Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_101117","userId":145,"roleId":137,"roleName":"白语儿","createTime":"2019-01-22T02:32:48Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"tc_101119","userId":146,"roleId":138,"roleName":"邴秀妍","createTime":"2019-01-22T03:03:50Z","gold":99650,"money":101000,"level":2,"exp":3740},{"passportId":"424242424yyy","userId":147,"roleId":139,"roleName":"任星儿","createTime":"2019-01-22T03:17:50Z","gold":0,"money":0,"level":15,"exp":133332},{"passportId":"1sr546","userId":149,"roleId":140,"roleName":"易菡洁","createTime":"2019-01-22T04:18:59Z","gold":0,"money":10000,"level":2,"exp":3240},{"passportId":"1sr5463","userId":150,"roleId":141,"roleName":"俞婉怡","createTime":"2019-01-22T04:28:23Z","gold":0,"money":10000,"level":2,"exp":3240},{"passportId":"a301","userId":151,"roleId":142,"roleName":"嘉意涵","createTime":"2019-01-22T04:28:47Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"1sr54632","userId":152,"roleId":143,"roleName":"乐嘉雯","createTime":"2019-01-22T05:27:10Z","gold":0,"money":10000,"level":2,"exp":3240},{"passportId":"a302","userId":153,"roleId":144,"roleName":"冷星儿","createTime":"2019-01-22T06:22:25Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"1sr546324","userId":154,"roleId":145,"roleName":"骆娜娜","createTime":"2019-01-22T06:52:04Z","gold":0,"money":11119,"level":2,"exp":3330},{"passportId":"1sr5463244454555","userId":155,"roleId":146,"roleName":"冷恺菲","createTime":"2019-01-22T09:31:47Z","gold":0,"money":658,"level":1,"exp":100},{"passportId":"hust9502","userId":156,"roleId":147,"roleName":"韩梓婷","createTime":"2019-01-22T10:07:03Z","gold":1000000,"money":1000000,"level":39,"exp":1000030},{"passportId":"ue249","userId":157,"roleId":148,"roleName":"冷梓琳","createTime":"2019-01-22T10:10:43Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"98","userId":148,"roleId":149,"roleName":"欧阳希茜","createTime":"2019-01-22T10:22:45Z","gold":1000000,"money":1002200,"level":52,"exp":2032935},{"passportId":"a108","userId":159,"roleId":150,"roleName":"魏婷婷","createTime":"2019-01-22T11:42:59Z","gold":100000000,"money":99901129,"level":1,"exp":0},{"passportId":"tc_102222","userId":160,"roleId":151,"roleName":"方文雅","createTime":"2019-01-23T04:34:19Z","gold":0,"money":20000,"level":3,"exp":7332},{"passportId":"a120","userId":161,"roleId":152,"roleName":"居丽淇","createTime":"2019-01-23T05:27:55Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"w1","userId":33,"roleId":153,"roleName":"1","createTime":"2019-01-23T06:55:53Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"a115","userId":162,"roleId":154,"roleName":"管静","createTime":"2019-01-23T07:19:23Z","gold":2000000,"money":2000000,"level":54,"exp":2234655},{"passportId":"tc_1002","userId":164,"roleId":155,"roleName":"封佩佩","createTime":"2019-01-23T10:15:45Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"12312rrrdd","userId":165,"roleId":156,"roleName":"路以晴","createTime":"2019-01-23T11:30:32Z","gold":0,"money":196,"level":15,"exp":133432},{"passportId":"tc_001","userId":166,"roleId":157,"roleName":"廖若依","createTime":"2019-01-23T12:12:44Z","gold":0,"money":31844,"level":4,"exp":12403},{"passportId":"tc_002","userId":167,"roleId":158,"roleName":"辛笛","createTime":"2019-01-23T12:33:00Z","gold":0,"money":20000,"level":3,"exp":7332},{"passportId":"31133","userId":168,"roleId":159,"roleName":"曹娅婷","createTime":"2019-01-23T13:28:17Z","gold":3332176,"money":334053,"level":1,"exp":1920},{"passportId":"tc_004","userId":169,"roleId":160,"roleName":"晁以丹","createTime":"2019-01-24T02:56:40Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"c005","userId":170,"roleId":161,"roleName":"邬琴馨","createTime":"2019-01-24T06:20:42Z","gold":1000000,"money":1000000,"level":100,"exp":100025769},{"passportId":"g8857","userId":172,"roleId":162,"roleName":"席乐韵","createTime":"2019-01-24T06:30:46Z","gold":199880,"money":0,"level":1,"exp":0},{"passportId":"bbb0002","userId":173,"roleId":163,"roleName":"余以菲","createTime":"2019-01-24T06:32:12Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"nash_7","userId":171,"roleId":164,"roleName":"仇玉玲","createTime":"2019-01-24T06:45:32Z","gold":0,"money":150,"level":2,"exp":3636},{"passportId":"long956","userId":174,"roleId":165,"roleName":"管碧儿","createTime":"2019-01-24T07:04:31Z","gold":0,"money":323,"level":1,"exp":30},{"passportId":"tc_004000","userId":175,"roleId":166,"roleName":"嘉嘉玲","createTime":"2019-01-24T07:54:39Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"bbb0004","userId":177,"roleId":167,"roleName":"郁淑芬","createTime":"2019-01-24T08:19:51Z","gold":0,"money":0,"level":61,"exp":3000000},{"passportId":"chxxxczq45vsdf111x","userId":176,"roleId":168,"roleName":"艾芷柔","createTime":"2019-01-24T08:27:52Z","gold":0,"money":2323,"level":1,"exp":30},{"passportId":"ue280","userId":179,"roleId":169,"roleName":"蔺琴馨","createTime":"2019-01-24T08:37:25Z","gold":0,"money":40323,"level":5,"exp":18210},{"passportId":"long957","userId":178,"roleId":170,"roleName":"嘉颜晴","createTime":"2019-01-24T08:44:27Z","gold":0,"money":323,"level":1,"exp":30},{"passportId":"123548774","userId":180,"roleId":171,"roleName":"崔紫霞","createTime":"2019-01-24T08:47:10Z","gold":0,"money":0,"level":3,"exp":8888},{"passportId":"nash_8","userId":181,"roleId":172,"roleName":"于斓","createTime":"2019-01-24T08:47:33Z","gold":0,"money":43279,"level":6,"exp":25181},{"passportId":"ue281","userId":182,"roleId":173,"roleName":"蒋恬","createTime":"2019-01-24T08:51:38Z","gold":222222,"money":214222,"level":5,"exp":19200},{"passportId":"adsfsdfll","userId":183,"roleId":174,"roleName":"诸雪利","createTime":"2019-01-24T09:03:51Z","gold":107,"money":20392,"level":15,"exp":139879},{"passportId":"ue282","userId":184,"roleId":175,"roleName":"仇美琪","createTime":"2019-01-24T09:08:21Z","gold":0,"money":0,"level":5,"exp":18210},{"passportId":"ue283","userId":186,"roleId":176,"roleName":"路嘉欣","createTime":"2019-01-24T09:24:06Z","gold":0,"money":1500,"level":5,"exp":19200},{"passportId":"m984","userId":187,"roleId":177,"roleName":"耿咏仪","createTime":"2019-01-24T09:24:44Z","gold":999299,"money":1000790,"level":1,"exp":1650},{"passportId":"bbb0003","userId":188,"roleId":178,"roleName":"廖清清","createTime":"2019-01-24T09:34:04Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"g8851","userId":189,"roleId":179,"roleName":"侯以丹","createTime":"2019-01-24T09:54:24Z","gold":100,"money":1029382,"level":21,"exp":279564},{"passportId":"tc_004252","userId":190,"roleId":180,"roleName":"全莉雅","createTime":"2019-01-24T09:55:20Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"112341fgf","userId":191,"roleId":181,"roleName":"毕娅","createTime":"2019-01-24T10:21:46Z","gold":0,"money":10000,"level":2,"exp":3240},{"passportId":"112341fgf1","userId":192,"roleId":182,"roleName":"柳梓晴","createTime":"2019-01-24T10:30:54Z","gold":0,"money":30000,"level":4,"exp":12303},{"passportId":"g8852","userId":193,"roleId":183,"roleName":"翁如晶","createTime":"2019-01-24T11:21:54Z","gold":0,"money":10649,"level":7,"exp":36510},{"passportId":"ue284","userId":194,"roleId":184,"roleName":"李沁","createTime":"2019-01-24T13:12:08Z","gold":0,"money":43305,"level":6,"exp":25121},{"passportId":"ue285","userId":195,"roleId":185,"roleName":"支菲羽","createTime":"2019-01-24T13:25:55Z","gold":22203,"money":41657,"level":6,"exp":25121},{"passportId":"ue288","userId":196,"roleId":186,"roleName":"杨斓","createTime":"2019-01-25T01:48:15Z","gold":0,"money":40323,"level":5,"exp":18210},{"passportId":"ue289","userId":197,"roleId":187,"roleName":"赵佳滢","createTime":"2019-01-25T02:07:46Z","gold":1000000,"money":1000000,"level":39,"exp":1000000},{"passportId":"ue290","userId":198,"roleId":188,"roleName":"辛念云","createTime":"2019-01-25T02:08:27Z","gold":0,"money":0,"level":5,"exp":23000},{"passportId":"ue291","userId":199,"roleId":189,"roleName":"聂茵","createTime":"2019-01-25T02:27:08Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"123123ee","userId":203,"roleId":190,"roleName":"於菲羽","createTime":"2019-01-25T07:44:22Z","gold":0,"money":103443,"level":25,"exp":376685},{"passportId":"a116","userId":204,"roleId":191,"roleName":"任芸韵","createTime":"2019-01-25T13:37:44Z","gold":20000000,"money":20005250,"level":100,"exp":40212403},{"passportId":"a117","userId":205,"roleId":192,"roleName":"利念云","createTime":"2019-01-25T13:52:36Z","gold":199280,"money":66068,"level":12,"exp":100000},{"passportId":"311333","userId":206,"roleId":193,"roleName":"熊念云","createTime":"2019-01-26T02:12:48Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"3113333","userId":207,"roleId":194,"roleName":"支笛","createTime":"2019-01-26T02:13:31Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"31133333","userId":208,"roleId":195,"roleName":"方雅芝","createTime":"2019-01-26T02:20:20Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"311333333","userId":209,"roleId":196,"roleName":"王虹苓","createTime":"2019-01-26T02:23:17Z","gold":0,"money":0,"level":1,"exp":0},{"passportId":"3113333335","userId":210,"roleId":197,"roleName":"宁彤秀","createTime":"2019-01-26T02:24:03Z","gold":32105,"money":96173,"level":32,"exp":14431},{"passportId":"a121","userId":211,"roleId":198,"roleName":"欧阳怜梦","createTime":"2019-01-26T03:42:17Z","gold":2000000,"money":1794068,"level":52,"exp":2000000},{"passportId":"hd170","userId":212,"roleId":199,"roleName":"艾怜梦","createTime":"2019-01-28T04:03:55Z","gold":0,"money":323,"level":1,"exp":30},{"passportId":"w5","userId":213,"roleId":200,"roleName":"贾怡君","createTime":"2019-01-28T09:44:26Z","gold":0,"money":0,"level":1,"exp":0}]}
+
+        new Vue({
+        el:"#app",
+        data() {
+            return {
+                queryResult: [],
+                currentPage: 1,
+                queryData: {
+                    queryType: null,
+                    serverId: '',
+                    pageIndex: 1,
+                    pageSize: 20,
+                    total: 0
+                },
+            }
+        },
+        methods: {
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            }
+        },
+
+        created(){
+            this.queryResult = list.records
+            this.queryData.pageIndex = list.pageIndex
+            this.queryData.pageSize = list.pageSize
+            this.queryData.total = list.total
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件通信1</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div>
+    简单的嵌套，可使用props 与 $emit 发法通信
+</div>
+
+<pre>
+    小结：
+    1. props $emit 解决父子组件层数较少的情况；
+    2. this.$parent,this.$children[0]解决父子组件层数较少的情况；
+    3. $attr $listeners 解决父子组件嵌套层数较多的情况
+    4. provide:{for:'parent data'}, inject:['for'] 解决父子组件嵌套层数较多的情况
+    5. 中央事件总线 $bus 创建新的实例化对象， $on()绑定自定义事件 $emit()触发自定义事件传值， 挂载的必须为同一个是实例化对象 $bus
+
+</pre>
+
+
+
+<div id="app">
+    父组件-->子组件
+    <parent></parent>
+</div>
+<div id="app1">
+    子组件-->父组件
+    <parent1></parent1>
+</div>
+
+<script>
+    //父组件-->子组件
+    //1.先在父组件调用子组件是绑定自定义的方法childData
+    //2.在子组件中props接收父组件传过来的 childData
+
+    //子组件
+    Vue.component('child', {
+        props:["childData"],
+        data(){return{
+            msg: this.childData
+        }},
+        template:`
+            <div>
+                子组件:{{msg}}
+            </div>
+        `
+    })
+    Vue.component('parent', {
+        data(){return{
+            id:1,
+            msg:"父组件数据!",
+            name:"john"
+        }},
+        template:`
+             <div>
+                 <p>父组件:{{msg}} </p>
+                 <child :childData="msg"></child>
+             </div>
+        `
+    });
+    var vm = new Vue({ el: '#app'})
+
+    //子组件-->父组件
+    //1.先在父组件绑定自定义的事件childHandler
+    //2.在子组件中触发原生的事件 在函数中使用$emit触发自定义的childHandler
+    //$emit(自定义的事件名，消息)
+
+    //子组件
+    Vue.component('child1', {
+        props:["childData"],
+        data(){return{
+            msg: this.childData
+        }},
+        template:`
+            <div>
+                子组件:
+                <input  type="text" v-model="msg" @input="changeValue(msg)">{{msg}}
+            </div>
+        `,
+        methods:{
+            changeValue(val){
+                this.$emit('childHandler',val)
+            }
+        }
+    })
+
+    Vue.component('parent1', {
+        data(){return{
+            id:1,
+            msg:"父组件数据!",
+            name:"john"
+        }},
+        template:`
+             <div>
+                 <p>父组件:{{msg}} </p>
+                 <child1 :childData="msg" @childHandler="childHandlerFn"></child1>
+             </div>
+        `,
+        methods:{
+            childHandlerFn(val){
+                this.msg=val
+            }
+        }
+    });
+   var vm1 = new Vue({ el: '#app1'})
+</script>
+
+
+
+</body>
+</html>

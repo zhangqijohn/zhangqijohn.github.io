@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+
+    <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+        <el-checkbox v-for="city in cities" :label="city" :key="city.id">{{city.type}}</el-checkbox>
+    </el-checkbox-group>
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data() {
+            return {
+                checkAll: true,
+                checkedCities: [],
+                cities: [
+                    {id:1,type:'北京'},
+                    {id:2,type:'上海'},
+                    {id:3,type:'广州'},
+                    {id:4,type:'深圳'}
+                ],
+                queryType:[],
+                isIndeterminate: false
+            };
+        },
+        methods: {
+            handleCheckAllChange(val) {
+                this.checkedCities = val ? this.loadCitysId() : [];
+                this.isIndeterminate = false;
+                this.queryType = this.queryTypeFn()
+                //console.log(this.checkedCities)
+                console.log(this.queryType)
+            },
+            handleCheckedCitiesChange(value) {
+                let checkedCount = value.length;
+                this.checkAll = checkedCount === this.cities.length;
+                this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+                //console.log(this.checkedCities)
+                this.queryType = this.queryTypeFn()
+                console.log(this.queryType)
+            },
+            loadCitysId(){
+                let AllId = [];
+                this.cities.forEach(function(item,index){
+                    AllId.push(item)
+                })
+                return AllId
+            },
+            queryTypeFn () {
+                let AllId = [];
+                this.checkedCities.forEach(function(item,index){
+                    AllId.push(item.type)
+                });
+                return AllId
+            }
+        },
+        mounted(){
+            this.checkedCities = this.loadCitysId()
+            this.queryType = this.queryTypeFn()
+            console.log(this.queryType)
+        }
+
+    })
+
+</script>
+
+
+
+</body>
+</html>

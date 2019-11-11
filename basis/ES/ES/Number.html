@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<pre>
+// Properties
+    Number.EPSILON              // 表示1与大于1的最小浮点数之间的差异
+    Number.MAX_SAFE_INTEGER     // 9007199254740991// 常数表示JavaScript中的最大安全整数（）。253 - 1
+    Number.MAX_VALUE            // 表示JavaScript中可表示的最大数值
+    Number.MIN_SAFE_INTEGER     // 该MAX_VALUE属性的值约为1.79E+3082 1024。大于的值MAX_VALUE表示为Infinity。
+    Number.MIN_VALUE            // -9007199254740991 表示在JavaScript中的最小安全整数（）。-(253 - 1)
+    Number.NEGATIVE_INFINITY   // 表示JavaScript中可表示的最小正数值。 MIN_VALUE具有大约的值5e-324。小于MIN_VALUE（“下溢值”）的值将转换为0
+    Number.NaN                  // 属性表示非数字。相当于NaN。
+    Number.POSITIVE_INFINITY    // 表示正无穷大值; 与全局对象Infinity属性的值相同
+    Number.prototype            // 表示 Number 构造函数的原型。
+
+// Methods
+    Number.isFinite()   // 用来检测传入的参数是否是一个有穷数，返回boolean   // Number.isFinite(2e64);      // true
+    Number.isInteger()  // 用来判断给定的参数是否为整数，返回boolean         // Number.isInteger(Math.PI);   // false
+    Number.isNaN()      // 检测是否是 NaN 的值，返回boolean;是原始的全局isNaN()的更强大的版本。   //  Number.isNaN(NaN);        // true
+    Number.isSafeInteger()  //返回boolean; 表示给定的值是否是一个安全整数    // Number.isSafeInteger(Math.pow(2, 53))       // false
+    Number.parseFloat()  // 把一个字符串解析成浮点数。该方法与全局的 parseFloat() 函数相同  // parseFloat('123.45#') // 123.45
+    Number.parseInt()   //依据指定基数 [ 参数 radix 的值]，把字符串 [ 参数 string 的值] 解析成整数。 parseInt('12.34') // 12
+    Number.prototype.toExponential() // 一个用幂的形式 (科学记数法) 来表示Number 对象的字符串。小数点后以fractionDigits 提供的值来四舍五入。如果 fractionDigits 参数被忽略了，小数点后的将尽可能用最多的位数来表示该数值。
+    Number.prototype.toFixed()      // 使用定点表示法来格式化一个数值
+    Number.prototype.toLocaleString() // 返回这个数字在特定语言环境下的表示字符串。
+    Number.prototype.toPrecision()  // 以指定的精度返回该数值对象的字符串表示。
+    Number.prototype.toSource()     // 返回该对象源码的字符串表示。该方法通常被 JavaScript 内部调用，而不是在代码中显示调用。
+    Number.prototype.toString()     // 返回指定 Number 对象的字符串表示形式。
+    Number.prototype.valueOf()      // 返回一个被 Number 对象包装的原始值。通常是由 JavaScript 引擎在内部隐式调用的，而不是由用户在代码中显式调用的。
+</pre>
+<script>
+
+var numObj = 77.1234;
+console.log("numObj.toExponential() is " + numObj.toExponential(4)); //  7.7123e+1
+console.log("numObj.toFixed() is " + numObj.toFixed(3)); //  77.123
+
+console.log("numObj.toPrecision()  is " + numObj.toPrecision());  //输出 77.1234
+console.log("numObj.toPrecision(3) is " + numObj.toPrecision(3)); //输出 77.1
+
+
+
+var number = 123456.789;
+console.log(number.toLocaleString()); // Displays "3,500" if in U.S. English locale
+// → 123.456,789
+
+// 德国使用逗号作为小数分隔符，分位周期为千位
+console.log(number.toLocaleString('de-DE'));
+// → 123.456,789
+
+// 在大多数阿拉伯语国家使用阿拉伯语数字
+console.log(number.toLocaleString('ar-EG'));
+// → ١٢٣٤٥٦٫٧٨٩
+
+// 印度使用千位/拉克（十万）/克若尔（千万）分隔
+console.log(number.toLocaleString('en-IN'));
+// → 1,23,456.789
+
+// nu 扩展字段要求编号系统，e.g. 中文十进制
+console.log(number.toLocaleString('zh-Hans-CN-u-nu-hanidec'));
+// → 一二三,四五六.七八九
+
+// 当请求不支持的语言时，例如巴厘语，加入一个备用语言，比如印尼语
+console.log(number.toLocaleString(['ban', 'id']));
+// → 123.456,789
+
+console.log((6).toString(10));       // 输出 6;
+console.log((254).toString(16));  // 输出 'fe'
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

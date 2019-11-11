@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+  <el-tree
+    class="filter-tree treeoverflow"
+    :data="cdata"
+    :props="defaultProps"
+    highlight-current
+    @node-click="handleNodeClick"
+    :default-expand-all="isExpand"
+    node-key="id"
+    :css="false"
+   ref="treeX">
+  </el-tree>
+  <el-button type="primary" @click="handleOpenAll">确 定</el-button>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+         data () {
+    return {
+        cdata: [{
+            id: 1,
+            label: '一级 2',
+            children: [{
+                id: 3,
+                label: '二级 2-1',
+                children: [{
+                    id: 4,
+                    label: '三级 3-1-1'
+                }, {
+                    id: 5,
+                    label: '三级 3-1-2',
+                    disabled: true
+                }]
+            }, {
+                id: 2,
+                label: '二级 2-2',
+                disabled: true,
+                children: [
+                    {
+                        id: 6,
+                        label: '三级 3-2-1',
+                        children: [
+                            {
+                                id: 8,
+                                label: '三级 3-2-1',
+                                children: [
+                                    {
+                                        id: 9,
+                                        label: '三级 3-2-1'
+                                    }]
+                            }]
+                    }, {
+                        id: 7,
+                        label: '三级 3-2-2',
+                        disabled: true,
+                        children: [
+                            {
+                                id: 10,
+                                label: '三级 3-2-1',
+                                children: [
+                                    {
+                                        id: 11,
+                                        label: '三级 3-2-1'
+                                    }]
+                            }]
+                    }]
+            }]
+        }],
+        defaultProps: {
+            children: 'children',
+            label: 'label'
+        },
+        isExpand:true
+    }
+  },
+  methods: {
+      handleNodeClick () {
+
+      },
+      handleOpenAll () {
+          this.isExpand ? this.isExpand = false : this.isExpand = true
+          for(var i=0;i<this.$refs.treeX.store._getAllNodes().length;i++){
+              this.$refs.treeX.store._getAllNodes()[i].expanded= this.isExpand
+          }
+      }
+  }
+})
+</script>
+
+</body>
+</html>

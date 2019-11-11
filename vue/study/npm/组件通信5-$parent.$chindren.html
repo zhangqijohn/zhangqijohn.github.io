@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件通信5</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+<div>
+   简单的父子组件通信
+    $parent   $children
+</div>
+
+<div id="app1"></div>
+
+<script>
+    /*
+
+     */
+
+    Vue.component('child', {
+        data(){return{
+            msg:"child data"
+        }},
+        template:`
+             <div>
+                {{msg}}
+                <button @click="setDataToParent">改版子组件msg</button>
+             </div>
+        `,
+        methods:{
+            setDataToParent(){
+                this.$parent.msg = "这是子组件传过来的"//this.msg
+            }
+        }
+    });
+
+    Vue.component('parent', {
+        data(){return{
+            id:1,
+            msg:"父组件数据",
+            name:"john"
+        }},
+        template:`
+             <div>
+
+                <p>
+                    {{msg}}
+                    <button @click="changeChildMsgFn">改版子组件msg</button>
+                </p>
+                <child ></child>
+             </div>
+        `,
+        methods:{
+            setDataFn(val){
+                this.msg=val
+            },
+            changeChildMsgFn(){
+                this.$children[0].msg = '这是父组件传过来的';
+            }
+        }
+    });
+   var vm = new Vue({ el: '#app1',
+        template:`<parent></parent>`
+    })
+</script>
+
+
+
+</body>
+</html>

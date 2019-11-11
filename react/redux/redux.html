@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>redux</title>
+</head>
+<body>
+<script>
+    /*------count 的发布订阅者实践------*/
+    let state = {count: 1};
+    let listeners = [];
+
+    /*订阅*/
+    function subscribe(listener) {
+        listeners.push(listener);
+    }
+
+    function changeCount(count) {
+        state.count = count;
+        /*当 count 改变的时候，我们要去通知所有的订阅者*/
+        for (let i = 0; i < listeners.length; i++) {
+            const listener = listeners[i];
+            listener();
+        }
+    }
+
+    /*来订阅一下，当 count 改变的时候，我要实时输出新的值*/
+    subscribe(() => {
+        console.log(state.count);
+    });
+    /*我们来修改下 state，当然我们不能直接去改 state 了，我们要通过 changeCount 来修改*/
+    // changeCount(2);
+    // changeCount(3);
+    // changeCount(4);
+
+    // 现在有两个新的问题摆在我们面前
+    // 这个状态管理器只能管理 count，不通用
+    // 公共的代码要封装起来我们尝试来解决这个问题，把公共的代码封装起来
+
+    const createStore = function (initState) {
+        let state = initState;
+        let listeners = [];
+
+        /*订阅*/
+        function subscribe(listener) {
+            listeners.push(listener);
+        }
+
+        function changeState(newState) {
+            state = newState;
+            /*通知*/
+            for (let i = 0; i < listeners.length; i++) {
+                const listener = listeners[i];
+                listener();
+            }
+        }
+
+        function getState() {
+            return state;
+        }
+
+        return {subscribe, changeState, getState}
+    }
+    let initState = {counter: {count: 0}, info: {name: '', description: ''}}
+    let store = createStore(initState);
+    store.subscribe(() => {
+        let state = store.getState();
+        console.log(`${state.info.name}：${state.info.description}`);
+    });
+    store.subscribe(() => {
+        let state = store.getState();
+        console.log(state.counter.count);
+    });
+    store.changeState({...store.getState(), info: {name: '前端九部', description: '我们都是前端爱好者！'}});
+    store.changeState({...store.getState(), counter: {count: 1}});
+
+
+</script>
+
+</body>
+</html>

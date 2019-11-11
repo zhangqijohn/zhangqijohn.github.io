@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="//unpkg.com/element-ui@2.3.9/lib/theme-chalk/index.css">
+    <style>
+        /*#app {*/
+            /*height: 300px;*/
+            /*overflow: hidden;*/
+        /*}*/
+
+        .list {
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--<h2>list:</h2>
+    <el-scrollbar wrap-class="list" :native="false">
+        <div v-for="i in num" :key="i">
+            {{i}}
+        </div>
+    </el-scrollbar>-->
+
+    　　<el-tree ref="treeX" :data="navs" :props="defaultProps" show-checkbox ref="tree" highlight-current draggable  node-key="navId" :default-expand-all="defaultExpand"> </el-tree>
+
+    　　<el-button @click="setCheckedNodes">展开所有菜单</el-button>
+
+    　　<el-button @click="setCheckedKeys">收起所有菜单</el-button>
+</div>
+
+
+
+
+<script src="//unpkg.com/vue/dist/vue.js"></script>
+<script src="//unpkg.com/element-ui@2.3.9/lib/index.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data(){
+            return {
+                num: 30,
+                navs:[
+                    {
+                    label: '一级 1',
+                    children: [{
+                        label: '二级 1-1',
+                        children: [{
+                            label: '三级 1-1-1'
+                        }]
+                    }]
+                }, {
+                    label: '一级 2',
+                    children: [{
+                        label: '二级 2-1',
+                        children: [{
+                            label: '三级 2-1-1'
+                        }]
+                    }, {
+                        label: '二级 2-2',
+                        children: [{
+                            label: '三级 2-2-1'
+                        }]
+                    }]
+                }, {
+                    label: '一级 3',
+                    children: [{
+                        label: '二级 3-1',
+                        children: [{
+                            label: '三级 3-1-1'
+                        }]
+                    }, {
+                        label: '二级 3-2',
+                        children: [{
+                            label: '三级 3-2-1'
+                        }]
+                    }]
+                }],   //所有菜单
+                defaultProps: {
+                    children: 'children',
+                    label: 'label'
+                },
+                defaultExpand:false  //默认展开所有节点
+            }
+
+        },
+        methods: {
+            isExpand(){
+                console.log(this.defaultExpand)
+                if(this.defaultExpand){
+                    return false
+                }else{
+                    return true
+                }
+            },
+            setCheckedKeys() {
+                this.defaultExpand=false;
+                this.$refs.treeX.store.defaultExpandAll = false
+                // console.log(this.defaultExpand)
+                // for(var i=0;i<this.$refs.treeX.store._getAllNodes().length;i++){
+                //     this.$refs.treeX.store._getAllNodes()[i].expanded=this.isExpand;
+                // }
+                for(var i=0;i<this.$refs.treeX.store._getAllNodes().length;i++){
+                    this.$refs.treeX.store._getAllNodes()[i].expanded = false;
+                }
+            },
+            setCheckedNodes() {
+                this.defaultExpand=true; //展开所有节点
+                this.$refs.treeX.store.defaultExpandAll = true
+                 console.log(this.$refs.treeX)
+            //     for(var i=0;i<this.$refs.treeX.store._getAllNodes().length;i++){
+            //         this.$refs.treeX.store._getAllNodes()[i].expanded=this.isExpand;
+            //     }
+                for(var i=0;i<this.$refs.treeX.store._getAllNodes().length;i++){
+                    this.$refs.treeX.store._getAllNodes()[i].expanded = true;
+                }
+            }
+
+        }
+    })
+</script>
+
+
+
+</body>
+</html>

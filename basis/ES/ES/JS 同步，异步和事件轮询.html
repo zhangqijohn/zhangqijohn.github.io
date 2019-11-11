@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS 同步，异步和事件轮询</title>
+</head>
+<body>
+<script>
+    const second = () => {
+        console.log('Hello 2!');
+    }
+
+    const first = () => {
+        console.log('Hi 1!');
+        second();
+        console.log('The End');
+    }
+
+    // first();
+
+    const networkRequest = () => {
+        setTimeout(() => {
+            console.log('Async Code');
+        }, 2000);
+    };
+
+    console.log('Hello World');
+
+    networkRequest();
+
+    console.log('The End');
+
+
+</script>
+</body>
+</html>

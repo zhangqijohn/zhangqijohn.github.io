@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    var data={
+        a: [
+            {"id":241,"name":"预演专区 - 玉虚"},
+            {"id":300,"name":"预演专区 - 九宫"},
+            {"id":301,"name":"预演专区 - 仙尘"},
+            {"id":1217,"name":"预演专区 - 远征137服 铁血"},
+            {"id":1217,"name":"预演专区 - 远征137服 铁血"}
+        ],
+        b:[
+            {"id":241,"name":"玉虚"},
+            {"id":300,"name":"九宫"},
+            {"id":301,"name":"仙尘"},
+            {"id":12171,"name":"远征137服 铁血"},
+            {"id":12172,"name":"远征137服 铁血"},
+            {"id":12173,"name":"远征138服 铁血"}
+        ]
+    };
+    arrFn();
+    function arrFn(){
+        for(let i of data.a){
+            for(let j of data.b){
+                if(i.id==j.id){
+                    j.name=i.name
+                }
+            }
+        }
+        console.log(data.b)
+    }
+
+</script>
+</body>
+</html>
+
+
+</body>
+</html>

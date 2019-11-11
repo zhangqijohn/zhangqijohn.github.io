@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<script src="lodash.js"></script>
+<script>
+    var words = ["交易", "自己玩", "会员", "送", "没弄", "不会", "多久", "需要", "折扣", "进", "100", "苹果", "退款", "推款", "IOS", "ios", "微", "V", "群", "裙", "嘻嘻", "任务", "朋友", "你好", "帮派", "Q", "q", "=", "等于", "加", "家", "300", "３００", "刚进游戏", "兄弟", "帮会", "收人", "回复", "特权", "一条龙", "玩多久", "在不在", "群号", "VIP", "无限", "搜索", "金币", "托", "拖", "豪华", "先到先得", "能听到", "做了吗", "CP", "组队任务", "结婚", "我教你", "战力", "在线", "公告", "帮主", "拉你", "进群", "关注", "礼包", "充值", "满V", "瞒V", "找游戏", "公众号", "工种呺", "到付", "出售", "武器", "宝石", "时装", "至尊", "坐骑", "元宝", "YB", "灵玉", "靈鈺", "装备", "在吗", "带我", "加你", "哈喽", "处情缘", "一起玩", "一个人", "老区过来", "小哥哥", "加下", "Q群", "抠裙", "qqun", "福利", "福力", "QQ群", "qq裙"]
+    var str = '新增的信息，我的会员朋友,来皇城交易,加我微信群或者QQ群,<a href=\'client::moveto(1,369.95,6.91,308.13)\'>皇城(369,308)</a><head headBgId=0 bubbleId=0 />'
+    str = str.replace(/<\/?.+?\/?>/g, '')
+    words.filter(w => {
+        var re = new RegExp(w, 'gi')
+        if( w !== '='){
+            str = str.replace(re, '<font color="red">' + w + '</font>')
+        }
+       return str
+    })
+
+    document.writeln(str)
+</script>
+
+
+<script>
+    // 这里不需要关注
+    var words = [
+        {'value': '交易', 'synonyms': null, 'id': '5c529fc92b6a980001563efc'},
+        {'value': '自己玩', 'synonyms': null, 'id': '5c528ce42b6a980001563efa'},
+        {'value': '会员', 'synonyms': null, 'id': '5c526ec42b6a980001563ef7'},
+        {'value': '送', 'synonyms': null, 'id': '5c526ebe2b6a980001563ef6'},
+        {'value': '没弄', 'synonyms': null, 'id': '5c526e852b6a980001563ef4'},
+        {'value': '不会', 'synonyms': null, 'id': '5c526e7f2b6a980001563ef3'},
+        {'value': '多久', 'synonyms': null, 'id': '5c526e4b2b6a980001563ef1'},
+        {'value': '需要', 'synonyms': null, 'id': '5c526e102b6a980001563eef'},
+        {'value': '折扣', 'synonyms': null, 'id': '5c526e082b6a980001563eee'},
+        {'value': '进', 'synonyms': null, 'id': '5c526cee2b6a980001563ee8'},
+        {'value': '100', 'synonyms': null, 'id': '5c526c762b6a980001563ee6'},
+        {'value': '苹果', 'synonyms': null, 'id': '5c526c2f2b6a980001563ee4'},
+        {'value': '退款', 'synonyms': ['推款'], 'id': '5c526c0b2b6a980001563ee3'},
+        {'value': 'IOS', 'synonyms': ['ios'], 'id': '5c526bff2b6a980001563ee2'},
+        {'value': '微', 'synonyms': ['V'], 'id': '5c526b912b6a980001563edf'},
+        {'value': '群', 'synonyms': ['裙'], 'id': '5c52673b2b6a980001563ede'},
+        {'value': '嘻嘻', 'synonyms': null, 'id': '5c5266ef2b6a980001563edd'},
+        {'value': '任务', 'synonyms': null, 'id': '5c5266d42b6a980001563edc'},
+        {'value': '朋友', 'synonyms': null, 'id': '5c5266772b6a980001563edb'},
+        {'value': '你好', 'synonyms': null, 'id': '5c52664f2b6a980001563eda'},
+        {'value': '帮派', 'synonyms': null, 'id': '5c5265f32b6a980001563ed9'},
+        {'value': 'Q', 'synonyms': ['q'], 'id': '5c5265d12b6a980001563ed8'},
+        {'value': 'Q', 'synonyms': ['q'], 'id': '5c5265d12b6a980001563ed8'},
+        {'value': '=', 'synonyms': ['等于'], 'id': '5c5265772b6a980001563ed7'},
+        {'value': '加', 'synonyms': ['家'], 'id': '5c52652f2b6a980001563ed6'}, {'value': '300', 'synonyms': ['３００'], 'id': '5c5263e72b6a980001563ed4'}, {'value': '刚进游戏', 'synonyms': null, 'id': '5c5263152b6a980001563ec8'}, {'value': '兄弟', 'synonyms': null, 'id': '5c52630d2b6a980001563ec7'}, {'value': '帮会', 'synonyms': null, 'id': '5c5263092b6a980001563ec6'}, {'value': '收人', 'synonyms': null, 'id': '5c5263062b6a980001563ec5'}, {'value': '回复', 'synonyms': null, 'id': '5c5263012b6a980001563ec4'}, {'value': '特权', 'synonyms': null, 'id': '5c5262fe2b6a980001563ec3'}, {'value': '一条龙', 'synonyms': null, 'id': '5c5262fa2b6a980001563ec2'}, {'value': '玩多久', 'synonyms': null, 'id': '5c5262f62b6a980001563ec1'}, {'value': '在不在', 'synonyms': null, 'id': '5c5262f12b6a980001563ec0'}, {'value': '群号', 'synonyms': null, 'id': '5c5262ed2b6a980001563ebf'}, {'value': 'VIP', 'synonyms': null, 'id': '5c5262e82b6a980001563ebe'}, {'value': '无限', 'synonyms': null, 'id': '5c5262e42b6a980001563ebd'}, {'value': '搜索', 'synonyms': null, 'id': '5c5262e02b6a980001563ebc'}, {'value': '金币', 'synonyms': null, 'id': '5c5262dc2b6a980001563ebb'}, {'value': '托', 'synonyms': ['拖'], 'id': '5c5262d42b6a980001563eba'}, {'value': '豪华', 'synonyms': null, 'id': '5c5262d02b6a980001563eb9'}, {'value': '先到先得', 'synonyms': null, 'id': '5c5262cb2b6a980001563eb8'}, {'value': '能听到', 'synonyms': null, 'id': '5c5262c72b6a980001563eb7'}, {'value': '做了吗', 'synonyms': null, 'id': '5c5262c32b6a980001563eb6'}, {'value': 'CP', 'synonyms': null, 'id': '5c5262bf2b6a980001563eb5'}, {'value': '组队任务', 'synonyms': null, 'id': '5c5262bb2b6a980001563eb4'}, {'value': '结婚', 'synonyms': null, 'id': '5c5262b82b6a980001563eb3'}, {'value': '我教你', 'synonyms': null, 'id': '5c5262b02b6a980001563eb2'}, {'value': '战力', 'synonyms': null, 'id': '5c5262ac2b6a980001563eb1'}, {'value': '在线', 'synonyms': null, 'id': '5c5262a72b6a980001563eb0'}, {'value': '公告', 'synonyms': null, 'id': '5c5262a32b6a980001563eaf'}, {'value': '帮主', 'synonyms': null, 'id': '5c52629f2b6a980001563eae'}, {'value': '拉你', 'synonyms': null, 'id': '5c52629a2b6a980001563ead'}, {'value': '进群', 'synonyms': null, 'id': '5c5262932b6a980001563eac'}, {'value': '关注', 'synonyms': null, 'id': '5c52628f2b6a980001563eab'}, {'value': '礼包', 'synonyms': null, 'id': '5c52628b2b6a980001563eaa'}, {'value': '充值', 'synonyms': null, 'id': '5c5262872b6a980001563ea9'}, {'value': '满V', 'synonyms': ['瞒V'], 'id': '5c52627d2b6a980001563ea8'}, {'value': '找游戏', 'synonyms': null, 'id': '5c5262772b6a980001563ea7'}, {'value': '公众号', 'synonyms': ['工种呺'], 'id': '5c52626a2b6a980001563ea6'}, {'value': '到付', 'synonyms': null, 'id': '5c5262662b6a980001563ea5'}, {'value': '出售', 'synonyms': null, 'id': '5c5262632b6a980001563ea4'}, {'value': '武器', 'synonyms': null, 'id': '5c52625f2b6a980001563ea3'}, {'value': '宝石', 'synonyms': null, 'id': '5c52625a2b6a980001563ea2'}, {'value': '时装', 'synonyms': null, 'id': '5c5262562b6a980001563ea1'}, {'value': '至尊', 'synonyms': null, 'id': '5c5262532b6a980001563ea0'}, {'value': '坐骑', 'synonyms': null, 'id': '5c52624f2b6a980001563e9f'}, {'value': '元宝', 'synonyms': ['YB'], 'id': '5c52624a2b6a980001563e9e'}, {'value': '灵玉', 'synonyms': ['靈鈺'], 'id': '5c5262462b6a980001563e9d'}, {'value': '装备', 'synonyms': null, 'id': '5c5262432b6a980001563e9c'}, {'value': '在吗', 'synonyms': null, 'id': '5c52623f2b6a980001563e9b'}, {'value': '带我', 'synonyms': null, 'id': '5c52623a2b6a980001563e9a'}, {'value': '加你', 'synonyms': null, 'id': '5c5262362b6a980001563e99'}, {'value': '哈喽', 'synonyms': null, 'id': '5c5262322b6a980001563e98'}, {'value': '处情缘', 'synonyms': null, 'id': '5c52622d2b6a980001563e97'}, {'value': '一起玩', 'synonyms': null, 'id': '5c5262182b6a980001563e96'}, {'value': '一个人', 'synonyms': null, 'id': '5c5262132b6a980001563e95'}, {'value': '老区过来', 'synonyms': null, 'id': '5c52620f2b6a980001563e94'}, {'value': '小哥哥', 'synonyms': null, 'id': '5c52620b2b6a980001563e93'}, {'value': '加下', 'synonyms': null, 'id': '5c5262072b6a980001563e92'}, {'value': 'Q群', 'synonyms': ['抠裙', 'qqun'], 'id': '5c49a90a37219ba3f2d88104'}, {'value': '福利', 'synonyms': ['福力'], 'id': '5c49a8f037219ba3f2d88103'}, {'value': 'QQ群', 'synonyms': ['qq裙'], 'id': '5c49a8dd37219ba3f2d88102'}, {'value': '交流群', 'synonyms': ['交流裙'], 'id': '5c49a86137219ba3f2d88101'}, {'value': '代充', 'synonyms': ['代冲'], 'id': '5c49a84d37219ba3f2d88100'}, {'value': '送首冲', 'synonyms': ['送首充'], 'id': '5c49a81237219ba3f2d880ff'}, {'value': '200元', 'synonyms': ['２００え', '200え', '两百元', '2百元', '二百元', '二百え'], 'id': '5c49a6ec37219ba3f2d880fd'}, {'value': '加Q', 'synonyms': ['加q', '＋Q'], 'id': '5c49849f37219ba3f2d880f9'}, {'value': 'QQ', 'synonyms': ['qq', '秋秋', '扣扣'], 'id': '5c49841337219ba3f2d880f8'}, {'value': '微信', 'synonyms': ['徽薪', 'vx', 'VX', '徽信', '徵信', '维', '黴狺'], 'id': '5c4983a237219ba3f2d880f7'}, {'value': '私服', 'synonyms': ['S服', 'SF'], 'id': '5c49837c37219ba3f2d880f6'}]
+
+
+    // var word =_.compact(_.uniq(_.flatten( _.concat(_.map(words, 'value'),_.map(words, 'synonyms')))))
+    var word = tq(words)
+    function tq(obj){
+        var ruslt = []
+        obj.filter(w => {
+            if(w.value){
+                ruslt.push(w.value)
+            }
+            if(w.synonyms){
+                w.synonyms.filter(x => {
+                    ruslt.push(x)
+                })
+            }
+        })
+        return Array.from(new Set(ruslt))
+    }
+    console.log(word)
+</script>
+
+</body>
+</html>

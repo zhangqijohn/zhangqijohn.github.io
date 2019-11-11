@@ -7,15 +7,15 @@
 <body>
 <script>
     let data1 = {
-        serverId : '2107001',
-        userId : '123456',
-        money : 1000
+        serverId :'2107001',
+        userId :'123456',
+        money :1000
     }
     let data2 = {
-        serverId : '',
-        userId : '',
-        money : 0 ,
-        methods : 'wechat'
+        serverId :'',
+        userId :'',
+        money :0 ,
+        methods :'wechat'
     }
 
     Object.assign(data2,data1)
@@ -32,10 +32,20 @@
     console.log(c);    //[1,2,3,5]
 
 
+    var pageData = {}
+    var response = {
+        "body":[],
+        'message':'string',
+        'pageIndex':1,
+        'pageSize':100,
+        'pageCount':10,
+        'recordCount':0
+    };
 
+    var { message: msg = 'Something went wrong' } = {};
+    var { pageCount: pageData.pageCount = 'Something went wrong' } = response;
 
-
-
+    console.log(msg1)
 
 </script>
 

@@ -1,0 +1,18 @@
+body{
+    font-size: 12px;
+    background: #f00 !important;
+}
+.box{
+    width: 200px;
+    height: 200px;
+    background: url("../img/box.jpg") no-repeat;
+}
+.box2{
+    width: 200px;
+    height: 200px;
+    background: url("../img/box2.jpg") no-repeat;
+}
+.box3{
+    width: 300px;
+    height: 300px;
+}

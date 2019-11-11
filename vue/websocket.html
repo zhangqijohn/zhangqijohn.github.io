@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+</head>
+<body>
+<h1>Socket Test</h1>
+<input type="text" id="sendText">
+<button id="sendBtn">发送</button>
+<button id="colseBtn">关闭</button>
+<div id="recv"></div>
+<br>
+<span>欢迎关注[六个周]公众号</span>
+<script type="text/javascript">
+    var websocket = new WebSocket("ws://echo.websocket.org/");
+    websocket.onopen = function(){
+        console.log("open 了");
+        document.getElementById("recv").innerHTML="Connected";
+    }
+    websocket.close = function(){
+        console.log("close 了");
+    }
+    websocket.onmessage = function(e){
+        console.log(e.data);
+        document.getElementById("recv").innerHTML=e.data;
+    }
+
+    document.getElementById("sendBtn").onclick = function(){
+        //websocket.onopen()
+        var txt =  document.getElementById("sendText").value;
+        var obj = {a:'a',b:'b'}
+        websocket.send(obj);
+    }
+    document.getElementById("colseBtn").onclick = function(){
+        websocket.close();
+    }
+</script>
+</body>
+</html>

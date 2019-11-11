@@ -1,0 +1,908 @@
+<template>
+  <div class="app-container">
+    <el-card>
+
+      <el-form :model="queryData" :rules="rules" ref="ruleForm" label-width="150px" class="demo-dynamic">
+        <el-form-item label="服务器：">
+
+          <el-form-item  prop="areaId" class="input-item">
+            <el-select v-model="queryData.areaId" placeholder="请选择服务器">
+              <el-option
+                v-for="item in areaData"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item class="input-item">
+            <el-select multiple filterable v-model="queryData.channels" placeholder="运营渠道">
+              <el-option
+                v-for="item in channelData"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item  class="input-item">
+            <el-select multiple filterable v-model="queryData.opSystems" placeholder="系统类型">
+              <el-option
+                v-for="item in systems"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-form-item>
+        <el-form-item label="游戏世界：">
+          <el-select multiple filterable placeholder="所有区服" v-model="queryData.worlds" style="width:400px">
+            <el-option
+              v-for="(item,index) in serverData"
+              :key="index"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="收件人类型：">
+          <el-select v-model="receiversType">
+            <el-option value="0" label="所有角色"></el-option>
+            <el-option value="1" label="指定角色ID"></el-option>
+            <el-option value="2" label="排除角色ID"></el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="收件人：" v-show="receiversType === '1'">
+          <el-input
+            type="textarea"
+            :rows="4"
+            @input="handleReceivers"
+            placeholder="请输入收件人，多个收件人之间用【英文逗号】分开！填写完成后点击【批量增加】进行校验！"
+            v-model="queryData.receivers">
+          </el-input>
+
+          <el-form-item class="red-tips">
+            <el-button type="primary" size="mini" @click="CheckRoleTxts">批量增加</el-button>
+            <el-button type="text" @click="ClearRoleTxts">清空</el-button>
+            <span class="tipsTxt">Tips：多个收件人之间用【英文逗号】分开！填写完成后点击【批量增加】进行校验！</span>
+          </el-form-item>
+
+          <el-form-item :class="receiversTipsClass">{{receiversTips}}</el-form-item>
+        </el-form-item>
+        <el-form-item label="排除收件人："  v-show="receiversType === '2'">
+          <el-input
+            type="textarea"
+            :rows="4"
+            @input="handleExcludes"
+            placeholder="请输入排除收件人，多个排除收件人之间用【英文逗号】分开！填写完成后点击【批量增加】进行校验！"
+            v-model="queryData.excludes">
+          </el-input>
+
+          <el-form-item class="red-tips">
+            <el-button type="primary" size="mini" @click="CheckExcludeRoleTxts">批量增加</el-button>
+            <el-button type="text" @click="ClearExcludeRoleTxts">清空</el-button>
+            <span class="tipsTxt">Tips：多个排除收件人之间用【英文逗号】分开！填写完成后点击【批量增加】进行校验！</span>
+          </el-form-item>
+
+          <el-form-item :class="excludesTipsClass">{{excludesTips}}</el-form-item>
+        </el-form-item>
+
+        <el-form-item label="附加金钱：">
+          <el-col class="col-span0">
+            <el-form-item prop="money">
+              <span class="col-span1">金币：</span>
+              <el-input class="col-span2" maxlength="9" clearable v-model="money" placeholder="请输入金币数额" @input="addMoney"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="col-span0">
+            <el-form-item prop="gold">
+              <span class="col-span1">钻石：</span>
+              <el-input class="col-span2" maxlength="9" clearable v-model="gold" placeholder="请输入钻石数额" @input="addGold"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item label="道具：">
+          <el-col class="col-span0">
+            <el-form-item>
+              <span class="col-span1">物品ID：</span>
+              <el-tooltip class="item" effect="dark" content="系统只模糊搜索前20条物品" placement="top">
+                <el-autocomplete
+                  class="inline-input col-span2"
+                  v-model="goodsId"
+                  clearable
+                  :fetch-suggestions="SelectGoodsId"
+                  @input="handleGoodsId"
+                  placeholder="请输入物品ID"
+                  @select="handleSelectGoods">
+                </el-autocomplete>
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+          <el-col class="col-span0">
+            <el-form-item>
+              <span class="col-span1" content="Top Center 提示文字">物品名称：</span>
+              <el-tooltip class="item" effect="dark" content="系统只模糊搜索前20条物品" placement="top">
+                <el-autocomplete
+                  class="inline-input col-span2"
+                  v-model="goodsName"
+                  clearable
+                  :fetch-suggestions="SelectGoodsName"
+                  @input="handleGoodsName"
+                  placeholder="请输入物品名称"
+                  @select="handleSelectGoods">
+                </el-autocomplete>
+              </el-tooltip>
+            </el-form-item>
+          </el-col>
+          <el-col class="col-span0">
+            <el-form-item>
+              <span class="col-span1">数量：</span>
+              <el-input v-model="goodsNum" maxlength="9" clearable placeholder="数量" class="col-span2"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col class="col-span3 margin-left-10">
+            <el-button @click="addGoodsTag" type="primary">添加</el-button>
+          </el-col>
+          <el-col class="col-span3">
+            <el-button @click="clearGoodsTags" type="danger">清空</el-button>
+          </el-col>
+          <el-col class="red-tips">
+            {{goodsTips}}
+          </el-col>
+          <el-col>
+            <el-tag
+              v-for="(tag,index) in goodsList"
+              :key="index"
+              closable
+              @close="handleGoodsTagClose(tag)">
+              {{tag.value}}（ID:{{tag.id}}）*{{tag.num}}
+            </el-tag>
+          </el-col>
+        </el-form-item>
+
+        <el-form-item label="指定时间：">
+          <el-row class="header-container">
+            <el-form-item >
+              <el-col>
+                <span class="col-span1">此时间 ：</span>
+                <el-date-picker
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
+                  type="date"
+                  :picker-options="pickerOptionsAfter"
+                  v-model="queryData.roleCreateAfter"
+                  placeholder="选择日期">
+                </el-date-picker>
+                <span class="margin-left-10"> 后创建的角色才能收到邮件</span>
+              </el-col>
+            </el-form-item>
+          </el-row>
+          <el-row class="header-container">
+            <el-form-item >
+              <el-col>
+                <span class="col-span1">此时间 ：</span>
+                <el-date-picker
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
+                  type="date"
+                  :picker-options="pickerOptionsBefore"
+                  v-model="queryData.roleCreateBefore"
+                  placeholder="选择日期">
+                </el-date-picker>
+                <span class="margin-left-10"> 前创建的角色才能收到邮件</span>
+              </el-col>
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <span class="red-tips">Tips：两个时间可以选填。注：填写了两个时间，第一个时间必须小于第二个时间才可发送</span>
+          </el-row>
+        </el-form-item>
+
+        <el-form-item label="保留天数：" prop="keepDays">
+          <el-input v-model="queryData.keepDays" maxlength="5" clearable placeholder="请输入保留天数" class="input-220W"></el-input>
+          <span>天</span>
+        </el-form-item>
+        <el-form-item label="充值金额：" prop="rechargeNum">
+          <el-input v-model="queryData.rechargeNum" maxlength="5" clearable placeholder="请输入充值金融" class="input-220W"></el-input>
+        </el-form-item>
+
+        <el-form-item label="定时发送：">
+
+          <el-switch @change="changeTaskType" v-model="isTiming" inactive-text="关" active-text=" 开"></el-switch>
+          <span style="margin-left:30px">时区：UTC
+                  <span v-if="this.queryData.timeZone > 0 ">+</span>{{this.queryData.timeZone}}
+                </span>
+          <el-collapse-transition>
+            <div v-show="isTiming === true">
+              <el-form-item class="header-container">
+                <span>定时起始时间： </span>
+                <el-date-picker
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
+                  type="date"
+                  :picker-options="sendStartDate"
+                  v-model="queryData.sendStartDate"
+                  placeholder="选择日期">
+                </el-date-picker>
+                <span style="margin-left: 10px"> 截止时间： </span>
+                <el-date-picker
+                  format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
+                  type="date"
+                  :picker-options="sendEndDate"
+                  v-model="queryData.sendEndDate"
+                  placeholder="选择日期">
+                </el-date-picker>
+              </el-form-item>
+              <el-form-item class="header-container">
+                <span> 定时发送时间： </span>
+                <el-time-picker
+                  v-model="times"
+                  format="HH:mm:ss"
+                  value-format="HH:mm:ss"
+                  :picker-options="{selectableRange: '00:00:00 - 23:59:59'}"
+                  placeholder="选择时间">
+                </el-time-picker>
+                <el-button @click="addTimesTag" type="primary" class="margin-left-10">添加</el-button>
+                <el-button @click="clearTimesTags" type="danger">清空</el-button>
+                <el-col class="red-tips">
+                  {{timesTips}}
+                </el-col>
+                <el-col>
+                  <el-tag
+                    v-for="(tag,index) in queryData.sendTimes"
+                    :key="index"
+                    closable
+                    @close="handleTimesTagClose(tag)">
+                    {{tag }}
+                  </el-tag>
+                </el-col>
+                <span class="red-tips margin-left-10">(可不填)</span>
+              </el-form-item>
+              <el-form-item  prop="sendInterval">
+                <span> 发送间隔时间： </span>
+                <el-input v-model="queryData.sendInterval" maxlength="5" clearable placeholder="请输入发送间隔天数" class="input-220W"></el-input>
+                <span class="margin-left-10">天</span> <span class="red-tips">(0天，即每日连续发送)</span>
+              </el-form-item>
+            </div>
+          </el-collapse-transition>
+        </el-form-item>
+
+        <el-form-item label="适用语言：" >
+          <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange" border>全选</el-checkbox>
+        </el-form-item>
+
+        <el-form-item>
+          <el-checkbox-group v-model="checkedLanguage" @change="handleCheckedChange" :min="1">
+            <el-checkbox v-for="(item,index) in language" :label="item" :key="index" border >{{item.desc}}</el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+
+        <el-form-item >
+          <el-button @click="languageDialog" type="primary">添加</el-button><span class="red-tips tipsTxt">增加多语言邮件，用于使用不同的语言发送同一奖励</span>
+        </el-form-item>
+        <el-form-item label="邮件内容：">
+          <el-tabs v-model="activeName">
+              <el-tab-pane v-for="(item,index) in queryData.mulLanguages" :label="item.desc" :name="item.desc" :key="item.desc">
+
+                <el-form-item class="header-container" :prop="'mulLanguages.' + index + '.title'" :rules="{required: true, message: '邮件标题为空', trigger: ['blur', 'change']}">
+                <el-input   v-model="item.title" maxlength="128" :placeholder="'请输入'+ queryData.mulLanguages[index].desc+'邮件标题'"></el-input>
+              </el-form-item>
+                <el-form-item :prop="'mulLanguages.' + index + '.content'" :rules="{required: true, message: '邮件内容为空', trigger: ['blur', 'change']}">
+                <el-input type="textarea" v-model="item.content" maxlength="1000" :rows="6" :placeholder="'请输入'+ queryData.mulLanguages[index].desc+'邮件内容'"></el-input>
+              </el-form-item>
+
+            </el-tab-pane>
+          </el-tabs>
+        </el-form-item>
+
+        <el-form-item label="等级：" prop="level">
+          <el-input v-model="queryData.level" maxlength="5" clearable placeholder="请输入等级" class="input-220W"></el-input>
+        </el-form-item>
+
+        <div align="center">
+          <el-button class="input-220W" type="primary" @click="CheckSubmitData">发送邮件</el-button>
+        </div>
+
+      </el-form>
+    </el-card>
+    <el-dialog title="请填写需要增加的语种" :visible.sync="languageFormVisible" width="400px">
+      <el-form ref="languageRef" :model="languageModel" :rules="languageRules" label-width="80px">
+        <el-form-item  prop="id" class="input-item"  label="语种">
+          <el-select placeholder="选择需要增加的语种" v-model="languageModel.id">
+            <el-option
+              v-for="(item,index) in languageData.slice(2)"
+              :key="index"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <el-button type="primary" @click="submitLanguage" style="width:100%">提交</el-button>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import '@/styles/common.scss'
+import {simpleFormat} from '@/util/date'
+import {VPosInt, VPosInt2, VIsNotEmpty} from '@/util/formValidator'
+import ServerItem from '@/components/ServerItem'
+import { servers, area, language, channel, opsystem } from '@/api/options'
+import {checkActorids} from '@/api/roles'
+import { getGoods, checkGoodsId } from '@/api/goods'
+import { postTask } from '@/api/email'
+
+export default {
+  name: 'mail-send',
+  components: {ServerItem},
+  data () {
+    return {
+      rules: {
+        areaId: [
+          { required: true, message: '请选择服务器', trigger: 'change' }
+        ],
+        title: [
+          { required: true, message: '请填写邮件标题', trigger: 'change' }
+        ],
+        content: [
+          { required: true, message: '请填写邮件内容', trigger: 'change' }
+        ],
+        worlds: [
+          { required: false, message: '请输入游戏区服', trigger: 'change' }
+        ],
+        keepDays: [
+          {validator: this.checkInt2}
+        ],
+        rechargeNum: [
+          {validator: this.checkInt}
+        ],
+        level: [
+          {validator: this.checkInt}
+        ],
+        sendInterval: [
+          {validator: this.checkInt}
+        ]
+      },
+      languageData: [],
+      serverData: [],
+      areaData: [],
+      channelData: [],
+      systems: [
+        {id: 0, name: 'IOS'},
+        {id: 1, name: '安卓'}
+      ],
+      queryData: {
+        timeZone: '',
+        areaId: '',
+        channels: [],
+        opSystems: [],
+        worlds: [],
+        receivers: '',
+        excludes: '',
+        gender: '',
+        goodsItems: [],
+        mulLanguages: [
+          {languageId: 1, title: '', content: '', desc: '中文'},
+          {languageId: 2, title: '', content: '', desc: '英文'}
+        ],
+        keepDays: '30',
+        level: '0',
+        roleCreateBefore: '',
+        roleCreateAfter: '',
+        taskType: 1,
+        sendStartDate: '',
+        sendEndDate: '',
+        sendTimes: [],
+        sendInterval: 0,
+        rechargeNum: 0
+      },
+      receiversType: '0',
+      money: '',
+      gold: '',
+      disRoleTextarea: true,
+      goodsList: [],
+      goodsName: '',
+      goodsId: '',
+      goodsNum: '0',
+      goodsTips: '',
+      timesTips: '',
+      receiversTips: '',
+      receiversTipsClass: 'danger',
+      excludesTips: '',
+      excludesTipsClass: 'danger',
+      goodsSearch: [],
+      times: '',
+      checkAll: true,
+      checkedLanguage: [],
+      language: [
+        {languageId: 1, desc: '中文', title: '', content: ''},
+        {languageId: 2, desc: '英文', title: '', content: ''}
+      ],
+      isIndeterminate: false,
+      languageModel: {
+        id: '',
+        name: ''
+      },
+      languageRules: {
+        id: [{required: true, message: '请填写语种ID', trigger: 'blur'}]
+      },
+      languageFormVisible: false,
+      activeName: '中文',
+      isTiming: true,
+
+      pickerOptionsAfter: {
+        disabledDate: (time) => {
+          if (!this.queryData.roleCreateAfter && this.queryData.roleCreateBefore) {
+            return time.getTime() > new Date(this.queryData.roleCreateBefore).getTime() - 1 * 24 * 60 * 60 * 1000
+          }
+        }
+      },
+      pickerOptionsBefore: {
+        disabledDate: (time) => {
+          return time.getTime() < new Date(this.queryData.roleCreateAfter).getTime()
+        }
+      },
+      sendStartDate: {
+        disabledDate: (time) => {
+          if (!this.queryData.sendStartDate && this.queryData.sendEndDate) {
+            return time.getTime() > new Date(this.queryData.sendEndDate).getTime() - 1 * 24 * 60 * 60 * 1000
+          }
+        }
+      },
+      sendEndDate: {
+        disabledDate: (time) => {
+          return time.getTime() < new Date(this.queryData.sendStartDate).getTime()
+        }
+      }
+    }
+  },
+  created () {
+    this.getServers()
+    this.getArea()
+    this.defaultCheck()
+    this.getLanguage()
+    this.getChannel()
+    this.getTimeZone()
+    this.getOpsystem()
+  },
+  methods: {
+    // 获取时区
+    getTimeZone () {
+      this.queryData.timeZone = -(new Date().getTimezoneOffset() / 60)
+    },
+    //  大区选项
+    getArea () {
+      area()
+        .then(response => {
+          this.areaData = response
+        })
+    },
+    //  取得服务器
+    getServers () {
+      servers()
+        .then(response => {
+          this.serverData = response
+        })
+    },
+    //  取得系统类型
+    getOpsystem () {
+      opsystem()
+        .then(response => {
+          this.systems = response
+        })
+    },
+    //  取得语言
+    getLanguage () {
+      language()
+        .then(response => {
+          this.languageData = response
+        })
+    },
+    //  取得语言
+    getChannel () {
+      channel()
+        .then(response => {
+          this.channelData = response
+        })
+    },
+    // 是否定时发送
+    changeTaskType () {
+      if (this.isTiming === true) {
+        this.queryData.taskType = 1
+      } else {
+        this.queryData.taskType = 0
+        /* this.queryData.sendStartDate = ''
+        this.queryData.sendEndDate = ''
+        this.queryData.sendInterval = ''
+        this.queryData.sendTimes = [] */
+      }
+    },
+    // 发送邮件
+    SubmitData () {
+      let queryData = JSON.parse(JSON.stringify(this.queryData))
+      queryData.receivers = []
+      queryData.excludes = []
+      if (this.receiversType === '0') {
+        queryData.receivers = null
+        queryData.excludes = null
+      } else {
+        let receiversStrArr = this.queryData.receivers.split(',')
+        queryData.receivers = receiversStrArr.map(function (data) {
+          return +data
+        })
+        let excludesStrArr = this.queryData.excludes.split(',')
+        queryData.excludes = excludesStrArr.map(function (data) {
+          return +data
+        })
+      }
+      if (this.money !== '') {
+        queryData.goodsItems.push({'id': 1, 'num': this.money})
+      }
+      if (this.gold !== '') {
+        queryData.goodsItems.push({'id': 2, 'num': this.gold})
+      }
+      console.log(queryData)
+      postTask(queryData).then(res => {
+        this.$message({
+          type: 'success',
+          message: '操作成功!'
+        })
+      })
+    },
+    // 发送邮件检测以提示
+    CheckSubmitData () {
+      let mulLanguagesErrorMessage = []
+      this.queryData.mulLanguages.map(function (item, index) {
+        if (item.title === '' || item.title === undefined) {
+          mulLanguagesErrorMessage.push('请输入' + item.desc + '邮件标题！')
+        }
+        if (item.content === '' || item.content === undefined) {
+          mulLanguagesErrorMessage.push('请输入' + item.desc + '邮件内容！')
+        }
+      })
+      if (mulLanguagesErrorMessage !== '') {
+        this.$message.error(JSON.stringify(mulLanguagesErrorMessage))
+      }
+      this.$refs.ruleForm.validate((valid) => {
+        if (!valid) return false
+        this.$confirm('邮件群发中途无法撤销，确定邮件群发信息进行发送?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.SubmitData()
+        }).catch(() => {
+        })
+      })
+    },
+    //  验证收件人
+    CheckRoleTxts () {
+      if (!VIsNotEmpty(this.queryData.receivers)) {
+        this.$message.error('请输入收件人！')
+        return false
+      }
+      let ids = []
+      ids = this.queryData.receivers.split(',')
+      checkActorids(ids).then(response => {
+        if (parseInt(response.count) === 0) {
+          this.receiversTipsClass = 'success'
+          this.receiversTips = '收件人批量验证成功！'
+        } else {
+          this.receiversTipsClass = 'danger'
+          let errData = response.data.join(',')
+          this.receiversTips = `收件人批量验证失败！错误数：${response.count}条。错误角色ID有：${errData}`
+        }
+      }).catch((e) => {
+        this.receiversTipsClass = 'danger'
+        this.receiversTips = '收件人批量验证失败！'
+      })
+    },
+    handleReceivers (value) {
+      this.$nextTick(() => {
+        this.queryData.receivers = value.replace(/[^0-9\u002c]/g, '').replace(new RegExp(',+', 'gm'), ',')
+      })
+    },
+    //  清除收件人
+    ClearRoleTxts () {
+      this.queryData.receivers = ''
+      this.receiversTips = ''
+      this.receiversTipsClass = 'danger'
+    },
+    //  验证排除收件人
+    CheckExcludeRoleTxts () {
+      if (!VIsNotEmpty(this.queryData.excludes)) {
+        this.$message.error('请输入排除收件人！')
+        return false
+      }
+      let ids = []
+      ids = this.queryData.excludes.split(',')
+      checkActorids(ids).then(response => {
+        if (parseInt(response.count) === 0) {
+          this.excludesTipsClass = 'success'
+          this.excludesTips = '排除收件人批量验证成功！'
+        } else {
+          this.excludesTipsClass = 'danger'
+          let errData = response.data.join(',')
+          this.excludesTips = `收件人批量验证失败！错误数：${response.count}条。错误角色ID有：${errData}`
+        }
+      }).catch((e) => {
+        this.excludesTipsClass = 'danger'
+        this.excludesTips = '收件人批量验证失败！'
+      })
+    },
+    //  清除排除收件人
+    ClearExcludeRoleTxts () {
+      this.queryData.excludes = ''
+      this.excludesTips = ''
+      this.excludesTipsClass = 'danger'
+    },
+    handleExcludes (value) {
+      this.$nextTick(() => {
+        this.queryData.excludes = value.replace(/[^0-9\u002c]/g, '').replace(new RegExp(',+', 'gm'), ',')
+      })
+    },
+    //  验证物品名称
+    SelectGoodsName (queryString, cb) {
+      if (VIsNotEmpty(this.goodsName)) {
+        getGoods('', this.goodsName)
+          .then(response => {
+            this.goodsSearch = []
+            response.map((value, index) => {
+              this.goodsSearch.push({'value': value.name, 'id': value.id})
+            })
+            // 调用 callback 返回建议列表的数据
+            cb(this.goodsSearch)
+          })
+      }
+    },
+    handleGoodsName () {
+      if (this.goodsName.length > 20) {
+        this.goodsName = this.goodsName.substring(0, 20)
+      }
+    },
+    // 增加金币
+    addMoney (value) {
+      this.$nextTick(() => {
+        this.money = value.replace(/[^\d]/g, '')
+      })
+    },
+    // 增加钻石
+    addGold (value) {
+      this.$nextTick(() => {
+        this.gold = value.replace(/[^\d]/g, '')
+      })
+    },
+    //  验证选择物品ID
+    SelectGoodsId (queryString, cb) {
+      if (VIsNotEmpty(this.goodsId)) {
+        getGoods(this.goodsId, '')
+          .then(response => {
+            this.goodsSearch = []
+            response.map((value, index) => {
+              this.goodsSearch.push({'value': value.name, 'id': value.id})
+            })
+            // 调用 callback 返回建议列表的数据
+            cb(this.goodsSearch)
+          })
+      }
+    },
+    handleGoodsId (value) {
+      this.$nextTick(() => {
+        this.goodsId = value.replace(/[^\d]/g, '')
+        if (this.goodsId.length > 15) {
+          this.goodsId = this.goodsId.substring(0, 15)
+        }
+      })
+    },
+    // 选择物品
+    handleSelectGoods (item) {
+      this.goodsTips = ''
+      this.goodsId = item.id
+      this.goodsName = item.value
+      this.goodsNum = '1'
+    },
+    // 物品tag关闭
+    handleGoodsTagClose (tag) {
+      this.goodsList.splice(this.goodsList.indexOf(tag), 1)
+    },
+    // 定时tag关闭
+    handleTimesTagClose (tag) {
+      this.queryData.sendTimes.splice(this.queryData.sendTimes.indexOf(tag), 1)
+    },
+    // 增加物品tag
+    addGoodsTag () {
+      if (this.goodsName === '') {
+        this.goodsTips = '物品名称不能为空！'
+        return false
+      }
+      if (this.goodsId === '') {
+        this.goodsTips = '物品ID不能为空！'
+        return false
+      }
+      if (this.goodsNum === '') {
+        this.goodsTips = '物品数量不能为空！'
+        return false
+      }
+      if (parseInt(this.goodsNum) === 0) {
+        this.goodsTips = '物品数量不能为0！'
+        return false
+      }
+      if (!VPosInt2(this.goodsNum)) {
+        this.goodsTips = '物品数量请输入大于等于0的整数！'
+        return false
+      }
+      checkGoodsId([this.goodsId])
+        .then(response => {
+          if (parseInt(response.count) === 0) {
+            this.goodsTips = ''
+            let goodsObj = {'id': this.goodsId, 'num': parseInt(this.goodsNum), 'value': this.goodsName}
+            this.goodsList.push(goodsObj)
+            this.queryData.goodsItems = this.goodsList
+          } else {
+            this.goodsTips = '物品ID：' + this.goodsId + '不存在！'
+          }
+        })
+    },
+    // 增加定时tag
+    addTimesTag () {
+      if (!this.times) {
+        this.timesTips = '定时发送时间不能为空！'
+        return false
+      } else {
+        this.timesTips = ''
+        const sendTime = []
+        sendTime.push(this.times)
+        for (let i = 0; i < sendTime.length; i++) {
+          if (this.queryData.sendTimes.indexOf(sendTime[i]) === -1) {
+            this.queryData.sendTimes.push(sendTime[i])
+          }
+        }
+      }
+    },
+    // 清除物品tag
+    clearGoodsTags () {
+      this.goodsTips = ''
+      this.goodsList = []
+      this.queryData.goodsItems = null
+    },
+    // 清除定时tag
+    clearTimesTags () {
+      this.timesTips = ''
+      this.times = ''
+      this.queryData.sendTime = []
+    },
+    // 校正输入框
+    checkInt (rule, value, callback) {
+      if (VPosInt(value)) {
+        callback()
+      } else {
+        return callback(new Error('请输入大于等于0的整数！'))
+      }
+    },
+    checkInt2 (rule, value, callback) {
+      if (VPosInt2(value)) {
+        callback()
+      } else {
+        return callback(new Error('请输入正整数！'))
+      }
+    },
+    //  语种的全选
+    handleCheckAllChange (val) {
+      if (val === true) {
+        this.queryData.mulLanguages = this.language
+      } else {
+        this.$message.error('不可取消全选，至少要选择一种语言！')
+        this.isIndeterminate = true
+        return false
+      }
+    },
+    //  语种选择
+    handleCheckedChange (value) {
+      let checkedCount = value.length
+      this.checkAll = checkedCount === this.language.length
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.language.length
+      this.checkedLanguage = value
+      let allItem = []
+      value.map(function (item, index) {
+        allItem.push(item)
+      })
+      this.queryData.mulLanguages = allItem
+      this.activeName = this.checkedLanguage[0].desc
+
+    /*  let checkedLanguage = JSON.stringify(this.checkedLanguage)
+      if (checkedLanguage.indexOf('中文') > -1) {
+        this.activeName = '中文'
+      }
+      if (checkedLanguage.indexOf('英文') > -1) {
+        this.activeName = '英文'
+      } */
+    },
+    //  增加选择
+    languageDialog () {
+      this.languageModel.id = ''
+      this.languageModel.name = ''
+      this.languageFormVisible = true
+    },
+    // 默认全选
+    defaultCheck () {
+      let defaultCheck = []
+      this.language.map(function (item, index) {
+        defaultCheck.push(item)
+      })
+      this.checkedLanguage = defaultCheck
+      this.queryData.mulLanguages=defaultCheck
+    },
+    submitLanguage () {
+      this.$refs['languageRef'].validate((valid) => {
+        if (valid) {
+          this.languageFormVisible = false
+          for (let item of this.languageData) {
+            if (this.languageModel.id === item.id) {
+              this.language.push({id: item.id, desc: item.name, title: '', content: ''})
+              this.languageData.splice(this.languageData.indexOf(item), 1)
+            }
+          }
+        } else {
+          return false
+        }
+      })
+    }
+  },
+  filters: {
+    formatDate (value) {
+      return simpleFormat(value)
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .input-item{
+    display: inline-block;
+  }
+  .header-container{
+    margin-bottom: 20px;
+  }
+  .input-220W{
+    width: 220px;
+  }
+  .tipsTxt{
+    margin-left:20px
+  }
+  .margin-left-10{
+    margin-left:10px
+  }
+  .col-span0{
+    width:250px;
+  }
+  .col-span1{
+    width:70px;
+    display: inline-block;
+    text-align: right;
+  }
+  .col-span2{
+    width:170px;
+    display: inline-block;
+  }
+  .col-span3{
+    width:70px;
+    margin-right:10px;
+  }
+  .red-tips{
+    color:red;
+    font-size:14px;
+  }
+  .el-tag{
+    margin-right:10px
+  }
+  .success{color:#67C23A}
+  .danger{color:#F56C6C}
+</style>

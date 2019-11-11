@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+</head>
+<body>
+<h1>Socket Test</h1>
+<input type="text" id="lmz_sendText">
+<button id="lmz_sendBtn">发送</button>
+<div id="lmz_recv"></div>
+<br>
+
+<script type="text/javascript">
+    var arr1 = [1,2,3,4,5,6,7]
+    var arr2 = [8,9]
+    var arrAll = arr1.concat(arr2)
+console.log(    arrAll)
+console.log(    arr1.splice(0,2))
+console.log(    arr1.splice(0,2).concat(arr2))
+    // var websocket = new WebSocket("ws://localhost:8001/");
+    // websocket.onopen = function(){
+    //     console.log("open 了");
+    //     document.getElementById("lmz_recv").innerHTML="Connected";
+    // }
+    // websocket.close = function(){
+    //     console.log("close 了");
+    // }
+    // websocket.onmessage = function(e){
+    //     console.log(Object.prototype.toString.call(JSON.parse(e.data) ) === '[object Object]');
+    //     document.getElementById("lmz_recv").innerHTML=JSON.parse(e.data).serverId;
+    // }
+    //
+    // document.getElementById("lmz_sendBtn").onclick = function(){
+    //     var obj = {serverId:[100001,100002]}
+    //     var objToStr = JSON.stringify(obj)
+    //     websocket.send(objToStr);
+    // }
+</script>
+</body>
+</html>

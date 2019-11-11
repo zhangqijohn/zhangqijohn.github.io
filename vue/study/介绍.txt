@@ -1,0 +1,20 @@
+1.声明式渲染{{}}
+2.条件 v-if="seen"
+3.循环<li v-for="i in todos">{{ i.text }}</li>
+4.事件监听 v-on:click="reverseMessage" == @click="reverseMessage"
+5.v-class='' === :class=''
+6.v-if v-show 区别
+
+7.实例生命周期钩子
+beforeCreate 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+created mounted
+
+<!--完整语法-->
+<a v-bind:href="url">测试</a>
+<!--缩写-->
+<a :href="url">测试</a>
+
+<!--完整语法-->
+<a v-on:click="doSomething">修改</a>
+<!--缩写-->
+<a @click="doSomething">修改</a>

@@ -1,0 +1,29 @@
+body{
+    background: url("../img/2560X1600-1.jpg") no-repeat;
+    background-size: cover;
+}
+.home-page{
+    width: 1000px;
+    min-height: 200px;
+    margin: 0 auto 10px;
+    font-size: 18px;
+}
+.home-page h1 {
+    font-size: 24px;
+    padding: 100px 24px 30px;
+    text-align: center;
+}
+.home-page p{
+    text-align: center;
+    color: #fff;
+    text-shadow: 5px 5px 10px rgba(0,0,0,.5);
+    padding: 20px;
+}
+.box{
+    width: 500px;
+    height: 250px;
+    margin: 10px auto;
+    background: url("../img/ts1.jpg") no-repeat;
+    background-size: 100%;
+    box-sizing: border-box;
+}

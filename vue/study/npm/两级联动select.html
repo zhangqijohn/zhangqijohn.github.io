@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <form id="entityForm">
+                <!--一级菜单-->
+                <div class="form-group">
+                    <label class="control-label">请选择酒店集团</label>
+                    <select name="blocId" class="form-control" id="blocId" data-live-search="true"
+                            v-model="entity.blocId">
+
+                    </select>
+                </div>
+                <!--二级菜单-->
+                <div class="form-group">
+                    <label class="control-label">请选择酒店</label>
+                    <select name="hiId" class="form-control" id="hiId" data-live-search="true"
+                            v-model="entity.hiId">
+
+                    </select>
+                </div>
+            </form>
+        </div><!-- /.box-body -->
+
+</div>
+<script>
+    $("#blocId").select2({
+        placeholder: "请选择",
+        ajax: {
+            url: baseUrl + "bloclist.json",
+            async: false,
+            xhrFields: {withCredentials: false},
+            processResults: function (r) {
+                var displayArray = new Array();
+                r.data.forEach(function (val) {
+                    displayArray.push({id: val.blocId, text: val.blocName});
+                });
+                return {
+                    results: displayArray
+                };
+            }
+        }
+    });
+
+
+    $("#blocId").on("change", function (e) {
+
+        $("#hiId").html("");
+        var val=$(this).val();
+        var name = $(this).attr("name");
+        _self.entity[name] = val;
+        _self.entity[name+"_name"] = $(this).select2('data')[0].text;
+        $("#hiId").select2({
+            placeholder: "请选择",
+            ajax: {
+                url: baseUrl + "hotellist/"+val,
+                async: false,
+                xhrFields: {withCredentials: false},
+                processResults: function (r) {
+                    var displayArray = new Array();
+                    r.data.forEach(function (val) {
+                        displayArray.push({id: val.hiId, text: val.hiName});
+                    });
+                    return {
+                        results: displayArray
+                    };
+                }
+            }
+        });
+        $("#hiId").on("change", function (e) {
+            var val=$(this).val();
+            var name = $(this).attr("name");
+            _self.entity[name] = val;
+            _self.entity[name+"_name"] = $(this).select2('data')[0].text;
+        });
+    });
+
+
+
+    var vm = new Vue({
+        el:'#app',
+        props:{
+            title:{
+                type:String,
+                default:""
+            }
+        },
+        watch:{
+            defaultGroup:function(oldVua,newVua){
+                this.finalChoose='';
+            }
+        },
+        computed:{
+            selection:function(){
+                if(this.defaultGroup=='all'){
+                    return [];
+                }else{
+                    return this.comGroups.filter((item)=>{
+                        return item.id == this.defaultGroup
+                    })[0].twoStageGroup
+                }
+
+            }
+        },
+        data () {
+            return {
+                sort: 'sort',
+                defaultGroup:'all',
+                finalChoose:'',
+                commonSms:[{"id":"302","gid":"75","sms_content":"\u8fd9\u662f111 \u7684\u77ed\u4fe1","gname":"111"},{"id":"303","gid":"73","sms_content":"\u8fd9\u662f\u5206\u7ec48\u7684\u77ed\u4fe1","gname":"\u5206\u7ec48"},{"id":"304","gid":"11","sms_content":"\u8fd9\u662f\u5206\u7ec46\u7684\u77ed\u4fe1","gname":"\u5206\u7ec46"},{"id":"305","gid":"6","sms_content":"\u8fd9\u662f\u5206\u7ec41 \u7684\u77ed\u4fe1","gname":"\u5206\u7ec41"},{"id":"309","gid":"8","sms_content":"\u6d4b\u8bd51","gname":"\u5206\u7ec43"},{"id":"311","gid":"11","sms_content":"\u662f\u5426\u6536\u5230\u8fc7\u8bd5\u8bd5","gname":"\u5206\u7ec46"},{"id":"312","gid":"10","sms_content":"\u6d4b\u8bd54","gname":"\u5206\u7ec45"},{"id":"313","gid":"11","sms_content":"\u6d4b\u8bd5\u516d","gname":"\u5206\u7ec46"},{"id":"314","gid":"70","sms_content":"\u6d4b\u8bd5\u5341\u4e8c","gname":"\u5206\u7ec412"},{"id":"315","gid":"71","sms_content":"\u6d4b\u8bd5\u5206\u7ec4","gname":"\u6d4b\u8bd5\u5206\u7ec4"},{"id":"316","gid":"72","sms_content":"\u6d4b\u8bd5\u4e03","gname":"\u5206\u7ec47"},{"id":"317","gid":"73","sms_content":"\u6d4b\u8bd5\u516b","gname":"\u5206\u7ec48"},{"id":"318","gid":"73","sms_content":"\u6d4b\u8bd58\u7684\u77ed\u4fe1","gname":"\u5206\u7ec48"},{"id":"236","gid":"11","sms_content":"\u8fd9\u662f\u7b56\u5212i\r\n\u653e\u8361\u7b2c\u4e09\u4e2a\r\n\u53d7\u5230\u5e7f\u6cdb\u662f\u5fb7\u56fd\u963f\u4e09\r\n\u662f\u5fb7\u56fd\u662f","gname":"\u5206\u7ec46"}],
+                comGroups:JSON.parse('[{"id":"6","gname":"分组1","registry_code":"101100-WEB-HUAX-761107","pid":"0","twoStageGroup":[{"id":"10","gname":"分组5","registry_code":"101100-WEB-HUAX-761107","pid":"6"},{"id":"75","gname":"111","registry_code":"101100-WEB-HUAX-761107","pid":"6"}]},{"id":"8","gname":"分组3","registry_code":"101100-WEB-HUAX-761107","pid":"0","twoStageGroup":[{"id":"70","gname":"分组12","registry_code":"101100-WEB-HUAX-761107","pid":"8"}]},{"id":"9","gname":"分组4","registry_code":"101100-WEB-HUAX-761107","pid":"0","twoStageGroup":[{"id":"71","gname":"测试分组","registry_code":"101100-WEB-HUAX-761107","pid":"9"}]},{"id":"11","gname":"分组6","registry_code":"101100-WEB-HUAX-761107","pid":"0","twoStageGroup":[{"id":"74","gname":"ddd","registry_code":"101100-WEB-HUAX-761107","pid":"11"}]},{"id":"72","gname":"分组7","registry_code":"101100-WEB-HUAX-761107","pid":"0","twoStageGroup":[{"id":"73","gname":"分组8","registry_code":"101100-WEB-HUAX-761107","pid":"72"}]},{"id":"80","gname":"这是一个非常非常非常非常非常长长的分组","registry_code":"101100-WEB-HUAX-761107","pid":"0"},{"id":"81","gname":"豆腐干地方","registry_code":"101100-WEB-HUAX-761107","pid":"0"},{"id":"82","gname":"复古风格","registry_code":"101100-WEB-HUAX-761107","pid":"0","twoStageGroup":[{"id":"90","gname":"分组15","registry_code":"101100-WEB-HUAX-761107","pid":"82"}]},{"id":"84","gname":"的地方","registry_code":"101100-WEB-HUAX-761107","pid":"0"},{"id":"85","gname":"是的是的","registry_code":"101100-WEB-HUAX-761107","pid":"0","twoStageGroup":[{"id":"83","gname":"打发打发","registry_code":"101100-WEB-HUAX-761107","pid":"85"}]}]')
+
+            }
+        },
+        mounted:function(){
+            console.log(this.finalChoose=='')
+        }
+    })
+
+</script>
+
+
+
+</body>
+</html>
