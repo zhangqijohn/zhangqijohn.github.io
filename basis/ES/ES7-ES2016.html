@@ -32,10 +32,11 @@
 
 </pre>
 <script>
-
-    console.log(Object.entries({3:'a',2:"b",4:"c"}))
-    document.write(Object.entries({3:'a',2:"b",4:"c"}))
-
+    var obj = {3:'a',2:"b",4:"c"}
+    console.log(Object.keys(obj))       // ["2", "3", "4"]
+    console.log(Object.values(obj))     // ["b", "a", "c"]
+    console.log(Object.entries(obj))    // [["2", "b"], ["3", "a"], ["4", "c"]]
+    console.log(Object.fromEntries( Array.from(new Map(Object.entries(obj))))) // {3:'a',2:"b",4:"c"}
 </script>
 
 </body>

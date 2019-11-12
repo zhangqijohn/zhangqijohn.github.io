@@ -133,6 +133,83 @@ sup()	    把字符串显示为上标。
 </script>
 
 
+<p>字符串去重的几种方法</p>
+<script>
+
+var str = 'aaaabbbbcccddc'
+
+// for遍历
+console.log(uniq1(str)) // abcd
+console.log(str) // aaaabbbbcccddc
+function uniq1(string) {
+    var newStr = ''
+    var flag = true;
+    for(var x = 0;x < string.length;x++){
+        flag = true
+        for(var y = 0;y < newStr.length;y++){
+            if(string[x] === newStr[y]){
+                flag = false
+                break
+            }
+        }
+        if(flag){
+            newStr += string[x]
+        }
+    }
+    return newStr;
+}
+
+// indexOf
+console.log(uniq2(str)) // abcd
+console.log(str)        // aaaabbbbcccddc
+function uniq2(string) {
+    var newStr = ''
+    for(var x = 0;x < string.length;x++){
+        if(newStr.indexOf(string[x])==-1){
+            newStr += string[x]
+        }
+    }
+    return newStr;
+}
+
+// search()方法
+console.log(uniq3(str)) // abcd
+console.log(str)        // aaaabbbbcccddc
+function uniq3(string) {
+    var newStr = ''
+    for(var x = 0;x < string.length;x++){
+        if(newStr.search(string[x])==-1){
+            newStr += string[x]
+        }
+    }
+    return newStr;
+}
+
+// 对象属性
+console.log(uniq4(str)) // abcd
+console.log(str)        // aaaabbbbcccddc
+function uniq4(string) {
+    var newStr = ''
+    var obj = {}
+    for(var x = 0;x < string.length;x++){
+        if(!obj[string[x]]){
+            newStr += string[x]
+            obj[string[x]] = 1
+        }
+    }
+    return newStr;
+}
+
+// set
+console.log(uniq5(str))
+function uniq5(str) {
+    return Array.from(new Set(str)).join('')
+}
+
+
+
+
+</script>
 
 
 

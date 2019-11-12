@@ -57,9 +57,10 @@
     Object.defineProperties(person3,Object.getOwnPropertyDescriptors(person1))
 
 
-    person1.name = 'x' // x
-    person2.name = 'x' //丢失了 setter ，因为它没有复制过来。
-    person3.name = 'x'// x
+
+    person1.name = 'x'  // x
+    person2.name = 'x'  // 丢失了 setter ，因为它没有复制过来。
+    person3.name = 'x'  // x
 
 
     // Async Functions (异步函数)

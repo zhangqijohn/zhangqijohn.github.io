@@ -74,15 +74,18 @@
     Math.ceil(25.9); //26
 
     // 向下取整
-    Math.ceil(25.9); //25
+    Math.floor(25.9); //25
 
     // 四舍五入
     Math.round(25.9)  // 26
     // 取最大
     document.write("max(1,32,4,5,6,7,87):"+Math.max(1,32,4,5,6,7,87) +"<br/>"); // 87
+    var arr = [1,32,4,5,6,7,87]
+    document.write("max([1,32,4,5,6,7,87]):"+Math.max.apply(null, arr) +"<br/>"); // 87
 
     // 取最小
     document.write("min(1,32,4,5,6,7,87):"+Math.min(1,32,4,5,6,7,87) +"<br/>"); // 1
+    document.write("max([1,32,4,5,6,7,87]):"+Math.min.apply(null, arr) +"<br/>"); // 87
 </script>
 
 
