@@ -5,7 +5,67 @@
     <title>Title</title>
 </head>
 <body>
+<pre>
+    Promise 的含义
+        基本用法
+        Promise.prototype.then() // then方法是定义在原型对象Promise.prototype上的。它的作用是为 Promise 实例添加状态改变时的回调函数。前面说过，then方法的第一个参数是resolved状态的回调函数，第二个参数（可选）是rejected状态的回调函数。
+        Promise.prototype.catch() // then(null, rejection)或.then(undefined, rejection)的别名，用于指定发生错误时的回调函数。
+        Promise.prototype.finally() // 不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。
+        Promise.all() // 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。只有这多个实例的状态都变成fulfilled，或者其中有一个变为rejected，才会调用Promise.all方法后面的回调函数。
+        Promise.race() // 只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。
+        Promise.allSettled() 方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。只有等到所有这些参数实例都返回结果，不管是fulfilled还是rejected，包装实例才会结束。
+        Promise.any()   // 只要参数实例有一个变成fulfilled状态，包装实例就会变成fulfilled状态；如果所有参数实例都变成rejected状态，包装实例就会变成rejected状态.跟Promise.race()方法很像，只有一点不同，就是不会因为某个 Promise 变成rejected状态而结束。
+        Promise.resolve()   // 将现有对象转为 Promise 对象，Promise.resolve()方法就起到这个作用。
+        Promise.reject()    // 回一个新的 Promise 实例，该实例的状态为rejected。
+        应用
+        Promise.try()
+        1.加载图片
+        <code>
+            const preloadImage = function (path) {
+              return new Promise(function (resolve, reject) {
+                const image = new Image();
+                image.onload  = resolve;
+                image.onerror = reject;
+                image.src = path;
+              });
+            };
+        </code>
+        2.使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个Promise对象。
+    <code>
+        function getFoo () {
+  return new Promise(function (resolve, reject){
+    resolve('foo');
+  });
+}
 
+const g = function* () {
+  try {
+    const foo = yield getFoo();
+    console.log(foo);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+function run (generator) {
+  const it = generator();
+
+  function go(result) {
+    if (result.done) return result.value;
+
+    return result.value.then(function (value) {
+      return go(it.next(value));
+    }, function (error) {
+      return go(it.throw(error));
+    });
+  }
+
+  go(it.next());
+}
+
+run(g);
+    </code>
+</pre>
 
 <script>
 

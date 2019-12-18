@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<p>
+  post http://localhost:8080/data_post
+</p>
+<script src="../src/js/jquery-2.1.4.js"></script>
+<script>
+
+
+    let allLuckyResults = [{prize:'1',result:[1,2,3]},{prize:'2',result:[4,5]},{prize:'3',result:[6,7,8,9,10]}];
+    getAllLuckyResults()
+    function getAllLuckyResults() {
+        $.ajax({
+            url: 'http://localhost:8080/api/getData',
+            dataType: 'json',
+            data:'',
+            type: 'get',
+            success: function (res) {
+                if (res.code == 1) {
+                    allLuckyResults = res.body
+                } else if (res.code == 2) {
+                    alert(res.body);
+                } else {
+                    alert('失败，原因不明！艾特程序猿！');
+                }
+            },
+            error: function () {
+                alert('查询中奖纪录失败！请艾特程序猿打开服务！');
+            }
+        })
+    }
+  function a(){
+      $.ajax({
+          url:'http://localhost:8080/data_post',
+          // url:'http://zq.dev.q1op.com/',
+          data: {'result': JSON.stringify(allLuckyResults)},
+          dataType:'json',
+          type:'post',
+          success:function(result){
+              if(result.code==1){
+                  console.log(result.message);
+              }else if(result.code==2){
+                  alert(result.message);
+              }else{
+                  alert('失败，原因不明！艾特程序猿！');
+              }
+          },
+          error:function(){
+              alert('保存中奖纪录失败！请艾特程序猿打开服务！');
+          }
+      })
+  }
+
+</script>
+</body>
+</html>

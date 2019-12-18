@@ -5,9 +5,187 @@
     <title>生成器（Generators）</title>
 </head>
 <body>
-
-
+简介:Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同
+next 方法的参数
+for...of 循环:
+Generator.prototype.throw()
+Generator.prototype.return()
+next()、throw()、return() 的共同点
+yield* 表达式
+作为对象属性的 Generator 函数
+Generator 函数的this
+含义
+应用
 <script>
+    // 概念
+    function* helloWorldGenerator() {
+        yield 'hello';
+        yield 'world';
+        return 'ending';
+    }
+
+    var hw = helloWorldGenerator();
+    console.log(hw) // {value: "hello", done: false}
+    console.log(hw.next()) // {value: "hello", done: false}
+    console.log(hw.next()) // {value: "world", done: false}
+    console.log(hw.next()) // {value: "ending", done: false}
+
+    // 传参
+    function* count(x){
+        var y = 2 * (yield (x + 1));
+        var z = yield( y / 3)
+        return (x + y + z )
+    }
+
+    var a = count(5)
+    console.log(a.next()) // 6
+    console.log(a.next(12)) // 8
+    console.log(a.next(13)) // 5 + 24 + 13
+
+    // for...of 循环:
+    function* foo() {
+        yield 1;
+        yield 2;
+        yield 3;
+        yield 4;
+        yield 5;
+        return 6;
+    }
+
+    for (let v of foo()) {
+        console.log(v); // 1 2 3 4 5
+    }
+
+    // Generator.prototype.throw()
+    var g = function* (){
+        try{
+            yield;
+        }catch (e) {
+            console.log('inside', e)
+        }
+    }
+    var gi = g()
+    gi.next()
+    try {
+        gi.throw('a');
+        gi.throw('b');
+    } catch (e) {
+        console.log('外部捕获', e);
+    }
+
+    // Generator.prototype.return()
+    function* gen() {
+        yield 1;
+        yield 2;
+        yield 3;
+    }
+
+    var g = gen();
+
+    g.next()        // { value: 1, done: false }
+    g.return('foo') // { value: "foo", done: true }
+    g.next()        // { value: undefined, done: true }
+
+    // next()、throw()、return()这三个方法本质上是同一件事，可以放在一起理解。它们的作用都是让 Generator 函数恢复执行，并且使用不同的语句替换yield表达式。
+    //next()是将yield表达式替换成一个值。
+
+    var g2 = function* (x, y) {
+        let result = yield x + y;
+        return result;
+    };
+    var g2total = g2(1,2)
+
+    g2total.next() // {value: 3, done: false}
+    // 相当于将 let result = yield x + y
+
+    g2total.next(1) // {value: 1, done: true}
+    // 替换成 let result = 1;
+
+    // g2total.throw(new Error('出错了')); // Uncaught Error: 出错了
+    // 相当于将 let result = yield x + y
+    // 替换成 let result = throw(new Error('出错了'));
+
+    g2total.return(2); // Object {value: 2, done: true}
+    // 相当于将 let result = yield x + y
+    // 替换成 let result = return 2;
+
+    // yield* 表达式
+    function* bar() {
+        yield 'x';
+        yield* foo();
+        yield 'y';
+    }
+
+    // 等同于
+    function* bar() {
+        yield 'x';
+        yield 'a';
+        yield 'b';
+        yield 'y';
+    }
+
+    // 等同于
+    function* bar() {
+        yield 'x';
+        for (let v of foo()) {
+            yield v;
+        }
+        yield 'y';
+    }
+
+    for (let v of bar()){
+        console.log(v);
+    }
+    // "x"
+    // "a"
+    // "b"
+    // "y"
+
+    // yield*命令可以很方便地取出嵌套数组的所有成员。
+    function* iterTree(tree) {
+        if (Array.isArray(tree)) {
+            for(let i=0; i < tree.length; i++) {
+                yield* iterTree(tree[i]);
+            }
+        } else {
+            yield tree;
+        }
+    }
+
+    const tree = [ 'a', ['b', 'c'], ['d', 'e'] ];
+
+    for(let x of iterTree(tree)) {
+        console.log(x); // "a"  "b"  "c"  "d"  "e"
+    }
+    console.log([...iterTree(tree)]); // ["a", "b", "c", "d", "e"]
+
+    // 含义
+    // es5
+    var ticking = true;
+    var clock = function() {
+        if (ticking)
+            console.log('Tick!');
+        else
+            console.log('Tock!');
+        ticking = !ticking;
+    }
+    clock();  clock() ; clock();  clock()
+
+    // es6
+    var clockEs6  = function* () {
+        while (true) {
+            console.log('Tick!');
+            yield;
+            console.log('Tock!');
+            yield;
+        }
+    };
+    var clockEs61 = clockEs6()
+    clockEs61.next();clockEs61.next();clockEs61.next();clockEs61.next()
+
+
+
+
 
 
 </script>

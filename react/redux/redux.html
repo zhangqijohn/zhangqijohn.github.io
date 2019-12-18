@@ -5,6 +5,31 @@
     <title>redux</title>
 </head>
 <body>
+
+<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2::52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+1.1 action
+Action 是把数据从应用（这里之所以不叫 view 是因为这些数据有可能是服务器响应，用户输入或其它非 view 的数据 ）传到 store 的有效载荷。它是 store 数据的唯一来源。一般来说你会通过 store.dispatch() 将 action 传到 store。
+
+1.2 reducer
+Reducers 指定了应用状态的变化如何响应 actions并发送到 store 的，记住 actions 只是描述了有事情发生了这一事实，并没有描述应用如何更新 state。
+
+1.3 store
+store就是把action和reducer联系到一起的对象，store本质上是一个状态树，保存了所有对象的状态。任何UI组件都可以直接从store访问特定对象的状态。
+在 Redux 中，所有的数据（比如state）被保存在一个store容器中 ，在一个应用程序中只能有一个store对象。当一个store接收到一个action，它将把这个action代理给相关的reducer。reducer是一个纯函数，它可以查看之前的状态，执行一个action并且返回一个新的状态。
+
+1.4 Provider
+Provider 其实就只是一个外层容器，它的作用就是通过配合 connect 来达到跨层级传递数据。使用时只需将Provider定义为整个项目最外层的组件，并设置好store。那么整个项目都可以直接获取这个store。它的原理其实是通过React中的Context来实现的。它大致的核心代码如下：
+
+1.5 connect
+connect 的作用是连接React组件与 Redux store，它包在我们的容器组件的外一层，它接收上面 Provider 提供的 store 里面的 state 和 dispatch，传给一个构造函数，返回一个对象，以属性形式传给我们的容器组件。
+它共有四个参数mapStateToProps, mapDispatchToProps, mergeProps以及options。
+
+mapStateToProps 的作用是将store里的state（数据源）绑定到指定组件的props中
+mapDispatchToProps 的作用是将store里的action（操作数据的方法）绑定到指定组件的props中
+
+
+
+
 <script>
     /*------count 的发布订阅者实践------*/
     let state = {count: 1};

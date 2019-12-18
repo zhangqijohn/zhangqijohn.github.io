@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="userImage"></div>
+<script src="js/jquery-2.1.4.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<!--<script src="https://css.ssl.q1.com/s/passport/Scripts/Action/Wx/WXUserConfig.js?v=20170517"></script>-->
+
+<script>
+
+    function getCookie(objName) {
+        var arrStr = document.cookie.split("; ");
+        for (var i = 0; i < arrStr.length; i++) {
+            var temp = arrStr[i].split("=");
+            if (temp[0] == objName) return unescape(temp[1]);
+        }
+    }
+    function setCookie(name, value, expirestime, domain) {
+        document.cookie = name + "=" + value + "; domain=" + domain + "; path=" + "/" + "; expires=" + expirestime.toGMTString();
+    };
+    function rand(num) {
+        if (num == null) num = 9999;
+        return Math.floor(Math.random() * num) + Math.random();
+    };
+    function RequestPar(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        var context = "";
+        if (r != null)
+            context = r[2];
+        reg = null;
+        r = null;
+        return context == null || context == "" || context == "undefined" ? "" : context;
+    }
+    function RequestStore(key) {
+        var value = RequestPar(key);
+        if (value && value != "") {
+            setCookie(key, value);
+        } else {
+            value = getCookie(key);
+        }
+        return value;
+    }
+
+    var uid = RequestStore("uid");
+    var oid = RequestStore("oid");
+    var uname = RequestStore("uname");
+    var sign = RequestStore("sign");
+    var img = RequestStore("img");
+    var opid = RequestStore("opid");
+    var signs = RequestStore("signs");
+    var OpenID = RequestStore("OpenID");
+    var NowUserName1 = RequestStore("NowUserName");
+    GetOauthInfo(uid, oid, uname, sign, img, function() {
+        if (HqReturnCode == 1) {
+            //授权成功
+            //alert(OpenID + "|" + UnionID + "|" + NickName);
+            // $("#hidUnionID").val(UnionID);
+            // $("#hidOpenID").val(OpenID);
+            // $("#hidNickName").val(NickName);
+            // $("#hidimg").val(img);
+            // $("#hidBindSign").val(BindSign);
+            // $("#hidGameID").val(GameID);
+
+            setCookie("OpenID", OpenID);
+            setCookie("BindSign", BindSign);
+            setCookie("GameID", 4);
+            setCookie("weixinimg", img);
+            setCookie("WXName", encodeURI(NickName));
+            $("#userImage").empty();
+            $("#userImage").append("<img src='" + img + "' width='80px' height='80px'  >");
+            //GetcheckUser();
+            CheckBind();
+            setTimeout(function() {
+                GetWebIntegralExchangeList();
+            }, 300);
+
+            setTimeout(function() {
+                GetWebExChangeGoodsinfoList();
+            }, 500);
+            if (!IsEmpty(opid) && !IsEmpty(signs) && !IsEmpty(OpenID)) {
+                setCookie("Signs", signs);
+                setCookie("opid", opid);
+                AddbindWeixin();
+            }
+        }
+    });
+    //获取授权完成的用户信息
+    var HqReturnCode = -1;
+    var appsiteurl =("https:" == document.location.protocol) ? "https://app-bbcs.q1.com" : "http://app.bbcs.q1.com";
+    function GetOauthInfo(uid, oid, name, sign, img, funcallback) {
+        $.getJSON(appsiteurl + "/WXOAuth/GetOauthInfo?jsoncallback=?", { q: rand(9999), uid: uid, name: name, oid: oid, img: img, sign: sign },
+            function(json) {
+                HqReturnCode = json.ReturnCode;
+                OpenID = json.OpenID;
+                UnionID = json.UnionID;
+                NickName = json.Name;
+                img = json.img;
+                BindSign = json.BindSign;
+                if (typeof funcallback == "function")
+                    funcallback();
+            });
+    }
+
+    function CheckSignature(funcallback) {
+        var PageUrl = window.location.href;
+        $.getJSON(appsiteurl + "/WXOAuth/CheckSignature?jsoncallback=?", { q: rand(9999), PageUrl: PageUrl },
+            function(json) {
+                nonceStr = json.nonceStr;
+                signature = json.signature;
+                timestamp = json.timestamp;
+
+                // if (typeof funcallback == "function"){
+                //     funcallback();
+                // }
+            });
+    }
+    CheckSignature();
+    function a() {
+        $("#hidnonceStr").val(nonceStr);
+        $("#hidsignature").val(signature);
+        $("#hidtimestamp").val(timestamp);
+    }
+</script>
+
+</body>
+</html>

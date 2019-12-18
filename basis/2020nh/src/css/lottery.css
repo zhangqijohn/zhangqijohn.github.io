@@ -1,0 +1,962 @@
+
+.clearfix:after {
+    clear: both;
+    display: table;
+    content: '';
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 0;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #444;
+    background-clip: padding-box;
+    min-height: 28px;
+    border: 0;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(50, 50, 50, 1);
+    border: 0;
+    border-radius: 8px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.bg_video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1 ;
+    width: 1920px;
+    height: auto;
+    transform: translate(-50%, -50%);
+    visibility: visible;
+}
+
+.left {
+    background: url(../img/left_box_bg.png) no-repeat;
+
+    width: 400px;
+    height: 440px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 80px
+}
+
+.right {
+    width: 582px;
+    height: 520px;
+    position: relative;
+}
+.lottory-right-box .lottory-reward-box .lottory-reward-people {
+    display: flex;
+    width: 100px;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    float: left;
+    position: relative;
+    cursor: pointer;
+}
+.lottory-right-box .lottory-reward-box .lottory-reward-people .lottory-r-div {
+    width: 90px;
+    height: 90px;
+    padding: 4px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lottory-right-box .lottory-reward-box .lottory-reward-people .lottory-reward-people-img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+.lottory-right-box .lottory-reward-box .lottory-reward-people .lottory-r-name {
+    color: #fff;
+    width: 100px;
+    overflow: hidden;
+    text-align: Center;
+    font-size: 15px;
+    min-height: 30px;
+    max-height: 60px;
+    line-height: 30px;
+}
+.lottory-title {
+    position: absolute;
+    top: 95px;
+    color: #f7e7b0;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    height: 22px;
+    line-height: 22px;
+}
+.lottory-right-box .lottory-reward-box {
+    width: 480px;
+    margin: 0px auto;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 395px;
+    margin-top: 120px;
+}
+
+.container {
+    position: absolute;
+    -webkit-transform: perspective(1000px);
+    -moz-transform: perspective(1000px);
+    -ms-transform: perspective(1000px);
+    -o-transform: perspective(1000px);
+    transform: perspective(1000px);
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+    -o-transform-origin: center center;
+    transform-origin: center center;
+    width: 60%;
+    height: 60%;
+    left: 20%;
+    top: 20%;
+}
+
+.element, .js_current_dom {
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -ms-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    background-color: #fff;
+}
+
+.js_current_dom {
+    width: 400px;
+    height: 400px;
+}
+
+.btn_circle {
+    height: 100px;
+    width: 100px;
+    border: 20px solid #eee;
+    line-height: 100px;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #f00;
+    cursor: pointer;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    z-index: 9;
+    color: #fff;
+    -webkit-transition: all 0.7s linear;
+    -moz-transition: all 0.7s linear;
+    -ms-transition: all 0.7s linear;
+    -o-transition: all 0.7s linear;
+    transition: all 0.7s linear;
+}
+
+.btn_circle:hover {
+    background-color: darkorange;
+    border-color: #fff;
+}
+
+.btn_start {
+    position: static;
+    margin: 25px auto 0 auto;
+}
+
+.mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    z-index: 999;
+}
+
+.lucky_icon {
+    height: 70%;
+    width: 70%;
+    border-radius: 50%;
+    margin-left: 15%;
+}
+
+.lucky_userInfo {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    color: #fff;
+    font-size: 24px;
+}
+
+.lucky_list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lpl_userInfo {
+    display: flex;
+    width: 100px;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    float: left;
+    position: relative;
+    cursor: pointer;
+}
+
+.photo {
+    background: url(../img/luckuser_bg.png) center 0 no-repeat;
+    background-size: cover;
+    width: 90px;
+    height: 90px;
+    padding: 4px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.lpl_userImage {
+    width: 90px;
+    height: 90px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: #c88329 5px solid
+}
+
+.lpl_userName {
+    margin-top: 12px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    color: #fff;
+
+}
+
+.lucky_userName {
+    text-align: center;
+    margin-top: 12px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lucky_title {
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+    font-weight: bold;
+    color: darkorange;
+    height: 150px;
+    line-height: 150px;
+    background: url('../img/topbg.png') no-repeat center center;
+}
+
+.lucky_prize {
+
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.lucky_prize_box {
+    margin: 0 auto;
+    background-image: url(../img/prize_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+    position: relative;
+}
+
+.lucky_prize_box img {
+
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -75px;
+    top: 50%;
+    margin-top: -75px;
+}
+
+.lucky_prize_left {
+    position: absolute;
+    left: -10px;
+
+    background-image: url(../img/prev_btn.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.lucky_prize_right {
+    position: absolute;
+    right: -10px;
+
+    background-image: url(../img/next_btn.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.lucky_prize_direction {
+
+    width: 35px;
+    height: 38px;
+    top: 50%;
+    margin-top: -19px;
+    opacity: .5;
+    cursor: not-allowed;
+
+}
+
+.lucky_prize_direction.active {
+    opacity: 1;
+    cursor: pointer
+}
+
+.lucky_prize_picture {
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lucky_prize_show {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.lucky_people_title {
+    width: 100%;
+    height: 60px;
+    background-color: #f22;
+    font-size: 24px;
+    color: #fff;
+    text-align: center;
+    line-height: 60px;
+    font-weight: bold;
+}
+
+.lucky_setting {
+
+    height: 50px;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    padding: 0 10px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+.lucky_setting span {
+    display: inline-block
+}
+
+.select_lucky_number {
+    font-size: 22px;
+    border: 1px solid #eee;
+    outline: none;
+}
+
+.lucky_number {
+    font-size: 24px;
+}
+
+.lucky_prize_title {
+    margin-top: -30px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+}
+
+.loader_file {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 30px;
+}
+
+.none {
+    display: none;
+}
+
+.list {
+    width: 480px;
+    margin: 0px auto;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 395px;
+    margin-top: 120px;
+}
+
+
+/**pop 弹窗***/
+.pop_3d {
+    z-index: 1e5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .85);
+    overflow: hidden;
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.aniResult {
+    display: flex
+}
+
+.pop_box {
+    position: relative;
+    width: 512px;
+    height: 512px;
+}
+
+.pop_3d .light {
+
+    width: 512px;
+    height: 512px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1
+}
+
+.pop_userInfo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+
+}
+
+.pop_userInfo .lucker_avatar {
+    height: 256px;
+    width: 256px;
+    border-radius: 50%;
+    background: #fff;
+    border: 5px solid #fff;
+
+}
+
+.pop_3d .fireworks {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -329.5px;
+    margin-top: -174.5px;
+    width: 659px;
+    height: 349px;
+    transform: scale(0);
+}
+
+.aniResult .pop_box {
+    -webkit-animation-name: zoomInDown;
+    animation-name: zoomInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both
+}
+
+@-webkit-keyframes zoomInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+        transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+        -webkit-animation-timing-function: cubic-bezier(0.55, .055, .675, .19);
+        animation-timing-function: cubic-bezier(0.55, .055, .675, .19)
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        -webkit-animation-timing-function: cubic-bezier(0.175, .885, .32, 1);
+        animation-timing-function: cubic-bezier(0.175, .885, .32, 1)
+    }
+}
+
+@keyframes zoomInDown {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+        -ms-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+        transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);
+        -webkit-animation-timing-function: cubic-bezier(0.55, .055, .675, .19);
+        animation-timing-function: cubic-bezier(0.55, .055, .675, .19)
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        -ms-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);
+        -webkit-animation-timing-function: cubic-bezier(0.175, .885, .32, 1);
+        animation-timing-function: cubic-bezier(0.175, .885, .32, 1)
+    }
+}
+
+/*光束*/
+.aniResult .light {
+    animation: toRot 8s 900ms linear infinite forwards;
+}
+
+@keyframes toRot {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes toRot {
+    0% {
+        opacity: 1;
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+/*礼花*/
+.aniResult .fireworks {
+    animation: toBig 600ms 600ms ease-in-out 1 forwards;
+}
+
+@keyframes toBig {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(2);
+    }
+}
+
+@-webkit-keyframes toBig {
+    0% {
+        -webkit-transform: scale(0);
+    }
+    100% {
+        -webkit-transform: scale(2);
+    }
+}
+
+/**皇冠以及提示**/
+
+.pop_box .pop_userInfo em {
+    position: absolute;
+    left: 150px;
+    top: 55px;
+    display: block;
+    width: 124px;
+    height: 96px;
+}
+
+.pop_box .pop_userInfo span {
+    position: absolute;
+    left: 180px;
+    bottom: 70px;
+    display: block;
+    width: 152px;
+    height: 96px;
+}
+
+.pop_box .pop_userInfo .lucker_nickname {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    font-size: 23px;
+    line-height: 55px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, .4);
+    text-align: center;
+    overflow: hidden;
+}
+
+.close-detail-btn {
+    width: 50px;
+    height: 50px;
+    right: 30px;
+    top: 30px;
+    cursor: pointer;
+    transform: scale(0.6);
+    position: absolute;
+}
+
+.win-box {
+    display: none;
+}
+
+body .winMove {
+    display: block;
+}
+
+.win-bg {
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.winMove .win-bg {
+    -webkit-animation: win-bg 1s ease-in-out forwards;
+    animation: win-bg 1s ease-in-out forwards;
+    -webkit-transition-property: all;
+    transition-property: all;
+    opacity: 0;
+    -webkit-transform: scale(0, 0);
+    -moz-transform: scale(0, 0);
+    -ms-transform: scale(0, 0);
+    transform: scale(0, 0);
+}
+
+@-webkit-keyframes win-bg {
+    0% {
+        -webkit-transform: rotate(0);
+        opacity: 0;
+    }
+
+    50% {
+        -webkit-transform: rotate(90deg);
+        opacity: 1;
+    }
+
+    90% {
+        -webkit-transform: rotate(170deg);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: rotate(180deg);
+        opacity: 0;
+    }
+}
+
+.win-box {
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.winMove {
+    -webkit-animation: win-box .1s ease-in-out forwards 1.5s;
+    animation: win-box .1s ease-in-out forwards 1.5s;
+    -webkit-transition-property: all;
+    transition-property: all;
+    opacity: 1;
+}
+
+@-webkit-keyframes win-box {
+    0% {
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes win-box {
+    0% {
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.win {
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.winMove .win {
+    -webkit-animation: win 1.8s ease-in-out forwards;
+    animation: win 1.8s ease-in-out forwards;
+    -webkit-transition-property: all;
+    transition-property: all;
+    opacity: 0;
+    -webkit-transform: scale(0, 0);
+    -moz-transform: scale(0, 0);
+    -ms-transform: scale(0, 0);
+    transform: scale(0, 0);
+}
+
+@-webkit-keyframes win {
+    0% {
+        -webkit-transform: scale(0, 0);
+        -moz-transform: scale(0, 0);
+        -ms-transform: scale(0, 0);
+        transform: scale(0, 0);
+        opacity: 0.4;
+    }
+
+    10% {
+        -webkit-transform: scale(0, 0);
+        -moz-transform: scale(0, 0);
+        -ms-transform: scale(0, 0);
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(2, 2);
+        -moz-transform: scale(2, 2);
+        -ms-transform: scale(2, 2);
+        transform: scale(2, 2);
+        opacity: 0;
+    }
+}
+
+@keyframes win {
+    0% {
+        -webkit-transform: scale(0, 0);
+        -moz-transform: scale(0, 0);
+        -ms-transform: scale(0, 0);
+        transform: scale(0, 0);
+        opacity: 0.4;
+    }
+
+    10% {
+        -webkit-transform: scale(0, 0);
+        -moz-transform: scale(0, 0);
+        -ms-transform: scale(0, 0);
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(2, 2);
+        -moz-transform: scale(2, 2);
+        -ms-transform: scale(2, 2);
+        transform: scale(2, 2);
+        opacity: 0;
+    }
+}
+
+/**layer**/
+.layui-layer-btn {
+    text-align: center;
+}
+
+/**layer**/
+.lottory-left-box {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/left_box_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lottory-right-box {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/right_box_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lottory_award_box {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/prize_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lottory-prev-btn {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/prev_btn.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.lottory-next-btn {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/next_btn.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.lottory-start-btn {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/start_btn.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lottory-stop-btn {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/stop_btn.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.lottory-right-box .lottory-reward-box .lottory-reward-people .lottory-r-div {
+    background: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/luckuser_bg.png") center 0 no-repeat;
+    background-size: cover;
+}
+.lottory-right-box .lottory-reward-box .lottory-reward-people .lottory-del-btn {
+    width: 32px;
+    height: 32px;
+    right: -10px;
+    top: -10px;
+    cursor: pointer;
+    transform: scale(0.6);
+    position: absolute;
+    display: none;
+}
+.pop_3d .light {
+    background-image: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/pop_user_lightbg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.pop_3d .fireworks {
+    background: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/pop_user_firebg.png") no-repeat;
+}
+
+.pop_box .pop_userInfo em {
+
+    background: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/pop_user_topbg.png") no-repeat;
+}
+
+.pop_box .pop_userInfo span {
+
+    background: url("https://new.martian.net.cn/addons/meepo_xianchang/template/mobile/app/images/3dlottory/images/pop_user_bottombg.png") no-repeat;
+}
+
+.lottory_selected {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap
+}
+
+.lottory_selected ul {
+    width: 960px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-y: auto;
+    height: 600px;
+}
+
+.lottory_selected .total_userone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    width: 160px;
+    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+.lottory_selected .total_userone .userone_avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+
+.lottory_selected .total_userone .userone_name {
+    width: 100px;
+    color: #fff;
+    text-align: Center;
+    font-size: 15px;
+    line-height: 20px;
+    height: 40px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.pop_zoomInDown {
+    -webkit-animation-name: zoomInDown;
+    animation-name: zoomInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both
+}
+
+.lottory_award_box .selected {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lottory_award_box .lottory-present-name {
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

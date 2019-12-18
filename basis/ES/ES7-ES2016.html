@@ -5,6 +5,8 @@
     <title>ES7+ES8的一些新功能，并结合ES6的一些API做出了相应的比较。</title>
 </head>
 <body>
+Array.prototype.includes
+求幂运算符
 <pre>
 1.Array.prototype.includes()
     接收俩个参数：要搜索的值和搜索的开始索引
@@ -29,6 +31,8 @@
 
 3.Object.entries()
 
+4.求幂运算符：Math.pow(4,2 === 4 ** 2)
+
 
 </pre>
 <script>
@@ -37,6 +41,8 @@
     console.log(Object.values(obj))     // ["b", "a", "c"]
     console.log(Object.entries(obj))    // [["2", "b"], ["3", "a"], ["4", "c"]]
     console.log(Object.fromEntries( Array.from(new Map(Object.entries(obj))))) // {3:'a',2:"b",4:"c"}
+
+    console.log(Math.pow(4,2 === 4 ** 2)) // true
 </script>
 
 </body>

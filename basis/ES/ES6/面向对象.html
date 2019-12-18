@@ -13,7 +13,22 @@
 
     继承：
     super --超类（父类）
+
+    对象的新增方法:
+    Object.is()
+    Object.assign()
+    Object.getOwnPropertyDescriptors()
+    __proto__属性，Object.setPrototypeOf()，Object.getPrototypeOf()
+    Object.keys()，Object.values()，Object.entries()
+    Object.fromEntries()
 </div>
+<script>
+    +0 === -0 //true
+    NaN === NaN // false
+
+    Object.is(+0, -0) // false
+    Object.is(NaN, NaN) // true
+</script>
 
 <pre>
 旧版ES5
@@ -92,11 +107,11 @@ class User{
         }
 
         showName(){
-            alert(this.name);
+            console.log(this.name);
         }
 
         showPass(){
-            alert(this.pass);
+            console.log(this.pass);
         }
 
     }
@@ -108,7 +123,7 @@ class User{
         }
 
         showLevel(){
-            alert(this.level)
+            console.log(this.level)
         }
 
     }

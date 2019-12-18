@@ -1,0 +1,246 @@
+@charset "utf-8";
+:-webkit-full-screen {
+    background-color: black;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-size: 100%
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    font-family: Microsoft YaHei, Helvitica, Verdana, Tohoma, Arial, san-serif;
+}
+
+/*3d签到墙*/
+.signthreed-wall-block {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    overflow: hidden;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-perspective: 1500px;
+    left: 0;
+    top: 0;
+    opacity: 1;
+}
+
+.signthreed-wall-block .qrcodebox {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 3px;
+    background-color: #FFF;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.signthreed-wall-block .qrcodebox img {
+    width: 44px;
+    height: 44px;
+}
+
+.signthreed-wall-block .wall3d {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    pointer-events: none;
+}
+
+.onCenter {
+    /* 设置弹性布局 */
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+    /* 水平布局下的子元素 垂直居中 */
+    -webkit-box-align: center; /* android 2.1-3.0, ios 3.2-4.3 */
+    -webkit-align-items: center; /* Chrome 21+ */
+    -ms-flex-align: center; /* WP IE 10 */
+    align-items: center; /* android 4.4 */
+    /* 水平布局下的子元素 水平居中 */
+    -webkit-box-pack: center; /* android 2.1-3.0, ios 3.2-4.3 */
+    -webkit-justify-content: center; /* Chrome 21+ */
+    -ms-flex-pack: center; /* WP IE 10 */
+    justify-content: center; /* android 4.4 */
+}
+
+.onCenterColumn {
+    /* 设置弹性布局 */
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+    /* 水平布局下的子元素 垂直居中 */
+    -webkit-box-align: center; /* android 2.1-3.0, ios 3.2-4.3 */
+    -webkit-align-items: center; /* Chrome 21+ */
+    -ms-flex-align: center; /* WP IE 10 */
+    align-items: center; /* android 4.4 */
+    /* 水平布局下的子元素 水平居中 */
+    -webkit-box-pack: center; /* android 2.1-3.0, ios 3.2-4.3 */
+    -webkit-justify-content: center; /* Chrome 21+ */
+    -ms-flex-pack: center; /* WP IE 10 */
+    justify-content: center; /* android 4.4 */
+    /* 设置弹性布局的方向，子元素按照在源文档中声明的顺序从上到下显示 */
+    -webkit-box-direction: normal;
+
+    -webkit-box-orient: vertical; /* android 2.1-3.0, ios 3.2-4.3 */
+    -webkit-flex-direction: column; /* Chrome 21+ */
+    -ms-flex-direction: column; /* WP IE 10 */
+    flex-direction: column; /* android 4.4 */
+}
+
+/**logo count text**/
+.wall3d [class^="logo"] li {
+    width: 15px !important;
+    height: 15px !important;
+    margin: 0 !important;
+    background-color: none !important;
+    border: 0px !important;
+    border-radius: 0px !important;
+}
+
+.wall3d [class^="logo"] li img {
+    border-radius: 1px !important;
+}
+
+.wall3d [class^="count"] li {
+    height: 16px !important;
+    width: 16px !important;
+    margin: 0 !important;
+    background-color: none !important;
+    border: 0px !important;
+    border-radius: 0px !important;
+}
+
+.wall3d [class^="count"] li img {
+    border-radius: 1px !important;
+}
+
+.wall3d [class^="text"] li {
+    height: 15px !important;
+    width: 15px !important;
+    margin: 0 !important;
+    background-color: none !important;
+    border: 0px !important;
+    border-radius: 0px !important;
+}
+
+.wall3d [class^="text"] li img {
+    border-radius: 1px !important;
+}
+
+/**logo count text**/
+.wall3d ul {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    /*border: 1px solid red;*/
+}
+
+.wall3d .card {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    margin: -25px 0 0 -25px;
+    top: 50%;
+    left: 50%;
+    display: none;
+}
+
+.wall3d .activate {
+    /* 设置弹性布局 */
+    display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box; /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox; /* 混合版本语法: IE 10 */
+    display: -webkit-flex; /* 新版本语法: Chrome 21+ */
+    display: flex; /* 新版本语法: Opera 12.1, Firefox 22+ */
+    /* 水平布局下的子元素 垂直居中 */
+
+    -webkit-box-align: center; /* android 2.1-3.0, ios 3.2-4.3 */
+    -webkit-align-items: center; /* Chrome 21+ */
+    -ms-flex-align: center; /* WP IE 10 */
+    align-items: center; /* android 4.4 */
+    /* 水平布局下的子元素 水平居中 */
+    -webkit-box-pack: center; /* android 2.1-3.0, ios 3.2-4.3 */
+    -webkit-justify-content: center; /* Chrome 21+ */
+    -ms-flex-pack: center; /* WP IE 10 */
+    justify-content: center; /* android 4.4 */
+}
+
+.wall3d ul li {
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+.wall3d .casttc li {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.wall3d ul.cube li {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.wall3d ul li img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    -webkit-filter: brightness(1.1) opacity(.9);
+}
+
+.signthreed-wall-block .new-sign {
+    width: 200px;
+    position: absolute;
+    top: calc(50% - 140px);
+    left: calc(50% - 100px)
+}
+
+.signthreed-wall-block .new-sign .images {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px 20px 0 0;
+    -webkit-filter: brightness(1.2);
+    filter: brightness(1.2);
+    box-shadow: 0 0 30px #000
+}
+
+.signthreed-wall-block .new-sign .nickname {
+    width: 180px;
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+    line-height: 40px;
+    word-break: break-all;
+    max-height: 76px;
+    min-height: 40px;
+    overflow: hidden;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, .9);
+    border-radius: 0 0 20px 20px;
+    margin: 0
+}
+
