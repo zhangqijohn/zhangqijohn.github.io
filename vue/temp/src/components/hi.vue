@@ -1,15 +1,6 @@
 <template>
   <div class="app-main">
-    <el-row :class="classObj">
-      <div class="moni-fl">
-        moni-fl
-      </div>
-      <div class="moni-fr">
-        <el-button @click="opened = !opened">点击</el-button>
-            <div class="new-add-msg-tips" >有0条新信息</div>
-      </div>
-    </el-row>
-
+    <button @click="goToEditor">跳转至文本编辑</button>
   </div>
 </template>
 
@@ -21,78 +12,10 @@
         opened: true
       }
     },
-    computed: {
-      classObj () {
-        return {
-          hideSidebar: !this.opened,
-          openSidebar: this.opened
-        }
-      }
-    },
-    mounted(){
-     // let height = window.getComputedStyle(this.$refs.element).height; // 100px
-      this.$nextTick(()=>{
-        // let height= this.$refs.prize[0].offsetHeight;
-        // console.log(window.getComputedStyle(this.$refs.prize).height)
-        // console.log((window.getComputedStyle(document.querySelector(".plist")).height).replace(/px$/,''))
-        //this.topVaule = parseInt(window.getComputedStyle(document.querySelector(".plist")).height.replace(/px$/,''))+20
-        // this.top= - this.topVaule +'px'
-        console.log(this.top)
-        console.log(this.topVaule)
-      })
-
-    },
-    created() {
-      var a01 = 1
-      for(let x=0,mx=3000;x<mx;x++){
-        this.prizeList.push({ name:'这是第几条新增数据'+x,src:'11234564',id:'a'+x})
-      }
-      window.addEventListener('scroll', this.handleScroll, true);
-
-      this.ScrollUp();
-      this.adddate()
-    },
     methods: {
-      handleScroll(){
-        console.log('鼠标滚动了')
-        clearInterval(intnum)
-      },
-      adddate(){
-        let num = 6
-        setInterval(() => {
-          num++
-          this.prizeList.push({ name:'这是第几条新增数据'+num,src:'11234564',id:'a'+num})
-        }, 6000);
-      },
-      ScrollUp(){
-        window.intnum = setInterval(_ => {
-          if (this.activeIndex < this.prizeList.length) {
-            this.activeIndex += 1;
-          } else {
-            this.activeIndex = 0;
-          }
-          this.topVaule = parseInt(this.topVaule) + parseInt((window.getComputedStyle(document.querySelector(".a"+this.activeIndex)).height).replace(/px$/,'')) + 20
-
-          this.top= - this.topVaule +'px'
-
-          console.log(this.activeIndex)
-        }, 1000);
-      },
-
-      Stop(){
-        // clearInterval(this.intnum);
-      },
-      Up(){
-        // this.ScrollUp();
-      }
-    },
-    filters: {
-      getId (val) {
-        let prizeList = this.prizeList
-        prizeList.filter(x=>{
-          if(x.id === val){
-            return x.label
-          }
+      goToEditor(){
+        this.$router.push({
+          path: '/editor/quill'
         })
       }
     }

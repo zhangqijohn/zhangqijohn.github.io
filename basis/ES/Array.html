@@ -431,6 +431,8 @@ Object.setPrototypeOf()
     var reducer = (accumulator, currentValue) => accumulator + currentValue;
     console.log(array1reduce.reduce(reducer)); //10    1 + 2 + 3 + 4
 
+var array1reduce1 = [{id:1}, {id:2}, {id:3}, {id:4}];
+console.log(array1reduce1.reduce((accumulator, currentValue) => accumulator + currentValue.id)); //10    1 + 2 + 3 +
 
 // reduceRight() 方法接受一个函数作为累加器（accumulator）和数组的每个值（从右到左）将其减少为单个值。 语法：arr.reduceRight(callback[, initialValue])
     var arrayreduceRight = [[0, 1], [2, 3], [4, 5]].reduceRight(

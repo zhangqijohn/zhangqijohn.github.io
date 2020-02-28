@@ -11,16 +11,16 @@ Vue.prototype.http = axios
 Vue.config.productionTip = false
 Vue.use(Antd)
 
-router.beforeEach((to, from, next) => {
-  if (store.getters.userRoutes.length === 0) {
-    getContext().then(response => {
-      store.dispatch('setUser', {name: response.body.name})
-      next()
-    })
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (store.getters.userRoutes.length === 0) {
+//     getContext().then(response => {
+//       store.dispatch('setUser', {name: response.body.name})
+//       next()
+//     })
+//   } else {
+//     next()
+//   }
+// })
 
 /* eslint-disable no-new */
 new Vue({

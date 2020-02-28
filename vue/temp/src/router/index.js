@@ -12,6 +12,11 @@ export default new Router({
       path: '/',
       name: 'hi',
       component: hi
+    },
+    {
+      path: '/editor/quill',
+      name: 'QuillEditor',
+      component: () => import('@/views/editor/Quill'),
     }
   ]
 })

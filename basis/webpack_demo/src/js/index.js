@@ -1,102 +1,246 @@
+//省会城市
+_init_area();
 
-import $ from 'jquery';
-import css from '../css/index.css';
+//下单
+var UnitPrice = $(".order_btn").attr("data-price"); //单价
+var order_qty = 1;  //数量
 
+//套餐选择
+$(".order_btn").click(function () {
+    $(".order_btn").removeClass("f");
+    $(this).addClass("f");
+    UnitPrice = $(this).attr("data-price"); //获取到价格
+    $(".order_price").html(UnitPrice * order_qty + ".00元");
 
-//tab
-$(".nav li").click(function() {
-    var index = $(".nav li").index(this);
-    //$("#content").attr("class","content"+index);
-    //$("#box").attr("class","box"+index);
-    if(index<5){ //修改参数
-        $(this).addClass("focus").siblings("li").removeClass("focus");
-        $(".text").animate({left:-886 * index + "px"})
-    }
-    else{
-        Tc();
-    }
-    bgTc()
 });
-//  首屏视频
-function bgTc(){
-    if($(".li1").is(".focus")){
-        $(".video_bg_box").show();
-        $("#content").attr("class","content"+index);
-    }
-    else if($(".li2").is(".focus")){
-        $(".video_bg_box").hide();
-        $("#content").attr("class","content1");
-        $("#box").attr("class","box1");
+//颜色选择
+$(".color_btn").click(function () {
+    $(".color_btn").removeClass("f");
+    $(this).addClass("f");
+});
+$(".color_btn1").click(function () {
+    $(".color_btn1").removeClass("f");
+    $(this).addClass("f");
+});
 
-    }
-    else if($(".li3").is(".focus")){
-        $(".video_bg_box").hide();
-        $("#content").attr("class","content2");
-        $("#box").attr("class","box2");
 
+//数量选择
+$(".order_subductionBtn").click(function () {
+    if (order_qty > 1) {
+        order_qty--;
+        $(".order_qty").html(order_qty);
+        $(".order_price").html(UnitPrice * order_qty + ".00元")
+    } else {
+        return
     }
-    else if($(".li4").is(".focus")){
-        $(".video_bg_box").hide();
-        $("#content").attr("class","content3");
-        $("#box").attr("class","box3");
+});
+$(".order_addBtn").click(function () {
+    order_qty++;
+    $(".order_qty").html(order_qty);
+    $(".order_price").html(UnitPrice * order_qty + ".00元")
+});
 
+
+//限时特价，立即抢购
+$(".t04_btn").click(function () {
+    $(".order_btn").removeClass("f").eq($(this).index('.t04_btn')).addClass("f"); //套餐选择
+    toEleFn($('.orderBox').offset().top);   //滚动到立即下单
+    UnitPrice = $(this).attr("data-price"); //获取到价格
+    $(".order_price").html(UnitPrice * order_qty + ".00元")  //订单价格
+});
+
+//toTop
+function toEleFn(num) {
+    $('body,html').animate({scrollTop: num}, 0);
+    return false;
+}
+
+function IsEmpty(obj) {
+    var isEmp = false;
+
+    if (obj == null || obj == undefined || (!obj) || obj == "") {
+        isEmp = true;
     }
-    else if($(".li5").is(".focus")){
-        $(".video_bg_box").hide();
-        $("#content").attr("class","content4");
-        $("#box").attr("class","box4");
+    return isEmp;
+}
 
+function Request(name) {
+    try {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURIComponent(r[2]);
+        return "";
     }
-    else if($(".li6").is(".focus")){
-        $(".video_bg_box").hide();
-        $("#content").attr("class","content5");
-        $("#box").attr("class","box5");
-
+    catch (e) {
+        return ""
     }
 }
-/* 上一页 下一页 */
-var count = 0;
-//   下一页
-$(".arrow_right").click(function(){
-    if(count<4){   //修改参数
-        count++;
-        $(".text").animate({left:-count * 886 + "px"});
-        $(".nav li").eq(count).addClass("focus").siblings("li").removeClass("focus");
-        bgTc()
-    }
-});
-//  上一页
-$(".arrow_left").click(function(){
-    if(count>0){
-        count--;
-        $(".text").animate({left:-count * 886 + "px"});
-        $(".nav li").eq(count).addClass("focus").siblings("li").removeClass("focus");
-        bgTc()
-    }
-});
-//video
-function videoTc(){
-    $(".videobox").html("<embed width='1280' height='720' type='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' quality='high' allowscriptaccess='always' flashvars='videourl=https://sres.q1.com/flv/fuli.flv&amp;&amp;autoplay=1&amp;&amp;repeat=1' allowfullscreen='true' src='https://sres.q1.com/flv/webPlayer.swf' wmode='transparent' name='player'>");
-    $(".black_bg").height($(document).height()).fadeTo(250, 0.7);
-    $(".videoTc").fadeIn();
+
+function rand(num) {
+    if (num == null) num = 9999;
+    return Math.floor(Math.random() * num) + Math.random();
 }
-$(".closeBtn").click(function(){
-    $(".videobox").html("");
-    $(".videoTc").fadeOut();
-    $(".black_bg").fadeOut();
+
+//下单成功
+$(".order_sureBtn").click(function () {
+    var UserName = $("#txtusername").val();
+    var PhoneNum = $("#txtphone").val();
+    if (IsEmpty(PhoneNum)) {
+        alert("请输入手机号");
+        return;
+    }
+    var Area = $("#s_province").val() + " " + $("#s_city").val() + " " + $("#s_county").val();
+    var FullAddress = $(".addrDetailedIpt").val();
+
+    var ProductName = "";
+    $(".order_btn").each(function () {
+        if ($(this).hasClass("f")) {
+            ProductName = $(this).html(); //套餐选择
+        }
+    });
+    if (IsEmpty(ProductName)) {
+        alert("请选择相应套餐");
+        return;
+    }
+    var Qty = $(".order_qty").html();
+    if (IsEmpty(Qty)) {
+        alert("请选择正确的数量");
+        return;
+    }
+    if (Qty < 1) {
+        alert("请选择正确的数量");
+        return;
+    }
+    var OrderRemarks = $(".MessageIpt").val();
+    if (OrderRemarks.length > 256) {
+        alert("备注不能超过256个字符");
+        return;
+    }
+    var Radid = Request("radid");
+    if (IsEmpty(Radid)) {
+        //alert("未获取到radid"); return;
+        Radid = "default_fanheRadid";
+    }
+    var Rsid = Request("rsid");
+    if (IsEmpty(Rsid)) {
+        //alert("未获取到rsid"); return;
+        Rsid = "default_fanheRsid";
+    }
+    var AppID = Request("appid");
+    if (IsEmpty(AppID)) {
+        //alert("未获取到AppID"); return;
+        AppID = 2107;
+    }
+    var PID = Request("pid");
+    if (IsEmpty(PID)) {
+        //alert("未获取到PID"); return;
+        PID = 1;
+    }
+    $(".sucessBox").show();
+    $(".sucess_orderNum").html(json.orderid); //订单编号
 });
-//敬请期待
-function Tc(){
-    $(".black_bg").height($(document).height()).fadeTo(250, 0.7);
-    $(".tc").fadeIn();
+
+//返回上页
+$(".sucess_CloseBtn").click(function () {
+    $(".sucessBox").hide();
+});
+
+
+//最新订单滚动
+if ($(".showOrderUl").height() > $(".showOrderBox").height()) {
+    lyScrollFn('.showOrderBox');
 }
-$(".close").click(function(){
-    $(".tc").fadeOut();
-    $(".black_bg").fadeOut();
-});
 
-var pbg =require('../images/logo.png');
+function lyScrollFn(boxName) {
+    var $this = $(boxName);
+    var scrollTimer;
+    $this.hover(function () {
+        clearInterval(scrollTimer);
+    }, function () {
+        scrollTimer = setInterval(function () {
+            var $self = $this.find("ul:first");
+            var lineHeight = $self.find("li:first").height();
+            $self.animate({"marginTop": -lineHeight + "px"}, 600, function () {
+                $self.css({marginTop: 0}).find("li:first").appendTo($self);
+            });
+        }, 3000);
+    }).trigger("mouseleave");
+};
 
-//loader.addImage(pbg);
 
-$('#t001').attr('src', pbg);
+setTimeout(clickAdByBro, 1);//此处调用数据接口
+
+//每次下载前调用获取数据来源
+function clickAdByBro() {
+    var adsendurl = "https://appdata.q1.com"; //内网
+    var RadID = ""; //广告ID
+    var RsID = ""; //子站点ID
+    radid ? RadID = radid : RadID = ""
+    rsid ? RsID = rsid : RsID = "";
+
+    var APPID = curgameid; //游戏ID
+    var PID = 1; //平台ID;
+    var OS = "";
+    if (isAndroid) {
+        OS = "Android";
+        PID = 1
+    } else if (isiOS) {
+        OS = "IOS";
+        PID = 141;
+    } else {
+        OS = "Others"
+    }
+    ;
+    var UA = window.navigator.userAgent; //User-Agent
+
+
+    //--------------------------------------------------------------
+    var tmpCookieName = "br_" + RadID + RsID + APPID + PID + OS;
+    //不让调用接口了
+    if (getCookieFF(tmpCookieName) == "1") return;
+    //--------------------------------------------------------------
+
+
+    $.getJSON(adsendurl + "/api/dlclick?jsoncallback=?",
+        {
+            RadID: RadID,
+            RsID: RsID,
+            APPID: APPID,
+            PID: PID,
+            OS: OS,
+            UA: UA,
+            Url: window.location.href,
+            q: rand(9999)
+        },
+        function (json) {
+            if (json.e < 0) {
+                //调接口返回失败
+            } else {
+                //调接口返回成功---------------------------------------------------------
+                SetCookieFF(tmpCookieName, "1");//存cookie
+            }
+        });
+}
+
+function rand(num) {
+    if (num == null) num = 9999;
+    return Math.floor(Math.random() * num) + Math.random();
+}
+
+function getCookieFF(name) {
+    var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+    if (arr = document.cookie.match(reg)) return unescape(arr[2]);
+    else return null;
+}
+
+function SetCookieFF(name, value) {
+    var argc = SetCookieFF.arguments.length;
+    var argv = SetCookieFF.arguments;
+    var path = (argc > 2) ? argv[2] : null;
+    var domain = (argc > 3) ? argv[3] : null;
+    var secure = (argc > 4) ? argv[4] : false;
+    document.cookie = name + "=" + value +
+        ((path == null) ? "" : ("; path=" + path)) +
+        ((domain == null) ? "" : ("; domain=" + domain)) +
+        ((secure == true) ? "; secure" : "");
+}

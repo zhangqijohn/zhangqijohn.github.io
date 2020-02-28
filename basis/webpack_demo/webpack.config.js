@@ -50,7 +50,7 @@ module.exports = {
 			// chunkFilename: "[id].css"
 		}),
 		new OptimizeCssAssetsPlugin(),        // 压缩css
-		new CleanWebpackPlugin(['dist'])       //传入数组,指定要删除的目录
+		new CleanWebpackPlugin(['dist'])       //传入数组,清空dist文件，重新生成
 
 	],
     // 这个节点，用于配置 所有第三方模块加载器
@@ -63,28 +63,28 @@ module.exports = {
 				use: './app.js'
             },
 
-			// {//link 单独css
-			// 	test: /\.css$/,
-			// 	use: [MiniCssExtractPlugin.loader, "css-loader"]
-			// },
-			// { //img
-			// 	test: /\.(png|jpg|gif|svg)$/,
-			// 	use:[{
-			// 		loader: 'url-loader',
-			// 		options:
-			// 		{
-			// 			outputPath:'images/',
-			// 			publicPath:'https://img.ssl.q1.com/yz/images/huodong/hd/',
-			// 			limit:500,
-			// 			name: '[name].[hash:5].[ext]'
-            //             //name: '[name].[ext]?v=[hash:3]'
-			// 		}
-			// 	}]
-			// },
-			// { //html
-			// 	test: /\.(htm|html)$/i,
-			// 	use: ['html-withimg-loader']
-			// }
+			{//link 单独css
+				test: /\.css$/,
+				use: [MiniCssExtractPlugin.loader, "css-loader"]
+			},
+			{ //img
+				test: /\.(png|jpg|gif|svg)$/,
+				use:[{
+					loader: 'url-loader',
+					options:
+					{
+						outputPath:'images/',
+						publicPath:'https://img.ssl.q1.com/yz/images/huodong/hd/',
+						limit:500,
+						name: '[name].[hash:5].[ext]'
+                        //name: '[name].[ext]?v=[hash:3]'
+					}
+				}]
+			},
+			{ //html
+				test: /\.(htm|html)$/i,
+				use: ['html-withimg-loader']
+			}
         ]
     }
 }

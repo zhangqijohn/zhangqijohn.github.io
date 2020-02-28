@@ -18,3 +18,59 @@ created mounted
 <a v-on:click="doSomething">修改</a>
 <!--缩写-->
 <a @click="doSomething">修改</a>
+
+<el-input v-if="state == 1" v-model="iptValue" placeholder="" size="small" @keyup.native="iptValue=iptValue.replace(iptValue,RestrictedMoney(iptValue))" @change="materielExtraCostChange(scope.row)"/>
+
+// 额外费用校验输入正负数， 保留2位小数 调用公共方法
+RestrictedMoney(values) {
+  return plusOrMinus(values.toString())
+},
+// 结合change事件对失去焦点进行判断，防止输入一些无效值
+    materielExtraCostChange(item) {
+      // 防止删除为空
+      if (!item.num) {
+        item.num = '0.00'
+      }
+      // 一些错误金额输入的判断
+      if (item.materielExtraCost.toString().indexOf('.') > 0 && Number(item.materielExtraCost.toString().split('.')[1].length) < 1) {
+        item.materielExtraCost = item.materielExtraCost.toString().split('.')[0]
+      }
+      // 一些错误金额输入的判断
+      if (!item.materielExtraCost || item.materielExtraCost === '-' || item.materielExtraCost === '-0') {
+        item.materielExtraCost = '0.00'
+        return
+      }
+      item.materielExtraCost = parseFloat(item.materielExtraCost).toFixed(2)
+      // 此时item.materielExtraCost的值即是最终有效值
+      // .......在这里可以继续你的代码..........
+    },
+
+// 公共方法部分
+/* 校验输入正负数， 保留2位小数 传来的需要是string类型*/
+export function plusOrMinus(values) {
+  let newValue
+  if (!(/[^0-9.-]/g.test(values))) {
+    newValue = values.replace(/[^\-\d.]/g, '').replace(/\b(0+){2,}/g, '0').replace(/\-{2,}/g, '-').replace(/^\./g, '').replace(/\.{2,}/g, '.').replace('.', '$#$').replace(/\./g, '').replace('$#$', '.')
+    if (newValue.toString().indexOf('.') > 0 && Number(newValue.toString().split('.')[1].length) > 2) {
+      newValue = parseInt(parseFloat(newValue) * 100) / 100
+    }
+    if ((newValue.toString().split('-').length - 1) > 1) {
+      newValue = parseFloat(newValue) || ''
+    }
+    if ((newValue.toString().split('-').length) > 1 && newValue.toString().split('-')[0].length > 0) {
+      newValue = parseFloat(newValue) || ''
+    }
+    if (newValue.toString().length > 1 && (newValue.toString().charAt(0) === '0' || (newValue.toString().length > 2 && newValue.toString().charAt(0) === '-' && newValue.toString().charAt(1) === '0' && newValue.toString().charAt(2) !== '.')) && newValue.toString().indexOf('.') < 1) {
+      newValue = parseFloat(newValue) || ''
+    }
+    // 判断整数位最多为9位
+    if (newValue.toString().indexOf('.') > 0 && Number(newValue.toString().split('.')[0].length) > 9) {
+      newValue = newValue.toString().substring(0, 9) + '.' + newValue.toString().split('.')[1]
+    } else if (newValue.toString().indexOf('.') < 0 && Number(newValue.toString().split('.')[0].length) > 9) {
+      newValue = newValue.toString().substring(0, 9)
+    }
+  } else {
+    newValue = values.replace(/[^0-9.-]/g, '')
+  }
+  return newValue
+}
