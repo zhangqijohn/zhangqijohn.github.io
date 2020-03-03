@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+  // 根据返回的name 与 路由中的title匹配
+    let myHad = [{name: '数据管理'},{name: '账号查询'},{name: '角色查询'},{name: '配置表数据管理'}]
+    let authorizedRoutes = [
+        {
+            path: '/datamanage',
+            component: 'Layout',
+            meta: { title: '数据管理', icon: 'role-manage' },
+            alwaysShow: true,
+            children: [
+                {
+                    path: 'account',
+                    name: 'RoleAccount',
+                    component: () => ('@/views/DataManage/Account'),
+                    meta: { title: '账号查询', icon: 'account' },
+                    children: [
+                        {
+                            path: 'zj',
+                            name: 'RoleAccountZj',
+                            component: () => ('@/views/DataManage/Account'),
+                            meta: { title: '账号查询子集', icon: 'account' }
+                        }]
+                },
+                {
+                    path: 'list',
+                    name: 'RoleList',
+                    component: () => ('@/views/DataManage/List'),
+                    meta: { title: '角色查询', icon: 'role-query' }
+                },
+                {
+                    path: 'ranking',
+                    name: 'RoleRanking',
+                    component: () => ('@/views/DataManage/Ranking'),
+                    meta: { title: '角色排行', icon: 'ranking' }
+                },
+                {
+                    path: 'detail',
+                    name: 'RoleDetail',
+                    component: () => ('@/views/DataManage/Detail'),
+                    meta: { title: '角色详情' },
+                    hidden: true
+                },
+                {
+                    path: 'unionlist',
+                    name: 'UnionList',
+                    component: () => ('@/views/DataManage/UnionList'),
+                    meta: { title: '帮会查询', icon: 'union' }
+                },
+                {
+                    hidden: true,
+                    path: 'unioninfo',
+                    name: 'UnionInfo',
+                    component: () => ('@/views/DataManage/UnionInfo'),
+                    meta: { title: '帮会成员信息', icon: 'member' }
+                }
+            ]
+        },
+        {
+            path: '/system',
+            component: 'Layout',
+            meta: { title: '系统管理', icon: 'system' },
+            children: [
+                {
+                    path: 'actionlog',
+                    name: 'ActionLog',
+                    component: () => ('@/views/System/ActionLog'),
+                    meta: { title: '后台操作日志', icon: 'action' }
+                },
+                {
+                    hidden: true,
+                    path: 'loginlog',
+                    name: 'LoginLog',
+                    component: () => ('@/views/System/LoginLog'),
+                    meta: { title: '后台登录日志', icon: 'adminLogin' }
+                }
+            ]
+        },
+        {
+            path: '/log',
+            component: 'Layout',
+            meta: { title: '日志查询', icon: 'log' },
+            alwaysShow: true,
+            children: [
+                {
+                   path: 'article',
+                    name: 'Article',
+                    component: () => ('@/views/Log/Article'),
+                    meta: { title: '物品日志', icon: 'article' }
+                },
+                {
+                   path: 'numericalvalue',
+                    name: 'NumericalValue',
+                    component: () => ('@/views/Log/NumericalValue'),
+                    meta: { title: '数值日志', icon: 'value' }
+                },
+                {
+                   path: 'login',
+                    name: 'Login',
+                    component: () => ('@/views/Log/Login'),
+                    meta: { title: '登录日志', icon: 'gameLogin' }
+                },
+                {
+                   path: 'rolelevel',
+                    name: 'RoleLevel',
+                    component: () => ('@/views/Log/RoleLevel'),
+                    meta: { title: '角色等级日志', icon: 'level' }
+                },
+                {
+                   path: 'roleonline',
+                    name: 'RoleOnline',
+                    component: () => ('@/views/Log/RoleOnline'),
+                    meta: { title: '角色在线日志', icon: 'online' }
+                }
+            ]
+        },
+        {
+            path: '/config',
+            meta: { title: '配置表管理', icon: 'team' },
+            children: [
+                {
+                    path: 'index',
+                    meta: { title: '配置表管理', icon: 'team', link: 'http://configcenter.dev.q1op.com/#/home/index?gameId=2107' }
+                }
+            ]
+        },
+        {
+            path: '/config/data/',
+            meta: { title: '配置表数据管理', icon: 'dataManage' },
+            children: [
+                {
+                    path: '/index',
+                    meta: { title: '配置表数据管理', icon: 'dataManage', link: 'http://configcenter.dev.q1oa.com/#/home/data-list?gameId=2107' }
+                }
+            ]
+        }
+    ]
+
+    var formatRoutes = transFormatRoutes(authorizedRoutes)
+    // 将路由平铺平级
+    function transFormatRoutes(data){
+        let transData = []
+        function go(data, id, path){
+            for(let item in data){
+                let{ children, ...newItem } = data[item];
+                id ? newItem.parentId = id  + item.toString() :  newItem.parentId = item.toString()
+                if(path){newItem.path = path.replace(/\/$/, '') + '/' + newItem.path.replace(/^\//, '')} // path拼接
+                transData.push(newItem)
+                if(children){
+                    go(children,newItem.parentId, newItem.path)
+                }
+            }
+        }
+        go(data)
+        return transData;
+    }
+
+    // 获取有权限的平级路由
+    function getMatchingRoutes(myHad, org){
+        return Array.isArray(org) && org.filter(x => Array.isArray(myHad) && myHad.some(y => y.name === x.meta.title ))
+    }
+
+    function getMyHadRouter() {
+        let pIdarr = {}
+        let result = getMatchingRoutes(myHad, formatRoutes)
+        result.forEach(x=>{
+            pIdarr[x.parentId] = x
+        })
+        result.forEach(x=>{
+            let pId = x.parentId
+            let len = pId.length - 1
+            if(len>0 ){
+                // 子集
+                pIdarr[pId.substring(0, pId.length -1)].children = x
+                delete pIdarr[pId]
+            }
+        })
+        return Object.values(pIdarr)
+    }
+
+  console.log(getMyHadRouter())
+
+</script>
+
+</body>
+</html>
